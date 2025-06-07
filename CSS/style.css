@@ -511,6 +511,41 @@ body {
     color: #666;
 }
 
+.doctor-schedule {
+    margin-top: 25px;
+    background-color: var(--light-bg);
+    padding: 20px;
+    border-radius: var(--border-radius);
+    border-left: 4px solid var(--accent-color);
+}
+
+.doctor-schedule h4 {
+    font-family: var(--font-family-heading);
+    color: var(--primary-color);
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+}
+
+.doctor-schedule ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.doctor-schedule ul li {
+    margin-bottom: 12px;
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+.doctor-schedule ul li i {
+    color: var(--accent-color);
+    margin-right: 8px;
+}
+
+.doctor-schedule ul li strong {
+    color: var(--heading-color);
+}
+
 .info-access p {
     margin-bottom: 15px;
     line-height: 1.8;
