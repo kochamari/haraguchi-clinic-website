@@ -148,34 +148,76 @@ window.addEventListener('scroll', function() {
 
 // Image loaded handling - hide icons when images are loaded
 document.addEventListener('DOMContentLoaded', function() {
+    console.log('画像処理スクリプト開始');
+    
     // Handle greeting section images
     const greetingImages = document.querySelectorAll('.greeting-image-placeholder img');
-    greetingImages.forEach(function(img) {
-        if (img.complete && img.naturalHeight !== 0) {
-            // Image already loaded
+    console.log('Greeting images found:', greetingImages.length);
+    
+    greetingImages.forEach(function(img, index) {
+        console.log('Greeting image', index, ':', img.src);
+        
+        function hideIcon() {
             const icon = img.parentElement.querySelector('i');
-            if (icon) icon.style.display = 'none';
+            if (icon) {
+                icon.style.display = 'none';
+                console.log('Greeting icon hidden for image', index);
+            }
+        }
+        
+        // Force show the image with explicit styles
+        img.style.display = 'block';
+        img.style.position = 'absolute';
+        img.style.top = '0';
+        img.style.left = '0';
+        img.style.width = '100%';
+        img.style.height = '100%';
+        img.style.objectFit = 'cover';
+        img.style.borderRadius = '50%';
+        img.style.zIndex = '10';
+        
+        if (img.complete && img.naturalHeight !== 0) {
+            hideIcon();
         } else {
-            // Wait for image to load
-            img.addEventListener('load', function() {
-                const icon = this.parentElement.querySelector('i');
-                if (icon) icon.style.display = 'none';
+            img.addEventListener('load', hideIcon);
+            img.addEventListener('error', function() {
+                console.error('Failed to load greeting image:', img.src);
             });
         }
     });
 
     // Handle doctor photo images  
     const doctorImages = document.querySelectorAll('.doctor-photo-placeholder img');
-    doctorImages.forEach(function(img) {
-        if (img.complete && img.naturalHeight !== 0) {
-            // Image already loaded
+    console.log('Doctor images found:', doctorImages.length);
+    
+    doctorImages.forEach(function(img, index) {
+        console.log('Doctor image', index, ':', img.src);
+        
+        function hideIcon() {
             const icon = img.parentElement.querySelector('i');
-            if (icon) icon.style.display = 'none';
+            if (icon) {
+                icon.style.display = 'none';
+                console.log('Doctor icon hidden for image', index);
+            }
+        }
+        
+        // Force show the image with explicit styles
+        img.style.display = 'block';
+        img.style.position = 'absolute';
+        img.style.top = '0';
+        img.style.left = '0';
+        img.style.width = '100%';
+        img.style.height = '100%';
+        img.style.objectFit = 'cover';
+        img.style.borderRadius = '50%';
+        img.style.zIndex = '10';
+        
+        if (img.complete && img.naturalHeight !== 0) {
+            hideIcon();
         } else {
-            // Wait for image to load
-            img.addEventListener('load', function() {
-                const icon = this.parentElement.querySelector('i');
-                if (icon) icon.style.display = 'none';
+            img.addEventListener('load', hideIcon);
+            img.addEventListener('error', function() {
+                console.error('Failed to load doctor image:', img.src);
             });
         }
     });
