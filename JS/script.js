@@ -157,29 +157,15 @@ document.addEventListener('DOMContentLoaded', function() {
     greetingImages.forEach(function(img, index) {
         console.log('Greeting image', index, ':', img.src);
         
-        function hideIcon() {
-            const icon = img.parentElement.querySelector('i');
-            if (icon) {
-                icon.style.display = 'none';
-                console.log('Greeting icon hidden for image', index);
-            }
+        function markImageLoaded() {
+            img.parentElement.classList.add('image-loaded');
+            console.log('Greeting image loaded, class added:', index);
         }
         
-        // Force show the image with explicit styles
-        img.style.display = 'block';
-        img.style.position = 'absolute';
-        img.style.top = '0';
-        img.style.left = '0';
-        img.style.width = '100%';
-        img.style.height = '100%';
-        img.style.objectFit = 'cover';
-        img.style.borderRadius = '50%';
-        img.style.zIndex = '10';
-        
         if (img.complete && img.naturalHeight !== 0) {
-            hideIcon();
+            markImageLoaded();
         } else {
-            img.addEventListener('load', hideIcon);
+            img.addEventListener('load', markImageLoaded);
             img.addEventListener('error', function() {
                 console.error('Failed to load greeting image:', img.src);
             });
@@ -193,29 +179,15 @@ document.addEventListener('DOMContentLoaded', function() {
     doctorImages.forEach(function(img, index) {
         console.log('Doctor image', index, ':', img.src);
         
-        function hideIcon() {
-            const icon = img.parentElement.querySelector('i');
-            if (icon) {
-                icon.style.display = 'none';
-                console.log('Doctor icon hidden for image', index);
-            }
+        function markImageLoaded() {
+            img.parentElement.classList.add('image-loaded');
+            console.log('Doctor image loaded, class added:', index);
         }
         
-        // Force show the image with explicit styles
-        img.style.display = 'block';
-        img.style.position = 'absolute';
-        img.style.top = '0';
-        img.style.left = '0';
-        img.style.width = '100%';
-        img.style.height = '100%';
-        img.style.objectFit = 'cover';
-        img.style.borderRadius = '50%';
-        img.style.zIndex = '10';
-        
         if (img.complete && img.naturalHeight !== 0) {
-            hideIcon();
+            markImageLoaded();
         } else {
-            img.addEventListener('load', hideIcon);
+            img.addEventListener('load', markImageLoaded);
             img.addEventListener('error', function() {
                 console.error('Failed to load doctor image:', img.src);
             });
