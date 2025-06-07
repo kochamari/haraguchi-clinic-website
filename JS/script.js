@@ -10,66 +10,88 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-// Mobile Navigation Toggle
+// Mobile Navigation Toggle - 完全新規実装
 document.addEventListener('DOMContentLoaded', function() {
     const navToggle = document.querySelector('.nav-toggle');
     const mainNav = document.querySelector('#main-menu');
     const body = document.body;
 
-    if (navToggle && mainNav) {
-        // Toggle menu function
-        function toggleMobileMenu() {
-            const isExpanded = navToggle.getAttribute('aria-expanded') === 'true';
-            
-            // Toggle aria-expanded
-            navToggle.setAttribute('aria-expanded', !isExpanded);
-            
-            // Toggle classes
-            mainNav.classList.toggle('nav-active');
-            navToggle.classList.toggle('active');
-            body.classList.toggle('nav-open');
-        }
-
-        // Close menu function
-        function closeMobileMenu() {
-            navToggle.setAttribute('aria-expanded', 'false');
-            mainNav.classList.remove('nav-active');
-            navToggle.classList.remove('active');
-            body.classList.remove('nav-open');
-        }
-
-        // Toggle button click event
-        navToggle.addEventListener('click', function(e) {
-            e.preventDefault();
-            toggleMobileMenu();
-        });
-
-        // Close menu when clicking nav links
-        if (mainNav) {
-            const navLinks = mainNav.querySelectorAll('a');
-            navLinks.forEach(link => {
-                link.addEventListener('click', () => {
-                    closeMobileMenu();
-                });
-            });
-        }
-
-        // Close menu when clicking outside
-        document.addEventListener('click', function(e) {
-            if (!navToggle.contains(e.target) && !mainNav.contains(e.target)) {
-                if (mainNav.classList.contains('nav-active')) {
-                    closeMobileMenu();
-                }
-            }
-        });
-
-        // Close menu on escape key
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape' && mainNav.classList.contains('nav-active')) {
-                closeMobileMenu();
-            }
-        });
+    // 要素の存在チェック
+    if (!navToggle || !mainNav) {
+        console.warn('Navigation elements not found');
+        return;
     }
+
+    // 初期状態を設定
+    navToggle.setAttribute('aria-expanded', 'false');
+    mainNav.classList.remove('nav-active');
+    navToggle.classList.remove('active');
+    body.classList.remove('nav-open');
+
+    // メニューを開く関数
+    function openMobileMenu() {
+        console.log('Opening mobile menu');
+        navToggle.setAttribute('aria-expanded', 'true');
+        mainNav.classList.add('nav-active');
+        navToggle.classList.add('active');
+        body.classList.add('nav-open');
+    }
+
+    // メニューを閉じる関数
+    function closeMobileMenu() {
+        console.log('Closing mobile menu');
+        navToggle.setAttribute('aria-expanded', 'false');
+        mainNav.classList.remove('nav-active');
+        navToggle.classList.remove('active');
+        body.classList.remove('nav-open');
+    }
+
+    // メニューの状態を切り替える関数
+    function toggleMobileMenu() {
+        const isOpen = mainNav.classList.contains('nav-active');
+        if (isOpen) {
+            closeMobileMenu();
+        } else {
+            openMobileMenu();
+        }
+    }
+
+    // ハンバーガーボタンのクリックイベント
+    navToggle.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        toggleMobileMenu();
+    });
+
+    // メニューリンクのクリックでメニューを閉じる
+    const navLinks = mainNav.querySelectorAll('a');
+    navLinks.forEach(link => {
+        link.addEventListener('click', function() {
+            closeMobileMenu();
+        });
+    });
+
+    // オーバーレイクリックでメニューを閉じる
+    mainNav.addEventListener('click', function(e) {
+        // メニューアイテム以外の場所（オーバーレイ部分）をクリックした場合
+        if (e.target === mainNav) {
+            closeMobileMenu();
+        }
+    });
+
+    // Escapeキーでメニューを閉じる
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && mainNav.classList.contains('nav-active')) {
+            closeMobileMenu();
+        }
+    });
+
+    // 画面リサイズ時の処理
+    window.addEventListener('resize', function() {
+        if (window.innerWidth > 768) {
+            closeMobileMenu();
+        }
+    });
 });
 
 // Smooth scroll for anchor links (if you add any internal page links like #section)
