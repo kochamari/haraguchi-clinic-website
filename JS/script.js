@@ -14,29 +14,62 @@ document.addEventListener('DOMContentLoaded', function() {
 document.addEventListener('DOMContentLoaded', function() {
     const navToggle = document.querySelector('.nav-toggle');
     const mainNav = document.querySelector('#main-menu');
+    const body = document.body;
 
     if (navToggle && mainNav) {
-        navToggle.addEventListener('click', function() {
-            const isExpanded = navToggle.getAttribute('aria-expanded') === 'true' || false;
+        // Toggle menu function
+        function toggleMobileMenu() {
+            const isExpanded = navToggle.getAttribute('aria-expanded') === 'true';
+            
+            // Toggle aria-expanded
             navToggle.setAttribute('aria-expanded', !isExpanded);
+            
+            // Toggle classes
             mainNav.classList.toggle('nav-active');
+            navToggle.classList.toggle('active');
+            body.classList.toggle('nav-open');
+        }
 
-            // Toggle animation for burger icon
-            navToggle.classList.toggle('active'); 
+        // Close menu function
+        function closeMobileMenu() {
+            navToggle.setAttribute('aria-expanded', 'false');
+            mainNav.classList.remove('nav-active');
+            navToggle.classList.remove('active');
+            body.classList.remove('nav-open');
+        }
+
+        // Toggle button click event
+        navToggle.addEventListener('click', function(e) {
+            e.preventDefault();
+            toggleMobileMenu();
         });
-    }
 
-    // Optional: Close mobile menu when a link is clicked
-    const navLinks = mainNav.querySelectorAll('a');
-    navLinks.forEach(link => {
-        link.addEventListener('click', () => {
-            if (mainNav.classList.contains('nav-active')) {
-                navToggle.setAttribute('aria-expanded', 'false');
-                mainNav.classList.remove('nav-active');
-                navToggle.classList.remove('active');
+        // Close menu when clicking nav links
+        if (mainNav) {
+            const navLinks = mainNav.querySelectorAll('a');
+            navLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    closeMobileMenu();
+                });
+            });
+        }
+
+        // Close menu when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!navToggle.contains(e.target) && !mainNav.contains(e.target)) {
+                if (mainNav.classList.contains('nav-active')) {
+                    closeMobileMenu();
+                }
             }
         });
-    });
+
+        // Close menu on escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && mainNav.classList.contains('nav-active')) {
+                closeMobileMenu();
+            }
+        });
+    }
 });
 
 // Smooth scroll for anchor links (if you add any internal page links like #section)
