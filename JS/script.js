@@ -146,51 +146,30 @@ window.addEventListener('scroll', function() {
 }
 */
 
-// Image loaded handling - hide icons when images are loaded
+// Simple image loading debug for iPhone
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('画像処理スクリプト開始');
+    console.log('📱 iPhone画像デバッグ開始');
     
-    // Handle greeting section images
-    const greetingImages = document.querySelectorAll('.greeting-image-placeholder img');
-    console.log('Greeting images found:', greetingImages.length);
-    
-    greetingImages.forEach(function(img, index) {
-        console.log('Greeting image', index, ':', img.src);
-        
-        function markImageLoaded() {
-            img.parentElement.classList.add('image-loaded');
-            console.log('Greeting image loaded, class added:', index);
-        }
-        
-        if (img.complete && img.naturalHeight !== 0) {
-            markImageLoaded();
-        } else {
-            img.addEventListener('load', markImageLoaded);
-            img.addEventListener('error', function() {
-                console.error('Failed to load greeting image:', img.src);
-            });
-        }
-    });
-
-    // Handle doctor photo images  
-    const doctorImages = document.querySelectorAll('.doctor-photo-placeholder img');
+    const doctorImages = document.querySelectorAll('.doctor-photo');
     console.log('Doctor images found:', doctorImages.length);
     
     doctorImages.forEach(function(img, index) {
         console.log('Doctor image', index, ':', img.src);
         
-        function markImageLoaded() {
-            img.parentElement.classList.add('image-loaded');
-            console.log('Doctor image loaded, class added:', index);
-        }
+        img.addEventListener('load', function() {
+            console.log('✅ Image loaded successfully:', index);
+        });
         
-        if (img.complete && img.naturalHeight !== 0) {
-            markImageLoaded();
-        } else {
-            img.addEventListener('load', markImageLoaded);
-            img.addEventListener('error', function() {
-                console.error('Failed to load doctor image:', img.src);
-            });
+        img.addEventListener('error', function() {
+            console.error('❌ Failed to load image:', img.src);
+        });
+        
+        // Force refresh if needed
+        if (!img.complete) {
+            console.log('🔄 Forcing image reload:', index);
+            const originalSrc = img.src;
+            img.src = '';
+            img.src = originalSrc;
         }
     });
 });
