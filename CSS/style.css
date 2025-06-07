@@ -141,6 +141,14 @@ body {
     font-weight: 700;
     color: var(--primary-color);
     text-decoration: none;
+    display: block;
+}
+
+.logo-image {
+    height: 50px;
+    width: auto;
+    max-width: 100%;
+    object-fit: contain;
 }
 
 .main-nav ul {
