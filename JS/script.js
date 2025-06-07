@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function() {
             mainNav.classList.toggle('nav-active');
 
             // Toggle animation for burger icon
-            navToggle.classList.toggle('open'); 
+            navToggle.classList.toggle('active'); 
         });
     }
 
@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (mainNav.classList.contains('nav-active')) {
                 navToggle.setAttribute('aria-expanded', 'false');
                 mainNav.classList.remove('nav-active');
-                navToggle.classList.remove('open');
+                navToggle.classList.remove('active');
             }
         });
     });
