@@ -145,3 +145,38 @@ window.addEventListener('scroll', function() {
     transform: translateY(-8px) rotate(-45deg);
 }
 */
+
+// Image loaded handling - hide icons when images are loaded
+document.addEventListener('DOMContentLoaded', function() {
+    // Handle greeting section images
+    const greetingImages = document.querySelectorAll('.greeting-image-placeholder img');
+    greetingImages.forEach(function(img) {
+        if (img.complete && img.naturalHeight !== 0) {
+            // Image already loaded
+            const icon = img.parentElement.querySelector('i');
+            if (icon) icon.style.display = 'none';
+        } else {
+            // Wait for image to load
+            img.addEventListener('load', function() {
+                const icon = this.parentElement.querySelector('i');
+                if (icon) icon.style.display = 'none';
+            });
+        }
+    });
+
+    // Handle doctor photo images  
+    const doctorImages = document.querySelectorAll('.doctor-photo-placeholder img');
+    doctorImages.forEach(function(img) {
+        if (img.complete && img.naturalHeight !== 0) {
+            // Image already loaded
+            const icon = img.parentElement.querySelector('i');
+            if (icon) icon.style.display = 'none';
+        } else {
+            // Wait for image to load
+            img.addEventListener('load', function() {
+                const icon = this.parentElement.querySelector('i');
+                if (icon) icon.style.display = 'none';
+            });
+        }
+    });
+});

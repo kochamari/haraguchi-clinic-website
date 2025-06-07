@@ -492,9 +492,7 @@ body {
     left: 0;
     z-index: 2;
 }
-.greeting-image-placeholder:has(img) i {
-    display: none;
-}
+/* `:has()` is not supported on all mobile browsers - using JS instead */
 .greeting-image-placeholder .fa-user-md {
     color: var(--accent-color);
     position: relative;
@@ -971,9 +969,7 @@ body {
     left: 0;
     z-index: 2;
 }
-.doctor-photo-placeholder:has(img) i {
-    display: none;
-}
+/* `:has()` is not supported on all mobile browsers - using JS instead */
 .doctor-photo-placeholder i {
     position: relative;
     z-index: 1;
