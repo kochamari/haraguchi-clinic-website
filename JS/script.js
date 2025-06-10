@@ -174,7 +174,43 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-// Lightweight parallax effect - fixed background only
+// iPhone背景デバッグと最適化
 document.addEventListener('DOMContentLoaded', function() {
     console.log('🎨 Lightweight parallax effect initialized');
+    
+    // iPhone/iOS検出とデバッグ
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || 
+                  (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+    const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+    
+    if (isIOS) {
+        console.log('📱 iPhone/iOS detected');
+        console.log('🌐 Browser:', isSafari ? 'Safari' : 'Other');
+        
+        // 背景要素の確認
+        const body = document.body;
+        const computedStyle = window.getComputedStyle(body);
+        console.log('🎨 Body background:', computedStyle.background);
+        console.log('🎨 Body background-image:', computedStyle.backgroundImage);
+        
+        // iOS用の追加最適化
+        document.body.style.webkitTransform = 'translateZ(0)';
+        document.body.style.webkitBackfaceVisibility = 'hidden';
+        
+        // 背景が適用されているかチェック
+        setTimeout(() => {
+            const updatedStyle = window.getComputedStyle(body);
+            if (updatedStyle.backgroundImage !== 'none') {
+                console.log('✅ iPhone背景適用成功');
+            } else {
+                console.log('❌ iPhone背景適用失敗 - フォールバック適用');
+                // フォールバック背景
+                body.style.background = 'radial-gradient(circle at 30% 20%, rgba(173, 216, 230, 0.4) 0%, transparent 70%), linear-gradient(135deg, rgba(240, 248, 255, 0.9) 0%, rgba(230, 245, 255, 0.7) 100%)';
+            }
+        }, 1000);
+        
+        console.log('✅ iPhone最適化適用完了');
+    } else {
+        console.log('💻 デスクトップ/Android detected');
+    }
 });
