@@ -218,14 +218,81 @@ document.addEventListener('DOMContentLoaded', function() {
             existingBg.remove();
         }
         
-        // 背景を完全固定（パララックス効果無効化）
-        console.log('🔒 Setting completely fixed background - no parallax');
+        // 🔒 Ultra Think: 完全固定背景要素を作成
+        console.log('🔒 Creating COMPLETELY FIXED background for iPhone');
         
-        // 背景位置を中央固定
-        document.body.style.backgroundPosition = 'center center';
-        document.body.style.backgroundAttachment = 'scroll'; // iOS対応
+        const fixedBackground = document.createElement('div');
+        fixedBackground.id = 'mobile-parallax-bg';
+        fixedBackground.style.cssText = `
+            position: fixed !important;
+            top: 0px !important;
+            left: 0px !important;
+            right: 0px !important;
+            bottom: 0px !important;
+            width: 100vw !important;
+            height: 100vh !important;
+            z-index: -1000 !important;
+            pointer-events: none !important;
+            background: 
+                radial-gradient(ellipse at 20% 20%, rgba(99, 187, 208, 0.4) 0%, transparent 25%),
+                radial-gradient(ellipse at 80% 80%, rgba(127, 179, 213, 0.35) 0%, transparent 25%),
+                radial-gradient(circle at 60% 40%, rgba(173, 216, 230, 0.3) 0%, transparent 30%),
+                radial-gradient(ellipse at 40% 80%, rgba(135, 206, 235, 0.25) 0%, transparent 35%),
+                repeating-linear-gradient(
+                    30deg,
+                    transparent,
+                    transparent 20px,
+                    rgba(173, 216, 230, 0.04) 20px,
+                    rgba(173, 216, 230, 0.04) 40px
+                ),
+                repeating-linear-gradient(
+                    -30deg,
+                    transparent,
+                    transparent 25px,
+                    rgba(135, 206, 235, 0.03) 25px,
+                    rgba(135, 206, 235, 0.03) 50px
+                ) !important;
+            background-size: 150% 150%, 150% 150%, 200% 200%, 120% 120%, 100px 100px, 120px 120px !important;
+            background-position: 0 0, 0 0, 0 0, 0 0, 0 0, 0 0 !important;
+            background-repeat: no-repeat !important;
+            background-attachment: scroll !important;
+            transform: translate3d(0,0,0) !important;
+            -webkit-transform: translate3d(0,0,0) !important;
+            backface-visibility: hidden !important;
+            -webkit-backface-visibility: hidden !important;
+            will-change: auto !important;
+        `;
         
-        console.log('✅ Background completely fixed');
+        // body の最初に挿入
+        document.body.insertBefore(fixedBackground, document.body.firstChild);
+        
+        // 🔒 強制固定機能：絶対に動かない
+        function forceBackgroundFixed() {
+            if (fixedBackground && fixedBackground.parentNode) {
+                fixedBackground.style.position = 'fixed';
+                fixedBackground.style.top = '0px';
+                fixedBackground.style.left = '0px';
+                fixedBackground.style.transform = 'translate3d(0,0,0)';
+                fixedBackground.style.webkitTransform = 'translate3d(0,0,0)';
+            }
+        }
+        
+        // スクロール時も絶対に動かないよう監視
+        let rafId = null;
+        function maintainFixedBackground() {
+            forceBackgroundFixed();
+            rafId = requestAnimationFrame(maintainFixedBackground);
+        }
+        
+        // 強制固定開始
+        maintainFixedBackground();
+        
+        // イベントリスナーでも監視
+        window.addEventListener('scroll', forceBackgroundFixed, { passive: true });
+        window.addEventListener('resize', forceBackgroundFixed, { passive: true });
+        window.addEventListener('orientationchange', forceBackgroundFixed, { passive: true });
+        
+        console.log('✅ COMPLETELY FIXED background created and monitored');
         
         console.log('✅ Mobile optimization complete');
     } else {
