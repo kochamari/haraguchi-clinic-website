@@ -205,7 +205,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const existingBg = document.getElementById('mobile-parallax-bg');
             if (existingBg) existingBg.remove();
             
-            // iOS対応の完全固定背景要素を作成
+            // パソコンと同じ華やかな背景パターンを作成
             const parallaxBg = document.createElement('div');
             parallaxBg.id = 'mobile-parallax-bg';
             parallaxBg.style.cssText = `
@@ -217,20 +217,36 @@ document.addEventListener('DOMContentLoaded', function() {
                 width: 100% !important;
                 height: 100% !important;
                 background: 
-                    radial-gradient(ellipse at 20% 20%, rgba(99, 187, 208, 0.4) 0%, transparent 30%),
-                    radial-gradient(ellipse at 80% 80%, rgba(127, 179, 213, 0.35) 0%, transparent 30%),
-                    radial-gradient(circle at 50% 50%, rgba(173, 216, 230, 0.3) 0%, transparent 40%),
+                    radial-gradient(ellipse at 20% 20%, rgba(99, 187, 208, 0.4) 0%, transparent 25%),
+                    radial-gradient(ellipse at 80% 80%, rgba(127, 179, 213, 0.35) 0%, transparent 25%),
+                    radial-gradient(circle at 60% 40%, rgba(173, 216, 230, 0.3) 0%, transparent 30%),
+                    radial-gradient(ellipse at 40% 80%, rgba(135, 206, 235, 0.25) 0%, transparent 35%),
+                    repeating-conic-gradient(
+                        from 0deg at 50% 50%,
+                        transparent 0deg,
+                        rgba(99, 187, 208, 0.03) 30deg,
+                        transparent 60deg,
+                        rgba(127, 179, 213, 0.03) 90deg,
+                        transparent 120deg
+                    ),
                     repeating-linear-gradient(
                         30deg,
                         transparent,
                         transparent 20px,
-                        rgba(173, 216, 230, 0.08) 20px,
-                        rgba(173, 216, 230, 0.08) 40px
+                        rgba(173, 216, 230, 0.04) 20px,
+                        rgba(173, 216, 230, 0.04) 40px
+                    ),
+                    repeating-linear-gradient(
+                        -30deg,
+                        transparent,
+                        transparent 25px,
+                        rgba(135, 206, 235, 0.03) 25px,
+                        rgba(135, 206, 235, 0.03) 50px
                     );
-                background-size: 120% 120%, 120% 120%, 150% 150%, 60px 60px;
+                background-size: 150% 150%, 150% 150%, 200% 200%, 120% 120%, 300px 300px, 100px 100px, 120px 120px;
                 background-attachment: scroll !important;
                 background-repeat: no-repeat;
-                background-position: 0 0, 100% 100%, 50% 50%, 0 0;
+                background-position: 0 0;
                 z-index: -10 !important;
                 pointer-events: none;
                 overflow: hidden;
