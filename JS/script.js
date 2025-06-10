@@ -197,15 +197,22 @@ document.addEventListener('DOMContentLoaded', function() {
         document.body.style.webkitTransform = 'translateZ(0)';
         document.body.style.webkitBackfaceVisibility = 'hidden';
         
-        // iPhone用パララックス背景要素を動的作成（確実に動作）
+        // CSS背景を使用するため、JavaScript背景作成を無効化
+        console.log('📱 iPhone用CSS背景使用モード');
+        
+        // 背景固定用の処理のみ実行
         setTimeout(() => {
-            console.log('🔍 iPhone用パララックス背景作成開始...');
+            console.log('🔒 CSS背景の固定処理開始...');
             
-            // 既存の背景要素があれば削除
+            // 既存の背景要素があれば削除（クリーンアップ）
             const existingBg = document.getElementById('mobile-parallax-bg');
             if (existingBg) existingBg.remove();
             
-            // パソコンと同じ華やかな背景パターンを作成
+            // CSS背景を使用するため、JavaScript背景作成をスキップ
+            console.log('✨ CSS背景を使用中 - PC版と同じ華やかなパターン');
+            return; // ここで処理を終了
+            
+            // 以下のコードは実行されない
             const parallaxBg = document.createElement('div');
             parallaxBg.id = 'mobile-parallax-bg';
             parallaxBg.style.cssText = `
