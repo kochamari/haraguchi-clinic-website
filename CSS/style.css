@@ -970,9 +970,7 @@ body::before {
     .section-padding { padding: 60px 0; }
     .section-title { font-size: 1.8rem; margin-bottom: 40px; }
     
-    /* iPhone対応 - PC版の擬似要素を無効化 */
-    body::before,
-    body::after,
+    /* iPhone対応 - セクション擬似要素のみ無効化 */
     .hero::before,
     .hero::after,
     .clinic-features::before,
@@ -980,9 +978,40 @@ body::before {
         display: none !important;
     }
     
-    /* iPhone用 - bodyの背景をリセット */
+    /* iPhone用 - PC版と同じ美しい背景をbodyに直接適用 */
     html body {
-        background: transparent !important;
+        background: 
+            /* 華やかなグラデーション - PC版と完全一致 */
+            radial-gradient(ellipse at 20% 20%, rgba(99, 187, 208, 0.4) 0%, transparent 25%),
+            radial-gradient(ellipse at 80% 80%, rgba(127, 179, 213, 0.35) 0%, transparent 25%),
+            radial-gradient(circle at 60% 40%, rgba(173, 216, 230, 0.3) 0%, transparent 30%),
+            radial-gradient(ellipse at 40% 80%, rgba(135, 206, 235, 0.25) 0%, transparent 35%),
+            /* モダンな幾何学パターン */
+            repeating-conic-gradient(
+                from 0deg at 50% 50%,
+                transparent 0deg,
+                rgba(99, 187, 208, 0.03) 30deg,
+                transparent 60deg,
+                rgba(127, 179, 213, 0.03) 90deg,
+                transparent 120deg
+            ),
+            repeating-linear-gradient(
+                30deg,
+                transparent,
+                transparent 20px,
+                rgba(173, 216, 230, 0.04) 20px,
+                rgba(173, 216, 230, 0.04) 40px
+            ),
+            repeating-linear-gradient(
+                -30deg,
+                transparent,
+                transparent 25px,
+                rgba(135, 206, 235, 0.03) 25px,
+                rgba(135, 206, 235, 0.03) 50px
+            ) !important;
+        background-size: 150% 150%, 150% 150%, 200% 200%, 120% 120%, 300px 300px, 100px 100px, 120px 120px !important;
+        background-attachment: scroll !important;
+        background-repeat: no-repeat !important;
         min-height: 100vh !important;
         position: relative;
     }

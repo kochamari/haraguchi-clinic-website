@@ -192,104 +192,39 @@ document.addEventListener('DOMContentLoaded', function() {
         document.body.style.webkitTransform = 'translateZ(0)';
         document.body.style.webkitBackfaceVisibility = 'hidden';
         
-        // 背景固定用の完全に新しいアプローチ
-        setTimeout(() => {
-            console.log('🔒 Creating fixed background for mobile...');
+        // 既存のJavaScript背景要素があれば削除
+        const existingBg = document.getElementById('mobile-parallax-bg');
+        if (existingBg) {
+            console.log('🗑️ Removing existing JavaScript background element');
+            existingBg.remove();
+        }
+        
+        // シンプルなパララックス効果をbody背景に適用
+        console.log('🎨 Applying simple parallax effect to CSS background');
+        
+        let ticking = false;
+        
+        function updateParallax() {
+            const scrolled = window.pageYOffset;
+            const parallaxSpeed = 0.5; // パララックスの強度（0.5 = 半分の速度）
             
-            // 既存の背景要素があれば削除（クリーンアップ）
-            const existingBg = document.getElementById('mobile-parallax-bg');
-            if (existingBg) existingBg.remove();
+            // body要素の背景位置を調整
+            document.body.style.backgroundPosition = `center ${scrolled * parallaxSpeed}px`;
             
-            // 完全固定背景要素を作成
-            const fixedBg = document.createElement('div');
-            fixedBg.id = 'mobile-parallax-bg';
-            fixedBg.className = 'mobile-fixed-bg';
-            
-            // PC版と同じ華やかな背景パターンを適用
-            fixedBg.style.cssText = `
-                position: fixed !important;
-                top: 0 !important;
-                left: 0 !important;
-                right: 0 !important;
-                bottom: 0 !important;
-                width: 100vw !important;
-                height: 100vh !important;
-                background: 
-                    radial-gradient(ellipse at 20% 20%, rgba(99, 187, 208, 0.4) 0%, transparent 25%),
-                    radial-gradient(ellipse at 80% 80%, rgba(127, 179, 213, 0.35) 0%, transparent 25%),
-                    radial-gradient(circle at 60% 40%, rgba(173, 216, 230, 0.3) 0%, transparent 30%),
-                    radial-gradient(ellipse at 40% 80%, rgba(135, 206, 235, 0.25) 0%, transparent 35%),
-                    repeating-conic-gradient(
-                        from 0deg at 50% 50%,
-                        transparent 0deg,
-                        rgba(99, 187, 208, 0.03) 30deg,
-                        transparent 60deg,
-                        rgba(127, 179, 213, 0.03) 90deg,
-                        transparent 120deg
-                    ),
-                    repeating-linear-gradient(
-                        30deg,
-                        transparent,
-                        transparent 20px,
-                        rgba(173, 216, 230, 0.04) 20px,
-                        rgba(173, 216, 230, 0.04) 40px
-                    ),
-                    repeating-linear-gradient(
-                        -30deg,
-                        transparent,
-                        transparent 25px,
-                        rgba(135, 206, 235, 0.03) 25px,
-                        rgba(135, 206, 235, 0.03) 50px
-                    ) !important;
-                background-size: 150% 150%, 150% 150%, 200% 200%, 120% 120%, 300px 300px, 100px 100px, 120px 120px !important;
-                z-index: -100 !important;
-                pointer-events: none !important;
-                -webkit-transform: translateZ(0) !important;
-                transform: translateZ(0) !important;
-                -webkit-backface-visibility: hidden !important;
-                backface-visibility: hidden !important;
-                will-change: transform !important;
-            `;
-            
-            // body の最初に挿入
-            document.body.insertBefore(fixedBg, document.body.firstChild);
-            
-            console.log('✅ Mobile fixed background created');
-            
-            // 背景固定維持機能
-            function maintainFixedBackground() {
-                const bgElement = document.getElementById('mobile-parallax-bg');
-                if (bgElement) {
-                    // 完全固定を強制
-                    bgElement.style.position = 'fixed';
-                    bgElement.style.top = '0px';
-                    bgElement.style.left = '0px';
-                    bgElement.style.transform = 'translate3d(0,0,0)';
-                    bgElement.style.webkitTransform = 'translate3d(0,0,0)';
-                }
+            ticking = false;
+        }
+        
+        // スクロール時のパララックス効果
+        function handleScroll() {
+            if (!ticking) {
+                requestAnimationFrame(updateParallax);
+                ticking = true;
             }
-            
-            // スクロール時とリサイズ時に背景固定を維持
-            let fixTicking = false;
-            const maintainBackground = () => {
-                if (!fixTicking) {
-                    requestAnimationFrame(() => {
-                        maintainFixedBackground();
-                        fixTicking = false;
-                    });
-                    fixTicking = true;
-                }
-            };
-            
-            window.addEventListener('scroll', maintainBackground, { passive: true });
-            window.addEventListener('resize', maintainBackground, { passive: true });
-            window.addEventListener('orientationchange', maintainBackground, { passive: true });
-            
-            // 初期固定
-            maintainFixedBackground();
-            
-            console.log('🔒 Mobile background fix completed');
-        }, 200);
+        }
+        
+        window.addEventListener('scroll', handleScroll, { passive: true });
+        
+        console.log('✅ Simple parallax effect applied');
         
         console.log('✅ Mobile optimization complete');
     } else {
