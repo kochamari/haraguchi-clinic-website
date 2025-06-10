@@ -13,6 +13,11 @@
     --border-radius: 8px;
     --box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
     --transition-speed: 0.3s ease;
+    
+    /* Ultra Think Phase 3: CSS Variables for iOS background control */
+    --bg-fixed-x: 0px;
+    --bg-fixed-y: 0px;
+    --bg-scale: 1;
 }
 
 *, *::before, *::after {

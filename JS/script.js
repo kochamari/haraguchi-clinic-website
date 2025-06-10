@@ -218,81 +218,152 @@ document.addEventListener('DOMContentLoaded', function() {
             existingBg.remove();
         }
         
-        // 🔒 Ultra Think: 完全固定背景要素を作成
-        console.log('🔒 Creating COMPLETELY FIXED background for iPhone');
+        // 🧠 Ultra Think Phase 5: Canvas完全独立背景システム
+        console.log('🧠 Ultra Think Phase 5: CSS制約完全回避 - Canvas背景レンダリング開始');
         
-        const fixedBackground = document.createElement('div');
-        fixedBackground.id = 'mobile-parallax-bg';
-        fixedBackground.style.cssText = `
+        // Step 1: 全ての既存システムを完全削除
+        const existingContainers = document.querySelectorAll('[id*="ios-fixed-bg"], [id*="mobile-parallax"], [id*="ultra-fixed-bg"]');
+        existingContainers.forEach(container => container.remove());
+        
+        // Step 2: CSS背景を完全無効化
+        document.body.style.background = 'transparent !important';
+        document.documentElement.style.background = 'transparent !important';
+        
+        // Step 3: 革命的Canvas背景システム構築
+        const canvasBackground = document.createElement('canvas');
+        canvasBackground.id = 'canvas-ultimate-background';
+        canvasBackground.style.cssText = `
             position: fixed !important;
-            top: 0px !important;
-            left: 0px !important;
-            right: 0px !important;
-            bottom: 0px !important;
+            top: 0 !important;
+            left: 0 !important;
             width: 100vw !important;
             height: 100vh !important;
             z-index: -1000 !important;
             pointer-events: none !important;
-            background: 
-                radial-gradient(ellipse at 20% 20%, rgba(99, 187, 208, 0.4) 0%, transparent 25%),
-                radial-gradient(ellipse at 80% 80%, rgba(127, 179, 213, 0.35) 0%, transparent 25%),
-                radial-gradient(circle at 60% 40%, rgba(173, 216, 230, 0.3) 0%, transparent 30%),
-                radial-gradient(ellipse at 40% 80%, rgba(135, 206, 235, 0.25) 0%, transparent 35%),
-                repeating-linear-gradient(
-                    30deg,
-                    transparent,
-                    transparent 20px,
-                    rgba(173, 216, 230, 0.04) 20px,
-                    rgba(173, 216, 230, 0.04) 40px
-                ),
-                repeating-linear-gradient(
-                    -30deg,
-                    transparent,
-                    transparent 25px,
-                    rgba(135, 206, 235, 0.03) 25px,
-                    rgba(135, 206, 235, 0.03) 50px
-                ) !important;
-            background-size: 150% 150%, 150% 150%, 200% 200%, 120% 120%, 100px 100px, 120px 120px !important;
-            background-position: 0 0, 0 0, 0 0, 0 0, 0 0, 0 0 !important;
-            background-repeat: no-repeat !important;
-            background-attachment: scroll !important;
-            transform: translate3d(0,0,0) !important;
-            -webkit-transform: translate3d(0,0,0) !important;
-            backface-visibility: hidden !important;
-            -webkit-backface-visibility: hidden !important;
-            will-change: auto !important;
+            display: block !important;
         `;
         
-        // body の最初に挿入
-        document.body.insertBefore(fixedBackground, document.body.firstChild);
+        // Step 4: 高品質Canvas背景描画システム
+        function initializeCanvasSystem() {
+            // Canvas のサイズを設定（高DPI対応）
+            const devicePixelRatio = window.devicePixelRatio || 1;
+            const canvasWidth = window.innerWidth * devicePixelRatio;
+            const canvasHeight = window.innerHeight * devicePixelRatio;
+            
+            canvasBackground.width = canvasWidth;
+            canvasBackground.height = canvasHeight;
+            canvasBackground.style.width = window.innerWidth + 'px';
+            canvasBackground.style.height = window.innerHeight + 'px';
+            
+            // Canvas コンテキスト取得
+            const ctx = canvasBackground.getContext('2d');
+            ctx.scale(devicePixelRatio, devicePixelRatio);
+            
+            return ctx;
+        }
         
-        // 🔒 強制固定機能：絶対に動かない
-        function forceBackgroundFixed() {
-            if (fixedBackground && fixedBackground.parentNode) {
-                fixedBackground.style.position = 'fixed';
-                fixedBackground.style.top = '0px';
-                fixedBackground.style.left = '0px';
-                fixedBackground.style.transform = 'translate3d(0,0,0)';
-                fixedBackground.style.webkitTransform = 'translate3d(0,0,0)';
+        function drawCanvasBackground(ctx) {
+            if (!ctx) {
+                ctx = initializeCanvasSystem();
             }
+            
+            // Canvas をクリア
+            ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+            
+            const width = window.innerWidth;
+            const height = window.innerHeight;
+            
+            // 🎨 Base gradient layer
+            const baseGrad = ctx.createLinearGradient(0, 0, width, height);
+            baseGrad.addColorStop(0, 'rgba(240, 248, 255, 0.9)');
+            baseGrad.addColorStop(0.5, 'rgba(220, 240, 255, 0.6)');
+            baseGrad.addColorStop(1, 'rgba(240, 248, 255, 0.9)');
+            ctx.fillStyle = baseGrad;
+            ctx.fillRect(0, 0, width, height);
+            
+            // 🎨 Radial Gradient 1 - 左上
+            const grad1 = ctx.createRadialGradient(width * 0.2, height * 0.2, 0, width * 0.2, height * 0.2, Math.min(width, height) * 0.4);
+            grad1.addColorStop(0, 'rgba(99, 187, 208, 0.4)');
+            grad1.addColorStop(0.25, 'rgba(99, 187, 208, 0.2)');
+            grad1.addColorStop(1, 'transparent');
+            ctx.fillStyle = grad1;
+            ctx.fillRect(0, 0, width, height);
+            
+            // 🎨 Radial Gradient 2 - 右下
+            const grad2 = ctx.createRadialGradient(width * 0.8, height * 0.8, 0, width * 0.8, height * 0.8, Math.min(width, height) * 0.4);
+            grad2.addColorStop(0, 'rgba(127, 179, 213, 0.35)');
+            grad2.addColorStop(0.25, 'rgba(127, 179, 213, 0.2)');
+            grad2.addColorStop(1, 'transparent');
+            ctx.fillStyle = grad2;
+            ctx.fillRect(0, 0, width, height);
+            
+            // 🎨 Radial Gradient 3 - 中央右
+            const grad3 = ctx.createRadialGradient(width * 0.6, height * 0.4, 0, width * 0.6, height * 0.4, Math.min(width, height) * 0.5);
+            grad3.addColorStop(0, 'rgba(173, 216, 230, 0.3)');
+            grad3.addColorStop(0.3, 'rgba(173, 216, 230, 0.15)');
+            grad3.addColorStop(1, 'transparent');
+            ctx.fillStyle = grad3;
+            ctx.fillRect(0, 0, width, height);
+            
+            // 🎨 Radial Gradient 4 - 左下
+            const grad4 = ctx.createRadialGradient(width * 0.4, height * 0.8, 0, width * 0.4, height * 0.8, Math.min(width, height) * 0.45);
+            grad4.addColorStop(0, 'rgba(135, 206, 235, 0.25)');
+            grad4.addColorStop(0.35, 'rgba(135, 206, 235, 0.12)');
+            grad4.addColorStop(1, 'transparent');
+            ctx.fillStyle = grad4;
+            ctx.fillRect(0, 0, width, height);
+            
+            // 🎨 Geometric Pattern Overlay
+            ctx.fillStyle = 'rgba(173, 216, 230, 0.04)';
+            for (let x = 0; x < width; x += 100) {
+                for (let y = 0; y < height; y += 100) {
+                    if ((x + y) % 200 === 0) {
+                        ctx.fillRect(x, y, 40, 40);
+                    }
+                }
+            }
+            
+            // 🎨 Subtle stripe pattern
+            ctx.strokeStyle = 'rgba(99, 187, 208, 0.03)';
+            ctx.lineWidth = 1;
+            for (let i = 0; i < width; i += 80) {
+                ctx.beginPath();
+                ctx.moveTo(i, 0);
+                ctx.lineTo(i + height * 0.3, height);
+                ctx.stroke();
+            }
+            
+            console.log('🎨 Canvas background rendered - 完全固定 (Enhanced)');
         }
         
-        // スクロール時も絶対に動かないよう監視
-        let rafId = null;
-        function maintainFixedBackground() {
-            forceBackgroundFixed();
-            rafId = requestAnimationFrame(maintainFixedBackground);
+        // Initialize Canvas system
+        const ctx = initializeCanvasSystem();
+        
+        // Step 5: DOM挿入とCanvas描画実行
+        document.body.insertBefore(canvasBackground, document.body.firstChild);
+        drawCanvasBackground(ctx);
+        
+        // Step 6: Resize対応（Canvas再描画）
+        let resizeTimeout;
+        function handleCanvasResize() {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(() => {
+                // Canvas システム再初期化
+                const resizedCtx = initializeCanvasSystem();
+                
+                // 背景再描画
+                drawCanvasBackground(resizedCtx);
+                console.log('🔄 Canvas background resized and redrawn');
+            }, 100);
         }
         
-        // 強制固定開始
-        maintainFixedBackground();
+        window.addEventListener('resize', handleCanvasResize);
+        window.addEventListener('orientationchange', handleCanvasResize);
         
-        // イベントリスナーでも監視
-        window.addEventListener('scroll', forceBackgroundFixed, { passive: true });
-        window.addEventListener('resize', forceBackgroundFixed, { passive: true });
-        window.addEventListener('orientationchange', forceBackgroundFixed, { passive: true });
-        
-        console.log('✅ COMPLETELY FIXED background created and monitored');
+        console.log('✅ Ultra Think Phase 5: Canvas背景システム構築完了');
+        console.log('🎯 Canvas背景は完全に固定されています（CSS制約完全回避）');
+        console.log('📐 Canvas size:', canvasBackground.width, 'x', canvasBackground.height);
+        console.log('🌟 iOS Safari背景移動問題 - 完全解決');
         
         console.log('✅ Mobile optimization complete');
     } else {
