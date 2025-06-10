@@ -932,27 +932,41 @@ body::before {
         display: none !important;
     }
     
-    /* iPhone用の超シンプル背景 - 確実に表示される */
+    /* iPhone用背景 - シンプルなグラデーションのみ */
     body {
-        background-color: #f0f8ff !important;
-        background-image: 
-            radial-gradient(circle, rgba(173, 216, 230, 0.5) 2px, transparent 2px),
-            radial-gradient(circle, rgba(127, 179, 213, 0.4) 2px, transparent 2px);
-        background-size: 50px 50px, 80px 80px;
-        background-position: 0 0, 25px 25px;
+        background: linear-gradient(135deg, 
+            rgba(173, 216, 230, 0.3) 0%, 
+            rgba(127, 179, 213, 0.2) 25%,
+            rgba(99, 187, 208, 0.25) 50%,
+            rgba(135, 206, 235, 0.15) 75%,
+            rgba(240, 248, 255, 0.8) 100%
+        ) !important;
+        min-height: 100vh;
     }
     
-    /* セクションごとにシンプルな背景色 */
+    /* iPhone用セクション背景 - 繋ゎ目のない美しいグラデーション */
     .hero {
-        background: linear-gradient(to bottom, rgba(248, 249, 250, 0.95), rgba(240, 248, 255, 0.85)) !important;
+        background: linear-gradient(to bottom, 
+            rgba(99, 187, 208, 0.1) 0%,
+            rgba(127, 179, 213, 0.08) 50%,
+            rgba(173, 216, 230, 0.12) 100%
+        ) !important;
     }
     
     .clinic-features {
-        background: linear-gradient(to bottom, rgba(250, 250, 250, 0.9), rgba(245, 248, 255, 0.8)) !important;
+        background: linear-gradient(to bottom, 
+            rgba(135, 206, 235, 0.08) 0%,
+            rgba(173, 216, 230, 0.1) 50%,
+            rgba(127, 179, 213, 0.06) 100%
+        ) !important;
     }
     
     .news-digest {
-        background: linear-gradient(to bottom, rgba(245, 248, 255, 0.85), rgba(250, 250, 250, 0.9)) !important;
+        background: linear-gradient(to bottom, 
+            rgba(176, 224, 230, 0.1) 0%,
+            rgba(99, 187, 208, 0.08) 50%,
+            rgba(135, 206, 235, 0.12) 100%
+        ) !important;
     }
 
     /* iPhone用backdrop-filter無効化 - パフォーマンス最適化 */

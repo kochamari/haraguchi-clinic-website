@@ -197,33 +197,52 @@ document.addEventListener('DOMContentLoaded', function() {
         document.body.style.webkitTransform = 'translateZ(0)';
         document.body.style.webkitBackfaceVisibility = 'hidden';
         
-        // 背景が適用されているかチェック & 強制適用
+        // iPhone用の美しいグラデーション背景を強制適用
         setTimeout(() => {
             const updatedStyle = window.getComputedStyle(body);
-            console.log('🔍 背景チェック:', updatedStyle.backgroundImage);
+            console.log('🔍 現在の背景:', updatedStyle.background);
             
-            // 強制的にシンプルな背景を適用
-            body.style.backgroundColor = '#f0f8ff';
-            body.style.backgroundImage = `
-                radial-gradient(circle, rgba(173, 216, 230, 0.6) 3px, transparent 3px),
-                radial-gradient(circle, rgba(127, 179, 213, 0.5) 2px, transparent 2px)
+            // シンプルで美しいグラデーション背景を強制適用
+            body.style.background = `
+                linear-gradient(135deg, 
+                    rgba(173, 216, 230, 0.4) 0%, 
+                    rgba(127, 179, 213, 0.3) 25%,
+                    rgba(99, 187, 208, 0.35) 50%,
+                    rgba(135, 206, 235, 0.25) 75%,
+                    rgba(240, 248, 255, 0.9) 100%
+                )
             `;
-            body.style.backgroundSize = '60px 60px, 40px 40px';
-            body.style.backgroundPosition = '0 0, 30px 30px';
-            body.style.backgroundRepeat = 'repeat';
+            body.style.minHeight = '100vh';
             
-            console.log('🎨 強制背景適用完了');
+            // セクションにも美しい背景を追加
+            const hero = document.querySelector('.hero');
+            const features = document.querySelector('.clinic-features');
+            const newsDigest = document.querySelector('.news-digest');
+            
+            if (hero) {
+                hero.style.background = 'linear-gradient(to bottom, rgba(99, 187, 208, 0.15) 0%, rgba(127, 179, 213, 0.12) 50%, rgba(173, 216, 230, 0.18) 100%)';
+            }
+            
+            if (features) {
+                features.style.background = 'linear-gradient(to bottom, rgba(135, 206, 235, 0.12) 0%, rgba(173, 216, 230, 0.15) 50%, rgba(127, 179, 213, 0.1) 100%)';
+            }
+            
+            if (newsDigest) {
+                newsDigest.style.background = 'linear-gradient(to bottom, rgba(176, 224, 230, 0.15) 0%, rgba(99, 187, 208, 0.12) 50%, rgba(135, 206, 235, 0.18) 100%)';
+            }
+            
+            console.log('🎨 iPhone美しい背景適用完了');
             
             // 確認
             setTimeout(() => {
                 const finalStyle = window.getComputedStyle(body);
-                if (finalStyle.backgroundImage.includes('radial-gradient')) {
-                    console.log('✅ iPhone背景表示成功！');
+                if (finalStyle.background.includes('linear-gradient') || finalStyle.backgroundImage.includes('linear-gradient')) {
+                    console.log('✅ iPhone美しい背景表示成功！');
                 } else {
                     console.log('❌ 背景表示失敗');
                 }
-            }, 500);
-        }, 500);
+            }, 300);
+        }, 300);
         
         console.log('✅ iPhone最適化適用完了');
     } else {
