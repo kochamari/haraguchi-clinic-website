@@ -45,8 +45,8 @@ function loadNewsDigest() {
             throw new Error('お知らせデータが見つかりません');
         }
         
-        // 最新3件を取得
-        const latestNews = newsData.news.slice(0, 3);
+        // 最新6件を取得
+        const latestNews = newsData.news.slice(0, 6);
         
         // HTMLを生成
         const newsHTML = latestNews.map(item => createNewsItemHTML(item)).join('');
