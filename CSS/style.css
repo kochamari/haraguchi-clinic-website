@@ -415,44 +415,81 @@ body::before {
 }
 
 .news-digest-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
     margin-bottom: 40px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .news-item {
     background-color: rgba(255, 255, 255, 0.65);
     backdrop-filter: blur(5px);
     -webkit-backdrop-filter: blur(5px);
-    padding: 25px;
+    padding: 20px 25px;
     border-radius: var(--border-radius);
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.4);
     transition: transform var(--transition-speed), box-shadow var(--transition-speed), background-color var(--transition-speed);
     border-left: 4px solid var(--accent-color);
+    position: relative;
     /* Performance optimization */
     will-change: transform;
     transform: translateZ(0);
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
 }
 
 .news-item:hover {
-    transform: translateY(-5px);
+    transform: translateY(-3px);
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    background-color: rgba(255, 255, 255, 0.93);
+    background-color: rgba(255, 255, 255, 0.8);
 }
 
+/* 日付表示を縦長リスト用に最適化 */
 .news-date {
-    font-size: 0.9rem;
-    color: #666;
-    display: block;
-    margin-bottom: 8px;
+    font-size: 0.85rem;
+    color: var(--accent-color);
+    font-weight: 600;
+    min-width: 80px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    background: linear-gradient(135deg, var(--accent-color), var(--secondary-color));
+    color: white;
+    padding: 8px 6px;
+    border-radius: 8px;
+    margin-top: 2px;
+}
+
+.news-date .month-day {
+    font-size: 1.1rem;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.news-date .year {
+    font-size: 0.7rem;
+    opacity: 0.9;
+    margin-top: 2px;
+}
+
+/* ニュースコンテンツエリア */
+.news-content-area {
+    flex: 1;
+    min-width: 0;
 }
 
 .news-title {
     font-size: 1.1rem;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
     line-height: 1.4;
+    font-weight: 600;
 }
 
 .news-title a {
@@ -466,9 +503,56 @@ body::before {
 }
 
 .news-excerpt {
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     color: #666;
     line-height: 1.5;
+    margin-top: 5px;
+}
+
+/* 最新ニュースのラベル */
+.news-item.latest {
+    border-left: 4px solid #e74c3c;
+}
+
+.news-item.latest::before {
+    content: "最新";
+    position: absolute;
+    top: -8px;
+    right: 15px;
+    background: linear-gradient(135deg, #e74c3c, #c0392b);
+    color: white;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    box-shadow: 0 2px 4px rgba(231, 76, 60, 0.3);
+}
+
+/* ニュース番号インジケーター */
+.news-item {
+    counter-increment: news-counter;
+}
+
+.news-digest-grid {
+    counter-reset: news-counter;
+}
+
+.news-item::after {
+    content: counter(news-counter);
+    position: absolute;
+    top: 15px;
+    left: -12px;
+    background: var(--accent-color);
+    color: white;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    font-weight: 700;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 /* News Article Styles for news.html */
@@ -1221,6 +1305,48 @@ body::before {
         margin: 0 auto 20px auto;
         width: 150px;
         height: 150px;
+    }
+
+    /* ニュースリストのモバイル最適化 */
+    .news-digest-grid {
+        gap: 12px;
+        max-width: 100%;
+        padding: 0 10px;
+    }
+    
+    .news-item {
+        padding: 15px 20px;
+        gap: 12px;
+    }
+    
+    .news-date {
+        min-width: 65px;
+        padding: 6px 4px;
+        font-size: 0.75rem;
+    }
+    
+    .news-date .month-day {
+        font-size: 0.95rem;
+    }
+    
+    .news-date .year {
+        font-size: 0.65rem;
+    }
+    
+    .news-title {
+        font-size: 1rem;
+        margin-bottom: 6px;
+    }
+    
+    .news-excerpt {
+        font-size: 0.85rem;
+    }
+    
+    .news-item::after {
+        width: 20px;
+        height: 20px;
+        left: -10px;
+        font-size: 0.7rem;
     }
 
     .footer-content { flex-direction: column; text-align: center; }
