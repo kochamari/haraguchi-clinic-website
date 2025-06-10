@@ -205,15 +205,15 @@ document.addEventListener('DOMContentLoaded', function() {
             const existingBg = document.getElementById('mobile-parallax-bg');
             if (existingBg) existingBg.remove();
             
-            // パララックス背景要素を作成
+            // 完全固定背景要素を作成
             const parallaxBg = document.createElement('div');
             parallaxBg.id = 'mobile-parallax-bg';
             parallaxBg.style.cssText = `
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 120%;
+                position: fixed !important;
+                top: 0 !important;
+                left: 0 !important;
+                width: 100vw !important;
+                height: 100vh !important;
                 background: 
                     radial-gradient(ellipse at 20% 20%, rgba(99, 187, 208, 0.4) 0%, transparent 30%),
                     radial-gradient(ellipse at 80% 80%, rgba(127, 179, 213, 0.35) 0%, transparent 30%),
@@ -226,12 +226,13 @@ document.addEventListener('DOMContentLoaded', function() {
                         rgba(173, 216, 230, 0.08) 40px
                     );
                 background-size: 120% 120%, 120% 120%, 150% 150%, 60px 60px;
-                background-attachment: scroll;
-                z-index: -1;
+                background-attachment: fixed !important;
+                background-repeat: no-repeat;
+                background-position: center center;
+                z-index: -10 !important;
                 pointer-events: none;
-                will-change: transform;
-                -webkit-transform: translateZ(0);
-                transform: translateZ(0);
+                transform: none !important;
+                -webkit-transform: none !important;
             `;
             
             // body の最初に挿入
@@ -261,9 +262,11 @@ document.addEventListener('DOMContentLoaded', function() {
                             radial-gradient(circle at 30% 70%, rgba(173, 216, 230, 0.2) 0%, transparent 50%),
                             radial-gradient(circle at 70% 30%, rgba(135, 206, 235, 0.15) 0%, transparent 50%);
                         background-size: 80% 80%, 60% 60%;
+                        background-attachment: local;
+                        background-position: center center;
                         pointer-events: none;
                         z-index: 1;
-                        will-change: transform;
+                        transform: none !important;
                     `;
                     
                     // セクションの最初に挿入
@@ -272,38 +275,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             });
             
-            // パララックス効果の実装
-            let ticking = false;
-            
-            function updateParallax() {
-                if (!ticking) {
-                    requestAnimationFrame(() => {
-                        const scrollY = window.scrollY;
-                        
-                        // メイン背景のパララックス
-                        if (parallaxBg) {
-                            parallaxBg.style.transform = `translateY(${scrollY * -0.2}px)`;
-                        }
-                        
-                        // セクション背景のパララックス
-                        sections.forEach(section => {
-                            const element = document.getElementById(section.id);
-                            if (element) {
-                                element.style.transform = `translateY(${scrollY * -section.speed}px)`;
-                            }
-                        });
-                        
-                        ticking = false;
-                    });
-                    ticking = true;
-                }
-            }
-            
-            // スクロールイベント登録
-            window.addEventListener('scroll', updateParallax, { passive: true });
-            
-            // 初期位置設定
-            updateParallax();
+            // 完全固定背景（パララックス効果なし）
+            console.log('🔒 スマホ用完全固定背景設定');
             
             console.log('🎨 iPhone用パララックス背景作成完了');
             console.log('✅ 背景要素:', document.getElementById('mobile-parallax-bg') ? '作成成功' : '作成失敗');
