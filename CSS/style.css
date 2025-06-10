@@ -36,7 +36,7 @@ body {
     position: relative;
 }
 
-/* Stylish fixed parallax background */
+/* Stylish parallax background with smooth animation */
 body::before {
     content: '';
     position: fixed;
@@ -74,8 +74,12 @@ body::before {
             rgba(135, 206, 235, 0.03) 50px
         );
     background-size: 150% 150%, 150% 150%, 200% 200%, 120% 120%, 300px 300px, 100px 100px, 120px 120px;
+    background-attachment: fixed;
     z-index: -1;
     pointer-events: none;
+    will-change: transform;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
 }
 
 /* --- Utility Classes --- */
@@ -932,30 +936,105 @@ body::before {
         display: none !important;
     }
     
-    /* iPhone用背景 - 確実に表示される最強スタイル */
+    /* iPhone用背景 - パソコンと同じ華やかなパターン */
     html body {
-        background-color: #e3f2fd !important;
-        background-image: 
-            linear-gradient(45deg, rgba(173, 216, 230, 0.6) 25%, transparent 25%),
-            linear-gradient(-45deg, rgba(127, 179, 213, 0.5) 25%, transparent 25%),
-            linear-gradient(45deg, transparent 75%, rgba(99, 187, 208, 0.55) 75%),
-            linear-gradient(-45deg, transparent 75%, rgba(135, 206, 235, 0.45) 75%) !important;
-        background-size: 30px 30px !important;
-        background-position: 0 0, 0 15px, 15px -15px, -15px 0px !important;
+        background-color: var(--white-color) !important;
         min-height: 100vh !important;
     }
     
-    /* iPhone用セクション背景 - シンプルで確実 */
+    /* iPhone用の美しい背景パターン - パソコンと同じ */
+    html body::after {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: 
+            /* 華やかなグラデーション */
+            radial-gradient(ellipse at 20% 20%, rgba(99, 187, 208, 0.3) 0%, transparent 25%),
+            radial-gradient(ellipse at 80% 80%, rgba(127, 179, 213, 0.25) 0%, transparent 25%),
+            radial-gradient(circle at 60% 40%, rgba(173, 216, 230, 0.2) 0%, transparent 30%),
+            radial-gradient(ellipse at 40% 80%, rgba(135, 206, 235, 0.18) 0%, transparent 35%),
+            /* モバイル用軽量パターン */
+            repeating-linear-gradient(
+                30deg,
+                transparent,
+                transparent 25px,
+                rgba(173, 216, 230, 0.03) 25px,
+                rgba(173, 216, 230, 0.03) 50px
+            ),
+            repeating-linear-gradient(
+                -30deg,
+                transparent,
+                transparent 30px,
+                rgba(135, 206, 235, 0.025) 30px,
+                rgba(135, 206, 235, 0.025) 60px
+            );
+        background-size: 120% 120%, 120% 120%, 150% 150%, 100% 100%, 80px 80px, 100px 100px;
+        background-attachment: scroll;
+        z-index: -1;
+        pointer-events: none;
+        will-change: transform;
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0);
+    }
+    
+    /* iPhone用セクション背景 - パソコンと同じ美しいグラデーション */
     .hero {
-        background-color: rgba(173, 216, 230, 0.3) !important;
+        background: linear-gradient(135deg, 
+            rgba(58, 90, 120, 0.08) 0%, 
+            rgba(93, 138, 168, 0.08) 25%, 
+            rgba(127, 179, 213, 0.12) 50%, 
+            rgba(255, 255, 255, 0.7) 75%, 
+            rgba(248, 249, 250, 0.8) 100%
+        ) !important;
+        background-attachment: scroll;
+        position: relative;
+    }
+    
+    /* iPhone用Hero背景オーバーレイ */
+    .hero::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: 
+            radial-gradient(ellipse at 15% 85%, rgba(99, 187, 208, 0.3) 0%, transparent 30%),
+            radial-gradient(ellipse at 85% 15%, rgba(127, 179, 213, 0.25) 0%, transparent 30%),
+            radial-gradient(circle at 50% 50%, rgba(173, 216, 230, 0.2) 0%, transparent 40%);
+        background-size: 100% 100%, 100% 100%, 120% 120%;
+        background-attachment: scroll;
+        pointer-events: none;
+        z-index: 1;
+    }
+    
+    .hero .hero-content {
+        position: relative;
+        z-index: 2;
     }
     
     .clinic-features {
-        background-color: rgba(127, 179, 213, 0.25) !important;
+        position: relative;
     }
     
-    .news-digest {
-        background-color: rgba(135, 206, 235, 0.28) !important;
+    .clinic-features::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: 
+            radial-gradient(ellipse at 50% 0%, rgba(173, 216, 230, 0.12) 0%, transparent 60%),
+            radial-gradient(ellipse at 0% 50%, rgba(135, 206, 235, 0.08) 0%, transparent 60%),
+            radial-gradient(ellipse at 100% 50%, rgba(176, 224, 230, 0.06) 0%, transparent 60%);
+        background-size: 100% 80%, 80% 100%, 80% 100%;
+        background-attachment: scroll;
+        pointer-events: none;
+        z-index: 1;
     }
 
     /* iPhone用backdrop-filter無効化 - パフォーマンス最適化 */
