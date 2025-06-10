@@ -932,41 +932,30 @@ body::before {
         display: none !important;
     }
     
-    /* iPhone用背景 - シンプルなグラデーションのみ */
-    body {
-        background: linear-gradient(135deg, 
-            rgba(173, 216, 230, 0.3) 0%, 
-            rgba(127, 179, 213, 0.2) 25%,
-            rgba(99, 187, 208, 0.25) 50%,
-            rgba(135, 206, 235, 0.15) 75%,
-            rgba(240, 248, 255, 0.8) 100%
-        ) !important;
-        min-height: 100vh;
+    /* iPhone用背景 - 確実に表示される最強スタイル */
+    html body {
+        background-color: #e3f2fd !important;
+        background-image: 
+            linear-gradient(45deg, rgba(173, 216, 230, 0.6) 25%, transparent 25%),
+            linear-gradient(-45deg, rgba(127, 179, 213, 0.5) 25%, transparent 25%),
+            linear-gradient(45deg, transparent 75%, rgba(99, 187, 208, 0.55) 75%),
+            linear-gradient(-45deg, transparent 75%, rgba(135, 206, 235, 0.45) 75%) !important;
+        background-size: 30px 30px !important;
+        background-position: 0 0, 0 15px, 15px -15px, -15px 0px !important;
+        min-height: 100vh !important;
     }
     
-    /* iPhone用セクション背景 - 繋ゎ目のない美しいグラデーション */
+    /* iPhone用セクション背景 - シンプルで確実 */
     .hero {
-        background: linear-gradient(to bottom, 
-            rgba(99, 187, 208, 0.1) 0%,
-            rgba(127, 179, 213, 0.08) 50%,
-            rgba(173, 216, 230, 0.12) 100%
-        ) !important;
+        background-color: rgba(173, 216, 230, 0.3) !important;
     }
     
     .clinic-features {
-        background: linear-gradient(to bottom, 
-            rgba(135, 206, 235, 0.08) 0%,
-            rgba(173, 216, 230, 0.1) 50%,
-            rgba(127, 179, 213, 0.06) 100%
-        ) !important;
+        background-color: rgba(127, 179, 213, 0.25) !important;
     }
     
     .news-digest {
-        background: linear-gradient(to bottom, 
-            rgba(176, 224, 230, 0.1) 0%,
-            rgba(99, 187, 208, 0.08) 50%,
-            rgba(135, 206, 235, 0.12) 100%
-        ) !important;
+        background-color: rgba(135, 206, 235, 0.28) !important;
     }
 
     /* iPhone用backdrop-filter無効化 - パフォーマンス最適化 */

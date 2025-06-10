@@ -197,52 +197,56 @@ document.addEventListener('DOMContentLoaded', function() {
         document.body.style.webkitTransform = 'translateZ(0)';
         document.body.style.webkitBackfaceVisibility = 'hidden';
         
-        // iPhone用の美しいグラデーション背景を強制適用
+        // iPhone用チェック柄背景を超強力に適用
         setTimeout(() => {
-            const updatedStyle = window.getComputedStyle(body);
-            console.log('🔍 現在の背景:', updatedStyle.background);
+            console.log('🔍 強制背景適用開始...');
             
-            // シンプルで美しいグラデーション背景を強制適用
-            body.style.background = `
-                linear-gradient(135deg, 
-                    rgba(173, 216, 230, 0.4) 0%, 
-                    rgba(127, 179, 213, 0.3) 25%,
-                    rgba(99, 187, 208, 0.35) 50%,
-                    rgba(135, 206, 235, 0.25) 75%,
-                    rgba(240, 248, 255, 0.9) 100%
-                )
-            `;
-            body.style.minHeight = '100vh';
+            // 最強の背景適用 - 絶対に表示される
+            body.style.setProperty('background-color', '#e3f2fd', 'important');
+            body.style.setProperty('background-image', `
+                linear-gradient(45deg, rgba(173, 216, 230, 0.7) 25%, transparent 25%),
+                linear-gradient(-45deg, rgba(127, 179, 213, 0.6) 25%, transparent 25%),
+                linear-gradient(45deg, transparent 75%, rgba(99, 187, 208, 0.65) 75%),
+                linear-gradient(-45deg, transparent 75%, rgba(135, 206, 235, 0.55) 75%)
+            `, 'important');
+            body.style.setProperty('background-size', '25px 25px', 'important');
+            body.style.setProperty('background-position', '0 0, 0 12px, 12px -12px, -12px 0px', 'important');
+            body.style.setProperty('min-height', '100vh', 'important');
             
-            // セクションにも美しい背景を追加
+            // セクションにも強制適用
             const hero = document.querySelector('.hero');
             const features = document.querySelector('.clinic-features');
             const newsDigest = document.querySelector('.news-digest');
             
             if (hero) {
-                hero.style.background = 'linear-gradient(to bottom, rgba(99, 187, 208, 0.15) 0%, rgba(127, 179, 213, 0.12) 50%, rgba(173, 216, 230, 0.18) 100%)';
+                hero.style.setProperty('background-color', 'rgba(173, 216, 230, 0.4)', 'important');
             }
             
             if (features) {
-                features.style.background = 'linear-gradient(to bottom, rgba(135, 206, 235, 0.12) 0%, rgba(173, 216, 230, 0.15) 50%, rgba(127, 179, 213, 0.1) 100%)';
+                features.style.setProperty('background-color', 'rgba(127, 179, 213, 0.35)', 'important');
             }
             
             if (newsDigest) {
-                newsDigest.style.background = 'linear-gradient(to bottom, rgba(176, 224, 230, 0.15) 0%, rgba(99, 187, 208, 0.12) 50%, rgba(135, 206, 235, 0.18) 100%)';
+                newsDigest.style.setProperty('background-color', 'rgba(135, 206, 235, 0.38)', 'important');
             }
             
-            console.log('🎨 iPhone美しい背景適用完了');
+            console.log('🎨 iPhone強力背景適用完了');
             
             // 確認
             setTimeout(() => {
                 const finalStyle = window.getComputedStyle(body);
-                if (finalStyle.background.includes('linear-gradient') || finalStyle.backgroundImage.includes('linear-gradient')) {
-                    console.log('✅ iPhone美しい背景表示成功！');
+                console.log('🔍 最終背景確認:', finalStyle.backgroundImage);
+                
+                if (finalStyle.backgroundImage !== 'none' && finalStyle.backgroundImage !== '') {
+                    console.log('✅ iPhone背景パターン表示成功！');
                 } else {
-                    console.log('❌ 背景表示失敗');
+                    console.log('❌ 背景表示失敗 - 再試行');
+                    // 最後の手段
+                    body.style.backgroundColor = '#bbdefb';
+                    body.style.backgroundImage = 'repeating-linear-gradient(45deg, rgba(173, 216, 230, 0.5) 0px, rgba(173, 216, 230, 0.5) 10px, transparent 10px, transparent 20px)';
                 }
-            }, 300);
-        }, 300);
+            }, 500);
+        }, 200);
         
         console.log('✅ iPhone最適化適用完了');
     } else {
