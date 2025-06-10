@@ -29,6 +29,11 @@
 html {
     scroll-behavior: smooth;
     font-size: 16px; /* Base font size */
+    /* iPhone 16 Pro Max Safe Area対応 */
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
 }
 
 body {
@@ -39,6 +44,9 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     position: relative;
+    /* iPhone 16 Pro Max最適化 */
+    min-height: 100vh;
+    min-height: -webkit-fill-available;
 }
 
 /* Stylish parallax background with smooth animation */

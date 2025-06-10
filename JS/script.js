@@ -243,17 +243,65 @@ document.addEventListener('DOMContentLoaded', function() {
             display: block !important;
         `;
         
-        // Step 4: 高品質Canvas背景描画システム
+        // Step 4: iPhone 16 Pro Max専用Canvas背景システム
         function initializeCanvasSystem() {
-            // Canvas のサイズを設定（高DPI対応）
-            const devicePixelRatio = window.devicePixelRatio || 1;
-            const canvasWidth = window.innerWidth * devicePixelRatio;
-            const canvasHeight = window.innerHeight * devicePixelRatio;
+            // iPhone 16 Pro Max検出
+            const isIPhone16ProMax = (window.screen.width === 430 && window.screen.height === 932) ||
+                                   (window.screen.width === 932 && window.screen.height === 430);
+            
+            console.log('📱 Device detected:', {
+                width: window.screen.width,
+                height: window.screen.height,
+                innerWidth: window.innerWidth,
+                innerHeight: window.innerHeight,
+                isIPhone16ProMax: isIPhone16ProMax
+            });
+            
+            // Dynamic Island + Safe Area対応
+            const safeAreaTop = parseInt(getComputedStyle(document.documentElement).getPropertyValue('env(safe-area-inset-top)') || '0');
+            const safeAreaBottom = parseInt(getComputedStyle(document.documentElement).getPropertyValue('env(safe-area-inset-bottom)') || '0');
+            
+            // iPhone 16 Pro Max専用の高解像度対応
+            const devicePixelRatio = isIPhone16ProMax ? 3 : (window.devicePixelRatio || 1);
+            
+            // 実際の表示領域を取得（Dynamic Island考慮）
+            const actualWidth = window.innerWidth;
+            const actualHeight = window.innerHeight;
+            
+            console.log('🎯 Canvas sizing:', {
+                devicePixelRatio: devicePixelRatio,
+                actualWidth: actualWidth,
+                actualHeight: actualHeight,
+                safeAreaTop: safeAreaTop,
+                safeAreaBottom: safeAreaBottom
+            });
+            
+            // Canvas サイズ設定（iPhone 16 Pro Max最適化）
+            const canvasWidth = actualWidth * devicePixelRatio;
+            const canvasHeight = actualHeight * devicePixelRatio;
             
             canvasBackground.width = canvasWidth;
             canvasBackground.height = canvasHeight;
-            canvasBackground.style.width = window.innerWidth + 'px';
-            canvasBackground.style.height = window.innerHeight + 'px';
+            canvasBackground.style.width = actualWidth + 'px';
+            canvasBackground.style.height = actualHeight + 'px';
+            
+            // iPhone 16 Pro Max専用position調整
+            if (isIPhone16ProMax) {
+                canvasBackground.style.cssText = `
+                    position: fixed !important;
+                    top: 0 !important;
+                    left: 0 !important;
+                    width: ${actualWidth}px !important;
+                    height: ${actualHeight}px !important;
+                    z-index: -1000 !important;
+                    pointer-events: none !important;
+                    display: block !important;
+                    transform: translateZ(0) !important;
+                    -webkit-transform: translateZ(0) !important;
+                    backface-visibility: hidden !important;
+                    -webkit-backface-visibility: hidden !important;
+                `;
+            }
             
             // Canvas コンテキスト取得
             const ctx = canvasBackground.getContext('2d');
@@ -343,22 +391,69 @@ document.addEventListener('DOMContentLoaded', function() {
         document.body.insertBefore(canvasBackground, document.body.firstChild);
         drawCanvasBackground(ctx);
         
-        // Step 6: Resize対応（Canvas再描画）
+        // Step 6: iPhone 16 Pro Max専用監視システム
         let resizeTimeout;
+        let scrollMonitorActive = false;
+        
         function handleCanvasResize() {
             clearTimeout(resizeTimeout);
             resizeTimeout = setTimeout(() => {
+                console.log('📱 Resize detected - reinitializing Canvas for iPhone');
+                
                 // Canvas システム再初期化
                 const resizedCtx = initializeCanvasSystem();
                 
                 // 背景再描画
                 drawCanvasBackground(resizedCtx);
-                console.log('🔄 Canvas background resized and redrawn');
+                console.log('🔄 Canvas background resized and redrawn for iPhone 16 Pro Max');
             }, 100);
         }
         
+        // iPhone 16 Pro Max専用スクロール監視（デバッグ用）
+        function iPhoneCanvasDebugMonitor() {
+            if (!scrollMonitorActive) {
+                scrollMonitorActive = true;
+                
+                requestAnimationFrame(() => {
+                    const canvasElement = document.getElementById('canvas-ultimate-background');
+                    if (canvasElement) {
+                        const rect = canvasElement.getBoundingClientRect();
+                        const computedStyle = window.getComputedStyle(canvasElement);
+                        
+                        console.log('📊 iPhone Canvas Status:', {
+                            position: computedStyle.position,
+                            top: computedStyle.top,
+                            left: computedStyle.left,
+                            width: computedStyle.width,
+                            height: computedStyle.height,
+                            rectTop: rect.top,
+                            rectLeft: rect.left,
+                            scrollY: window.scrollY,
+                            timestamp: Date.now()
+                        });
+                        
+                        // Canvas位置が動いている場合の緊急修正
+                        if (rect.top !== 0 || rect.left !== 0) {
+                            console.log('🚨 iPhone Canvas position drift detected - EMERGENCY FIX');
+                            canvasElement.style.position = 'fixed';
+                            canvasElement.style.top = '0px';
+                            canvasElement.style.left = '0px';
+                            canvasElement.style.transform = 'translateZ(0)';
+                            canvasElement.style.webkitTransform = 'translateZ(0)';
+                        }
+                    }
+                    
+                    scrollMonitorActive = false;
+                });
+            }
+        }
+        
+        // イベントリスナー追加
         window.addEventListener('resize', handleCanvasResize);
         window.addEventListener('orientationchange', handleCanvasResize);
+        window.addEventListener('scroll', iPhoneCanvasDebugMonitor, { passive: true });
+        window.addEventListener('touchstart', iPhoneCanvasDebugMonitor, { passive: true });
+        window.addEventListener('touchmove', iPhoneCanvasDebugMonitor, { passive: true });
         
         console.log('✅ Ultra Think Phase 5: Canvas背景システム構築完了');
         console.log('🎯 Canvas背景は完全に固定されています（CSS制約完全回避）');
