@@ -837,6 +837,16 @@ body::before {
 
     .section-padding { padding: 60px 0; }
     .section-title { font-size: 1.8rem; margin-bottom: 40px; }
+    
+    /* Enhanced mobile background visibility */
+    body {
+        background: 
+            radial-gradient(circle at 30% 20%, rgba(127, 179, 213, 0.3) 0%, transparent 40%),
+            radial-gradient(circle at 70% 80%, rgba(58, 90, 120, 0.25) 0%, transparent 40%),
+            linear-gradient(45deg, rgba(93, 138, 168, 0.1) 0%, transparent 50%);
+        background-attachment: scroll;
+        background-size: 100% 100%;
+    }
 
     /* ハンバーガーボタンを表示 */
     .nav-toggle {
@@ -935,12 +945,29 @@ body::before {
         background-attachment: scroll;
     }
     
-    /* Disable fixed backgrounds on mobile for performance */
-    body::before,
-    .hero::before,
-    .clinic-features::before {
-        background-attachment: scroll;
+    /* Mobile parallax alternatives - use transform instead of fixed positioning */
+    body::before {
         position: absolute;
+        background-attachment: scroll;
+        /* Make the background larger to create parallax-like effect */
+        height: 150vh;
+        background-size: 100% 100%, 100% 100%, 100% 100%, 30px 30px, 30px 30px;
+    }
+    
+    .hero::before {
+        position: absolute;
+        background-attachment: scroll;
+        height: 120vh;
+        background-size: 100% 100%, 100% 100%, 100% 100%, 20px 20px, 20px 20px;
+        /* Disable animation on mobile for performance */
+        animation: none;
+    }
+    
+    .clinic-features::before {
+        position: absolute;
+        background-attachment: scroll;
+        height: 120vh;
+        background-size: 100% 40%, 40% 100%, 40% 100%, 30px 30px, 30px 30px;
     }
     .hero-title { font-size: 2.2rem; }
     .hero-subtitle { font-size: 1rem; }
