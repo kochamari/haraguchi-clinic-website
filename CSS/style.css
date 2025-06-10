@@ -36,7 +36,7 @@ body {
     position: relative;
 }
 
-/* Lightweight fixed parallax background */
+/* Rich fixed parallax background */
 body::before {
     content: '';
     position: fixed;
@@ -45,13 +45,26 @@ body::before {
     right: 0;
     bottom: 0;
     background: 
-        /* シンプルなグラデーション */
-        radial-gradient(circle at 25% 25%, rgba(127, 179, 213, 0.25) 0%, transparent 30%),
-        radial-gradient(circle at 75% 75%, rgba(58, 90, 120, 0.2) 0%, transparent 30%),
-        /* 軽量パターン */
-        linear-gradient(45deg, rgba(127, 179, 213, 0.02) 25%, transparent 25%),
-        linear-gradient(-45deg, rgba(93, 138, 168, 0.02) 25%, transparent 25%);
-    background-size: 100% 100%, 100% 100%, 40px 40px, 40px 40px;
+        /* 印象的な円形グラデーション */
+        radial-gradient(circle at 25% 25%, rgba(127, 179, 213, 0.4) 0%, transparent 25%),
+        radial-gradient(circle at 75% 75%, rgba(58, 90, 120, 0.3) 0%, transparent 25%),
+        radial-gradient(circle at 50% 50%, rgba(93, 138, 168, 0.2) 0%, transparent 40%),
+        /* 幾何学的パターン（軽量版） */
+        repeating-linear-gradient(
+            45deg,
+            transparent,
+            transparent 12px,
+            rgba(127, 179, 213, 0.04) 12px,
+            rgba(127, 179, 213, 0.04) 24px
+        ),
+        repeating-linear-gradient(
+            -45deg,
+            transparent,
+            transparent 12px,
+            rgba(93, 138, 168, 0.04) 12px,
+            rgba(93, 138, 168, 0.04) 24px
+        );
+    background-size: 100% 100%, 100% 100%, 100% 100%, 60px 60px, 60px 60px;
     z-index: -1;
     pointer-events: none;
 }
@@ -262,10 +275,15 @@ body::before {
     right: 0;
     bottom: 0;
     background: 
-        /* シンプルなグラデーション */
-        radial-gradient(circle at 20% 80%, rgba(127, 179, 213, 0.3) 0%, transparent 40%),
-        radial-gradient(circle at 80% 20%, rgba(93, 138, 168, 0.25) 0%, transparent 40%);
-    background-size: 100% 100%, 100% 100%;
+        /* 大きな円形パターン */
+        radial-gradient(circle at 20% 80%, rgba(127, 179, 213, 0.45) 0%, transparent 30%),
+        radial-gradient(circle at 80% 20%, rgba(93, 138, 168, 0.35) 0%, transparent 30%),
+        radial-gradient(circle at 40% 40%, rgba(58, 90, 120, 0.25) 0%, transparent 40%),
+        /* ドットパターン（軽量版） */
+        radial-gradient(circle at 0% 0%, rgba(127, 179, 213, 0.1) 0%, transparent 3%),
+        radial-gradient(circle at 100% 100%, rgba(93, 138, 168, 0.1) 0%, transparent 3%);
+    background-size: 100% 100%, 100% 100%, 100% 100%, 40px 40px, 40px 40px;
+    background-position: 0 0, 0 0, 0 0, 0 0, 20px 20px;
     pointer-events: none;
     z-index: -1;
 }
@@ -456,10 +474,14 @@ body::before {
     right: 0;
     bottom: 0;
     background: 
-        /* シンプルなグラデーション */
-        radial-gradient(ellipse at 50% 0%, rgba(127, 179, 213, 0.2) 0%, transparent 50%),
-        radial-gradient(ellipse at 0% 50%, rgba(93, 138, 168, 0.15) 0%, transparent 50%);
-    background-size: 100% 100%, 100% 100%;
+        /* 波形パターン */
+        radial-gradient(ellipse at 50% 0%, rgba(127, 179, 213, 0.25) 0%, transparent 40%),
+        radial-gradient(ellipse at 0% 50%, rgba(93, 138, 168, 0.2) 0%, transparent 40%),
+        radial-gradient(ellipse at 100% 50%, rgba(58, 90, 120, 0.15) 0%, transparent 40%),
+        /* グリッドパターン（軽量版） */
+        linear-gradient(rgba(127, 179, 213, 0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(127, 179, 213, 0.02) 1px, transparent 1px);
+    background-size: 100% 50%, 50% 100%, 50% 100%, 60px 60px, 60px 60px;
     z-index: -1;
     pointer-events: none;
 }
