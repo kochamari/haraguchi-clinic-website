@@ -197,17 +197,33 @@ document.addEventListener('DOMContentLoaded', function() {
         document.body.style.webkitTransform = 'translateZ(0)';
         document.body.style.webkitBackfaceVisibility = 'hidden';
         
-        // 背景が適用されているかチェック
+        // 背景が適用されているかチェック & 強制適用
         setTimeout(() => {
             const updatedStyle = window.getComputedStyle(body);
-            if (updatedStyle.backgroundImage !== 'none') {
-                console.log('✅ iPhone背景適用成功');
-            } else {
-                console.log('❌ iPhone背景適用失敗 - フォールバック適用');
-                // フォールバック背景
-                body.style.background = 'radial-gradient(circle at 30% 20%, rgba(173, 216, 230, 0.4) 0%, transparent 70%), linear-gradient(135deg, rgba(240, 248, 255, 0.9) 0%, rgba(230, 245, 255, 0.7) 100%)';
-            }
-        }, 1000);
+            console.log('🔍 背景チェック:', updatedStyle.backgroundImage);
+            
+            // 強制的にシンプルな背景を適用
+            body.style.backgroundColor = '#f0f8ff';
+            body.style.backgroundImage = `
+                radial-gradient(circle, rgba(173, 216, 230, 0.6) 3px, transparent 3px),
+                radial-gradient(circle, rgba(127, 179, 213, 0.5) 2px, transparent 2px)
+            `;
+            body.style.backgroundSize = '60px 60px, 40px 40px';
+            body.style.backgroundPosition = '0 0, 30px 30px';
+            body.style.backgroundRepeat = 'repeat';
+            
+            console.log('🎨 強制背景適用完了');
+            
+            // 確認
+            setTimeout(() => {
+                const finalStyle = window.getComputedStyle(body);
+                if (finalStyle.backgroundImage.includes('radial-gradient')) {
+                    console.log('✅ iPhone背景表示成功！');
+                } else {
+                    console.log('❌ 背景表示失敗');
+                }
+            }, 500);
+        }, 500);
         
         console.log('✅ iPhone最適化適用完了');
     } else {
