@@ -182,11 +182,30 @@ document.addEventListener('DOMContentLoaded', function() {
     const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || 
                   (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
     const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+    const isChrome = /Chrome/.test(navigator.userAgent) && /Google Inc/.test(navigator.vendor);
+    const isMobileChrome = isChrome && /Mobile/.test(navigator.userAgent);
     const isMobile = window.innerWidth <= 768;
     
     if (isIOS || isMobile) {
         console.log('📱 Mobile device detected');
-        console.log('🌐 Browser:', isSafari ? 'Safari' : 'Other');
+        console.log('🌐 Browser:', isSafari ? 'Safari' : (isMobileChrome ? 'Mobile Chrome' : 'Other'));
+        
+        // Chrome特有の問題に対応
+        if (isMobileChrome) {
+            console.log('🔧 Applying Chrome-specific optimizations');
+            // Chrome用のシンプルな背景フォールバック
+            document.body.style.background = `
+                radial-gradient(ellipse at 20% 20%, rgba(99, 187, 208, 0.5) 0%, transparent 40%),
+                radial-gradient(ellipse at 80% 80%, rgba(127, 179, 213, 0.45) 0%, transparent 40%),
+                radial-gradient(circle at 50% 50%, rgba(173, 216, 230, 0.4) 0%, transparent 50%),
+                linear-gradient(135deg, 
+                    rgba(240, 248, 255, 0.9) 0%, 
+                    rgba(220, 240, 255, 0.6) 50%,
+                    rgba(240, 248, 255, 0.9) 100%
+                )
+            `;
+            document.body.style.backgroundSize = '120% 120%, 120% 120%, 150% 150%, 100% 100%';
+        }
         
         // iOS用の追加最適化
         document.body.style.webkitTransform = 'translateZ(0)';
@@ -199,32 +218,14 @@ document.addEventListener('DOMContentLoaded', function() {
             existingBg.remove();
         }
         
-        // シンプルなパララックス効果をbody背景に適用
-        console.log('🎨 Applying simple parallax effect to CSS background');
+        // 背景を完全固定（パララックス効果無効化）
+        console.log('🔒 Setting completely fixed background - no parallax');
         
-        let ticking = false;
+        // 背景位置を中央固定
+        document.body.style.backgroundPosition = 'center center';
+        document.body.style.backgroundAttachment = 'scroll'; // iOS対応
         
-        function updateParallax() {
-            const scrolled = window.pageYOffset;
-            const parallaxSpeed = 0.5; // パララックスの強度（0.5 = 半分の速度）
-            
-            // body要素の背景位置を調整
-            document.body.style.backgroundPosition = `center ${scrolled * parallaxSpeed}px`;
-            
-            ticking = false;
-        }
-        
-        // スクロール時のパララックス効果
-        function handleScroll() {
-            if (!ticking) {
-                requestAnimationFrame(updateParallax);
-                ticking = true;
-            }
-        }
-        
-        window.addEventListener('scroll', handleScroll, { passive: true });
-        
-        console.log('✅ Simple parallax effect applied');
+        console.log('✅ Background completely fixed');
         
         console.log('✅ Mobile optimization complete');
     } else {
