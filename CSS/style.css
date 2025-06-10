@@ -1048,24 +1048,49 @@ body::before {
 }
 
 @media (max-width: 768px) {
-    html { font-size: 15px; }
+    html { 
+        font-size: 15px;
+        /* iPhone Safari Ultra 最適化 */
+        -webkit-text-size-adjust: 100%;
+        -webkit-tap-highlight-color: transparent;
+    }
 
     .section-padding { padding: 60px 0; }
     .section-title { font-size: 1.8rem; margin-bottom: 40px; }
     
-    /* iPhone対応 - セクション擬似要素のみ無効化 */
+    /* iPhone Safari - 全ての擬似要素背景を完全無効化 */
+    body::before,
+    body::after,
     .hero::before,
     .hero::after,
     .clinic-features::before,
     .clinic-features::after {
         display: none !important;
+        content: none !important;
+        background: none !important;
     }
     
-    /* iPhone用 - CSS背景を無効化（JavaScriptで固定背景を作成） */
-    html body {
-        background: none !important;
+    /* iPhone Safari専用 - 完全クリーン設定 */
+    html, body {
+        background: transparent !important;
+        background-image: none !important;
+        background-attachment: scroll !important;
         min-height: 100vh !important;
         position: relative;
+        
+        /* iPhone Safari安定化 */
+        -webkit-overflow-scrolling: touch;
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0);
+        backface-visibility: hidden;
+        -webkit-backface-visibility: hidden;
+    }
+    
+    /* iPhone Safari専用 - スクロール最適化 */
+    * {
+        -webkit-overflow-scrolling: touch;
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0);
     }
     
     /* iPhone用セクション背景 - 透明化 */
