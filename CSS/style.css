@@ -838,14 +838,42 @@ body::before {
     .section-padding { padding: 60px 0; }
     .section-title { font-size: 1.8rem; margin-bottom: 40px; }
     
-    /* Enhanced mobile background visibility */
+    /* Enhanced mobile background for parallax */
     body {
         background: 
-            radial-gradient(circle at 30% 20%, rgba(127, 179, 213, 0.3) 0%, transparent 40%),
-            radial-gradient(circle at 70% 80%, rgba(58, 90, 120, 0.25) 0%, transparent 40%),
-            linear-gradient(45deg, rgba(93, 138, 168, 0.1) 0%, transparent 50%);
+            /* 大きな円形グラデーション */
+            radial-gradient(circle at 30% 20%, rgba(127, 179, 213, 0.4) 0%, transparent 30%),
+            radial-gradient(circle at 70% 80%, rgba(58, 90, 120, 0.3) 0%, transparent 30%),
+            radial-gradient(circle at 50% 50%, rgba(93, 138, 168, 0.25) 0%, transparent 40%),
+            /* 幾何学パターン */
+            repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 8px,
+                rgba(127, 179, 213, 0.05) 8px,
+                rgba(127, 179, 213, 0.05) 16px
+            ),
+            repeating-linear-gradient(
+                -45deg,
+                transparent,
+                transparent 8px,
+                rgba(93, 138, 168, 0.05) 8px,
+                rgba(93, 138, 168, 0.05) 16px
+            );
         background-attachment: scroll;
-        background-size: 100% 100%;
+        background-size: 120% 120%, 120% 120%, 120% 120%, 40px 40px, 40px 40px;
+        /* JavaScriptで制御されるためwill-changeを追加 */
+        will-change: transform;
+    }
+    
+    .hero {
+        background-size: 120% 120%, 120% 120%, 120% 120%, 25px 25px, 25px 25px;
+        will-change: background-position;
+    }
+    
+    .clinic-features {
+        background-size: 120% 60%, 60% 120%, 60% 120%, 40px 40px, 40px 40px;
+        will-change: background-position;
     }
 
     /* ハンバーガーボタンを表示 */

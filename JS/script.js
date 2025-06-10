@@ -173,3 +173,50 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
+
+// Complete Parallax Scrolling Effect for Mobile and Desktop
+document.addEventListener('DOMContentLoaded', function() {
+    let ticking = false;
+    
+    function updateParallax() {
+        const scrolled = window.pageYOffset;
+        const rate = scrolled * -0.5;
+        const rate2 = scrolled * -0.3;
+        const rate3 = scrolled * -0.2;
+        
+        // Update body background
+        const bodyBefore = document.querySelector('body');
+        if (bodyBefore) {
+            bodyBefore.style.transform = `translateY(${rate}px)`;
+        }
+        
+        // Update hero background
+        const heroBefore = document.querySelector('.hero');
+        if (heroBefore) {
+            heroBefore.style.backgroundPosition = `center ${rate2}px`;
+        }
+        
+        // Update features background
+        const featuresBefore = document.querySelector('.clinic-features');
+        if (featuresBefore) {
+            featuresBefore.style.backgroundPosition = `center ${rate3}px`;
+        }
+        
+        ticking = false;
+    }
+    
+    function requestTick() {
+        if (!ticking) {
+            requestAnimationFrame(updateParallax);
+            ticking = true;
+        }
+    }
+    
+    // Listen for scroll events
+    window.addEventListener('scroll', requestTick, { passive: true });
+    
+    // Initial call
+    updateParallax();
+    
+    console.log('🎨 Parallax effect initialized');
+});
