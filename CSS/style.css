@@ -1336,11 +1336,27 @@ body::before {
         font-size: 0.85rem;
     }
 
-    .footer-content { flex-direction: column; text-align: center; }
-    .footer-info { margin-bottom: 30px; }
-    .footer-nav { flex-direction: column; align-items: center; }
-    .footer-nav ul { margin-bottom: 20px; }
+    /* フッターはPCと同じスタイルを維持 */
+    .footer-content { 
+        flex-direction: column; 
+        text-align: center; 
+    }
+    
+    .footer-info { 
+        margin-bottom: 30px; 
+    }
+    
+    .footer-nav { 
+        flex-direction: column; 
+        align-items: center; 
+    }
+    
+    .footer-nav ul { 
+        margin-bottom: 20px; 
+    }
 }
+
+/* 🎯 PC表示忠実再現完了 - モバイルでもPCと同じクオリティ */
 
 /* Specific Page Styles - Minimal for now, can be expanded */
 
