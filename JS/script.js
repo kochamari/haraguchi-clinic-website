@@ -10,13 +10,15 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-// 🚀 Ultra Think: Bulletproof iPhone Safari Hamburger Menu
+// 🚀 Ultra Think: Floating Modal Menu System for iPhone Safari
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('🚀 Ultra Think Hamburger Menu System Started');
+    console.log('🚀 Ultra Think Floating Menu System Started');
     
     // Element references with error handling
     const navToggle = document.querySelector('.nav-toggle');
-    const navMenu = document.querySelector('#main-menu');
+    const floatingMenuOverlay = document.querySelector('#floating-menu-overlay');
+    const floatingMenuModal = document.querySelector('#floating-menu-modal');
+    const floatingMenuClose = document.querySelector('.floating-menu-close');
     const body = document.body;
     const html = document.documentElement;
 
@@ -25,12 +27,16 @@ document.addEventListener('DOMContentLoaded', function() {
         console.error('❌ Critical Error: .nav-toggle not found');
         return;
     }
-    if (!navMenu) {
-        console.error('❌ Critical Error: #main-menu not found');
+    if (!floatingMenuOverlay) {
+        console.error('❌ Critical Error: #floating-menu-overlay not found');
+        return;
+    }
+    if (!floatingMenuModal) {
+        console.error('❌ Critical Error: #floating-menu-modal not found');
         return;
     }
 
-    console.log('✅ All navigation elements found successfully');
+    console.log('✅ All floating menu elements found successfully');
 
     // State management
     let isMenuOpen = false;
@@ -48,7 +54,7 @@ document.addEventListener('DOMContentLoaded', function() {
         document.addEventListener('touchmove', function(e) {
             if (isMenuOpen) {
                 const element = e.target;
-                const isScrollable = element.closest('.hamburger-open');
+                const isScrollable = element.closest('.floating-menu-modal');
                 if (!isScrollable) {
                     e.preventDefault();
                 }
@@ -56,8 +62,8 @@ document.addEventListener('DOMContentLoaded', function() {
         }, { passive: false });
     }
 
-    // Menu opening function
-    function openMenu() {
+    // Floating menu opening function
+    function openFloatingMenu() {
         if (isAnimating || isMenuOpen) return;
         
         isAnimating = true;
@@ -68,9 +74,10 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Apply classes with proper timing
         requestAnimationFrame(() => {
-            navMenu.classList.add('hamburger-open');
-            navToggle.classList.add('hamburger-active');
-            body.classList.add('hamburger-menu-open');
+            floatingMenuOverlay.classList.add('show');
+            floatingMenuModal.classList.add('show');
+            navToggle.classList.add('floating-menu-active');
+            body.classList.add('floating-menu-open');
             
             // iPhone Safari specific scroll prevention
             if (isIOS) {
@@ -83,26 +90,27 @@ document.addEventListener('DOMContentLoaded', function() {
             navToggle.setAttribute('aria-expanded', 'true');
             navToggle.setAttribute('aria-label', 'メニューを閉じる');
             
-            console.log('✅ Menu opened successfully');
+            console.log('✅ Floating menu opened successfully');
             
             // Animation complete
             setTimeout(() => {
                 isAnimating = false;
-            }, 300);
+            }, 400);
         });
     }
 
-    // Menu closing function
-    function closeMenu() {
+    // Floating menu closing function
+    function closeFloatingMenu() {
         if (isAnimating || !isMenuOpen) return;
         
         isAnimating = true;
         isMenuOpen = false;
         
         requestAnimationFrame(() => {
-            navMenu.classList.remove('hamburger-open');
-            navToggle.classList.remove('hamburger-active');
-            body.classList.remove('hamburger-menu-open');
+            floatingMenuOverlay.classList.remove('show');
+            floatingMenuModal.classList.remove('show');
+            navToggle.classList.remove('floating-menu-active');
+            body.classList.remove('floating-menu-open');
             
             // iPhone Safari specific scroll restoration
             if (isIOS) {
@@ -116,23 +124,23 @@ document.addEventListener('DOMContentLoaded', function() {
             navToggle.setAttribute('aria-expanded', 'false');
             navToggle.setAttribute('aria-label', 'メニューを開く');
             
-            console.log('✅ Menu closed successfully');
+            console.log('✅ Floating menu closed successfully');
             
             // Animation complete
             setTimeout(() => {
                 isAnimating = false;
-            }, 300);
+            }, 400);
         });
     }
 
     // Toggle function
-    function toggleMenu() {
+    function toggleFloatingMenu() {
         if (isAnimating) return;
         
         if (isMenuOpen) {
-            closeMenu();
+            closeFloatingMenu();
         } else {
-            openMenu();
+            openFloatingMenu();
         }
     }
 
@@ -143,7 +151,7 @@ document.addEventListener('DOMContentLoaded', function() {
         e.preventDefault();
         e.stopPropagation();
         console.log('🍔 Hamburger button clicked');
-        toggleMenu();
+        toggleFloatingMenu();
     });
 
     // Touch events for iPhone Safari
@@ -151,14 +159,32 @@ document.addEventListener('DOMContentLoaded', function() {
         e.stopPropagation();
     }, { passive: true });
 
+    // Floating menu close button
+    if (floatingMenuClose) {
+        floatingMenuClose.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            console.log('✕ Close button clicked');
+            closeFloatingMenu();
+        });
+    }
+
+    // Floating menu overlay click (close on outside click)
+    floatingMenuOverlay.addEventListener('click', function(e) {
+        if (e.target === floatingMenuOverlay) {
+            console.log('🖱️ Overlay clicked - closing menu');
+            closeFloatingMenu();
+        }
+    });
+
     // Menu link clicks
-    const menuLinks = navMenu.querySelectorAll('a');
-    menuLinks.forEach((link, index) => {
+    const floatingMenuLinks = document.querySelectorAll('.floating-menu-list a');
+    floatingMenuLinks.forEach((link, index) => {
         link.addEventListener('click', function(e) {
-            console.log(`🔗 Menu link ${index + 1} clicked`);
+            console.log(`🔗 Floating menu link ${index + 1} clicked`);
             // Close menu after a brief delay to show visual feedback
             setTimeout(() => {
-                closeMenu();
+                closeFloatingMenu();
             }, 150);
         });
     });
@@ -166,16 +192,8 @@ document.addEventListener('DOMContentLoaded', function() {
     // ESC key to close menu
     document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape' && isMenuOpen) {
-            console.log('⌨️ ESC key pressed - closing menu');
-            closeMenu();
-        }
-    });
-
-    // Close menu on outside click
-    document.addEventListener('click', function(e) {
-        if (isMenuOpen && !navToggle.contains(e.target) && !navMenu.contains(e.target)) {
-            console.log('🖱️ Outside click detected - closing menu');
-            closeMenu();
+            console.log('⌨️ ESC key pressed - closing floating menu');
+            closeFloatingMenu();
         }
     });
 
@@ -185,25 +203,25 @@ document.addEventListener('DOMContentLoaded', function() {
         clearTimeout(resizeTimeout);
         resizeTimeout = setTimeout(() => {
             if (window.innerWidth > 768 && isMenuOpen) {
-                console.log('📱 Window resized to desktop - closing menu');
-                closeMenu();
+                console.log('📱 Window resized to desktop - closing floating menu');
+                closeFloatingMenu();
             }
         }, 250);
     });
 
-    // Prevent iOS Safari bounce scrolling when menu is open
+    // Prevent iOS Safari bounce scrolling when floating menu is open
     if (isIOS) {
         document.addEventListener('touchmove', function(e) {
-            if (isMenuOpen && !navMenu.contains(e.target)) {
+            if (isMenuOpen && !floatingMenuModal.contains(e.target)) {
                 e.preventDefault();
             }
         }, { passive: false });
     }
 
     // Initialize menu state
-    closeMenu();
+    closeFloatingMenu();
     
-    console.log('🚀 Ultra Think Hamburger Menu System Initialized Successfully');
+    console.log('🚀 Ultra Think Floating Menu System Initialized Successfully');
     console.log(`📱 Device: ${isIOS ? 'iOS' : 'Other'}, Browser: ${isSafari ? 'Safari' : 'Other'}`);
 });
 
@@ -246,28 +264,6 @@ window.addEventListener('scroll', function() {
         headerScrollTicking = true;
     }
 }, { passive: true });
-
-// CSS for .scrolled header (add this to your style.css if you want a visual change)
-/*
-.site-header.scrolled {
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    background-color: rgba(255, 255, 255, 0.98); // Slightly transparent or different background
-    padding: 10px 0; // Reduce padding on scroll
-}
-*/
-
-// CSS for .nav-toggle.open (burger to X animation - add to style.css)
-/*
-.nav-toggle.open span:nth-child(1) {
-    transform: translateY(8px) rotate(45deg);
-}
-.nav-toggle.open span:nth-child(2) {
-    opacity: 0;
-}
-.nav-toggle.open span:nth-child(3) {
-    transform: translateY(-8px) rotate(-45deg);
-}
-*/
 
 // Optimized image loading for all devices
 document.addEventListener('DOMContentLoaded', function() {
