@@ -10,93 +10,201 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-// 🚀 根本的再構築: シンプルで確実なハンバーガーメニュー
+// 🚀 Ultra Think: Bulletproof iPhone Safari Hamburger Menu
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('🚀 Simple & Reliable Hamburger Menu System Started');
+    console.log('🚀 Ultra Think Hamburger Menu System Started');
     
+    // Element references with error handling
     const navToggle = document.querySelector('.nav-toggle');
     const navMenu = document.querySelector('#main-menu');
     const body = document.body;
+    const html = document.documentElement;
 
-    // 要素の存在確認
-    if (!navToggle || !navMenu) {
-        console.error('❌ Navigation elements not found');
+    // Critical error checking
+    if (!navToggle) {
+        console.error('❌ Critical Error: .nav-toggle not found');
+        return;
+    }
+    if (!navMenu) {
+        console.error('❌ Critical Error: #main-menu not found');
         return;
     }
 
-    console.log('✅ Navigation elements found successfully');
+    console.log('✅ All navigation elements found successfully');
 
-    let isOpen = false;
+    // State management
+    let isMenuOpen = false;
+    let isAnimating = false;
+    let scrollPosition = 0;
 
-    // メニューの開閉処理
-    function toggleMenu() {
-        isOpen = !isOpen;
+    // iPhone Safari specific fixes
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+    const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+    
+    if (isIOS) {
+        console.log('📱 iPhone/iOS detected - applying Safari optimizations');
         
-        if (isOpen) {
-            // メニューを開く
-            navMenu.classList.add('show');
-            navToggle.classList.add('active');
-            body.classList.add('nav-open');
+        // Prevent iOS rubber band scrolling issues
+        document.addEventListener('touchmove', function(e) {
+            if (isMenuOpen) {
+                const element = e.target;
+                const isScrollable = element.closest('.hamburger-open');
+                if (!isScrollable) {
+                    e.preventDefault();
+                }
+            }
+        }, { passive: false });
+    }
+
+    // Menu opening function
+    function openMenu() {
+        if (isAnimating || isMenuOpen) return;
+        
+        isAnimating = true;
+        isMenuOpen = true;
+        
+        // Store current scroll position for iPhone Safari
+        scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+        
+        // Apply classes with proper timing
+        requestAnimationFrame(() => {
+            navMenu.classList.add('hamburger-open');
+            navToggle.classList.add('hamburger-active');
+            body.classList.add('hamburger-menu-open');
+            
+            // iPhone Safari specific scroll prevention
+            if (isIOS) {
+                body.style.top = `-${scrollPosition}px`;
+                body.style.position = 'fixed';
+                body.style.width = '100%';
+            }
+            
+            // Update ARIA attributes
             navToggle.setAttribute('aria-expanded', 'true');
-            console.log('✅ Menu opened');
-        } else {
-            // メニューを閉じる
-            navMenu.classList.remove('show');
-            navToggle.classList.remove('active');
-            body.classList.remove('nav-open');
-            navToggle.setAttribute('aria-expanded', 'false');
-            console.log('✅ Menu closed');
-        }
+            navToggle.setAttribute('aria-label', 'メニューを閉じる');
+            
+            console.log('✅ Menu opened successfully');
+            
+            // Animation complete
+            setTimeout(() => {
+                isAnimating = false;
+            }, 300);
+        });
     }
 
-    // メニューを閉じる専用関数
+    // Menu closing function
     function closeMenu() {
-        if (isOpen) {
-            isOpen = false;
-            navMenu.classList.remove('show');
-            navToggle.classList.remove('active');
-            body.classList.remove('nav-open');
+        if (isAnimating || !isMenuOpen) return;
+        
+        isAnimating = true;
+        isMenuOpen = false;
+        
+        requestAnimationFrame(() => {
+            navMenu.classList.remove('hamburger-open');
+            navToggle.classList.remove('hamburger-active');
+            body.classList.remove('hamburger-menu-open');
+            
+            // iPhone Safari specific scroll restoration
+            if (isIOS) {
+                body.style.position = '';
+                body.style.top = '';
+                body.style.width = '';
+                window.scrollTo(0, scrollPosition);
+            }
+            
+            // Update ARIA attributes
             navToggle.setAttribute('aria-expanded', 'false');
-            console.log('✅ Menu force closed');
+            navToggle.setAttribute('aria-label', 'メニューを開く');
+            
+            console.log('✅ Menu closed successfully');
+            
+            // Animation complete
+            setTimeout(() => {
+                isAnimating = false;
+            }, 300);
+        });
+    }
+
+    // Toggle function
+    function toggleMenu() {
+        if (isAnimating) return;
+        
+        if (isMenuOpen) {
+            closeMenu();
+        } else {
+            openMenu();
         }
     }
 
-    // ハンバーガーボタンクリック
+    // Event Listeners
+    
+    // Hamburger button click
     navToggle.addEventListener('click', function(e) {
         e.preventDefault();
+        e.stopPropagation();
         console.log('🍔 Hamburger button clicked');
         toggleMenu();
     });
 
-    // メニューアイテムクリックでメニューを閉じる
+    // Touch events for iPhone Safari
+    navToggle.addEventListener('touchstart', function(e) {
+        e.stopPropagation();
+    }, { passive: true });
+
+    // Menu link clicks
     const menuLinks = navMenu.querySelectorAll('a');
-    menuLinks.forEach(link => {
-        link.addEventListener('click', function() {
-            console.log('🔗 Menu link clicked');
-            closeMenu();
+    menuLinks.forEach((link, index) => {
+        link.addEventListener('click', function(e) {
+            console.log(`🔗 Menu link ${index + 1} clicked`);
+            // Close menu after a brief delay to show visual feedback
+            setTimeout(() => {
+                closeMenu();
+            }, 150);
         });
     });
 
-    // ESCキーでメニューを閉じる
+    // ESC key to close menu
     document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && isOpen) {
-            console.log('⌨️ ESC key pressed');
+        if (e.key === 'Escape' && isMenuOpen) {
+            console.log('⌨️ ESC key pressed - closing menu');
             closeMenu();
         }
     });
 
-    // リサイズ時にメニューを閉じる
+    // Close menu on outside click
+    document.addEventListener('click', function(e) {
+        if (isMenuOpen && !navToggle.contains(e.target) && !navMenu.contains(e.target)) {
+            console.log('🖱️ Outside click detected - closing menu');
+            closeMenu();
+        }
+    });
+
+    // Window resize handler
+    let resizeTimeout;
     window.addEventListener('resize', function() {
-        if (window.innerWidth > 768 && isOpen) {
-            console.log('📱 Window resized to desktop');
-            closeMenu();
-        }
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(() => {
+            if (window.innerWidth > 768 && isMenuOpen) {
+                console.log('📱 Window resized to desktop - closing menu');
+                closeMenu();
+            }
+        }, 250);
     });
 
-    // 初期化
+    // Prevent iOS Safari bounce scrolling when menu is open
+    if (isIOS) {
+        document.addEventListener('touchmove', function(e) {
+            if (isMenuOpen && !navMenu.contains(e.target)) {
+                e.preventDefault();
+            }
+        }, { passive: false });
+    }
+
+    // Initialize menu state
     closeMenu();
     
-    console.log('🚀 Simple Hamburger Menu System Initialized Successfully');
+    console.log('🚀 Ultra Think Hamburger Menu System Initialized Successfully');
+    console.log(`📱 Device: ${isIOS ? 'iOS' : 'Other'}, Browser: ${isSafari ? 'Safari' : 'Other'}`);
 });
 
 // Smooth scroll for anchor links (if you add any internal page links like #section)
@@ -117,8 +225,10 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// Add a class to the header when scrolled
-window.addEventListener('scroll', function() {
+// Optimized header scroll effect with throttling
+let headerScrollTicking = false;
+
+function updateHeaderOnScroll() {
     const header = document.querySelector('.site-header');
     if (header) {
         if (window.scrollY > 50) {
@@ -127,7 +237,15 @@ window.addEventListener('scroll', function() {
             header.classList.remove('scrolled');
         }
     }
-});
+    headerScrollTicking = false;
+}
+
+window.addEventListener('scroll', function() {
+    if (!headerScrollTicking) {
+        requestAnimationFrame(updateHeaderOnScroll);
+        headerScrollTicking = true;
+    }
+}, { passive: true });
 
 // CSS for .scrolled header (add this to your style.css if you want a visual change)
 /*
@@ -151,85 +269,85 @@ window.addEventListener('scroll', function() {
 }
 */
 
-// Simple image loading debug for iPhone
+// Optimized image loading for all devices
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('📱 iPhone画像デバッグ開始');
+    console.log('🖼️ Image Loading Optimization Started');
     
-    const doctorImages = document.querySelectorAll('.doctor-photo');
-    console.log('Doctor images found:', doctorImages.length);
+    const images = document.querySelectorAll('.doctor-photo, .hero-doctor-icon');
+    console.log(`Found ${images.length} images to optimize`);
     
-    doctorImages.forEach(function(img, index) {
-        console.log('Doctor image', index, ':', img.src);
+    images.forEach(function(img, index) {
+        console.log(`Image ${index + 1}:`, img.src);
         
         img.addEventListener('load', function() {
-            console.log('✅ Image loaded successfully:', index);
+            console.log(`✅ Image ${index + 1} loaded successfully`);
+            // Add fade-in effect
+            img.style.opacity = '1';
         });
         
         img.addEventListener('error', function() {
-            console.error('❌ Failed to load image:', img.src);
+            console.error(`❌ Failed to load image ${index + 1}:`, img.src);
         });
         
-        // Force refresh if needed
-        if (!img.complete) {
-            console.log('🔄 Forcing image reload:', index);
-            const originalSrc = img.src;
-            img.src = '';
-            img.src = originalSrc;
+        // Set initial opacity for fade-in effect
+        img.style.opacity = '0';
+        img.style.transition = 'opacity 0.3s ease';
+        
+        // Check if already loaded
+        if (img.complete && img.naturalHeight !== 0) {
+            img.style.opacity = '1';
+            console.log(`✅ Image ${index + 1} was already loaded`);
         }
     });
+    
+    console.log('🖼️ Image optimization setup complete');
 });
 
-// 📱 iPhone/スマホでもPC表示を忠実再現システム
+// 📱 iPhone Safari Background Optimization System
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('🎯 PC表示忠実再現: iPhone最適化システム開始');
+    console.log('🎯 iPhone Safari Background System Started');
     
-    // モバイルデバイス検出
+    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
     const isMobile = window.innerWidth <= 768;
     
-    if (isMobile) {
-        console.log('📱 モバイルデバイス検出: PC表示を忠実に再現します');
+    if (isIOS && isMobile) {
+        console.log('📱 iPhone detected - applying Safari background optimizations');
         
-        // PC用CSSの擬似要素背景をモバイルでも有効にする
-        console.log('🎨 PC用背景システムをモバイルに適用中...');
-        
-        // iPhone Safari用最適化: PC用CSS背景を強制有効化
-        const style = document.createElement('style');
-        style.id = 'mobile-pc-faithful';
-        style.textContent = `
-            /* iPhone Safari専用: PC用背景を強制有効化 */
+        // Create optimized background styles for iPhone Safari
+        const iosStyle = document.createElement('style');
+        iosStyle.id = 'ios-safari-optimizations';
+        iosStyle.textContent = `
+            /* iPhone Safari specific optimizations */
             @media (max-width: 768px) {
-                /* PC用背景擬似要素を強制表示 */
                 body::before {
-                    display: block !important;
-                    content: '' !important;
-                    position: fixed !important;
-                    top: 0 !important;
-                    left: 0 !important;
-                    right: 0 !important;
-                    bottom: 0 !important;
-                    background-attachment: scroll !important; /* iPhone Safari対応 */
+                    background-attachment: scroll !important;
+                    -webkit-transform: translateZ(0) !important;
+                    transform: translateZ(0) !important;
                 }
                 
                 .hero::before {
-                    display: block !important;
-                    content: '' !important;
-                    position: fixed !important;
                     background-attachment: scroll !important;
+                    -webkit-transform: translateZ(0) !important;
+                    transform: translateZ(0) !important;
                 }
                 
                 .clinic-features::before {
-                    display: block !important;
-                    content: '' !important;
-                    position: fixed !important;
                     background-attachment: scroll !important;
+                    -webkit-transform: translateZ(0) !important;
+                    transform: translateZ(0) !important;
+                }
+                
+                /* Improve scrolling performance */
+                * {
+                    -webkit-overflow-scrolling: touch;
                 }
             }
         `;
-        document.head.appendChild(style);
-        console.log('✅ PC用背景システムをモバイルに適用完了');
-        
-        console.log('🎯 PC表示忠実再現完了: モバイル版最適化完了');
+        document.head.appendChild(iosStyle);
+        console.log('✅ iPhone Safari background optimizations applied');
+    } else if (isMobile) {
+        console.log('📱 Mobile device detected - standard optimizations');
     } else {
-        console.log('💻 Desktop detected - using standard background');
+        console.log('💻 Desktop detected - standard configuration');
     }
 });
