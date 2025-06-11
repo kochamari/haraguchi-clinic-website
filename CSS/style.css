@@ -1269,13 +1269,11 @@ body::before {
         display: none;
     }
     
-    /* 本体のスクロールを防ぐ */
+    /* 本体のスクロールを防ぐ - Phase 8強化 */
     body.nav-open {
-        overflow: hidden;
-        position: fixed;
-        width: 100%;
-        top: 0;
-        left: 0;
+        overflow: hidden !important;
+        height: 100vh !important;
+        /* position: fixed は JavaScript で管理 */
     }
 
 

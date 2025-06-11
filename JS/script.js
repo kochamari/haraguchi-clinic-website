@@ -10,46 +10,93 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-// Mobile Navigation Toggle - 完全新規実装
+// 🍔 Phase 8: ハンバーガーメニュー完全再実装
 document.addEventListener('DOMContentLoaded', function() {
+    console.log('🍔 Phase 8: Hamburger menu complete rebuild');
+    
     const navToggle = document.querySelector('.nav-toggle');
-    const mainNav = document.querySelector('#main-menu');
+    const mainNav = document.querySelector('.main-nav');
+    const navMenu = document.querySelector('#main-menu');
     const body = document.body;
+    const header = document.querySelector('.site-header');
 
     // 要素の存在チェック
-    if (!navToggle || !mainNav) {
-        console.warn('Navigation elements not found');
+    if (!navToggle || !mainNav || !navMenu) {
+        console.warn('❌ Navigation elements not found');
         return;
     }
 
-    // 初期状態を設定
-    navToggle.setAttribute('aria-expanded', 'false');
-    mainNav.classList.remove('nav-active');
-    navToggle.classList.remove('active');
-    body.classList.remove('nav-open');
+    console.log('✅ All menu elements found');
+
+    // 初期状態を完全リセット
+    function resetMenuState() {
+        navToggle.setAttribute('aria-expanded', 'false');
+        navMenu.classList.remove('nav-active');
+        navToggle.classList.remove('active');
+        body.classList.remove('nav-open');
+        body.style.position = '';
+        body.style.top = '';
+        body.style.width = '';
+        console.log('🔄 Menu state reset');
+    }
+
+    // 初期化
+    resetMenuState();
+
+    let isMenuOpen = false;
+    let scrollPosition = 0;
 
     // メニューを開く関数
     function openMobileMenu() {
-        console.log('Opening mobile menu');
+        console.log('📱 Opening mobile menu');
+        
+        // 現在のスクロール位置を保存
+        scrollPosition = window.pageYOffset;
+        
+        // メニュー表示
+        isMenuOpen = true;
         navToggle.setAttribute('aria-expanded', 'true');
-        mainNav.classList.add('nav-active');
+        navMenu.classList.add('nav-active');
         navToggle.classList.add('active');
+        
+        // bodyのスクロール防止（位置ずれ対策）
+        body.style.position = 'fixed';
+        body.style.top = `-${scrollPosition}px`;
+        body.style.width = '100%';
         body.classList.add('nav-open');
+        
+        console.log('✅ Mobile menu opened');
     }
 
     // メニューを閉じる関数
     function closeMobileMenu() {
-        console.log('Closing mobile menu');
+        console.log('📱 Closing mobile menu');
+        
+        isMenuOpen = false;
         navToggle.setAttribute('aria-expanded', 'false');
-        mainNav.classList.remove('nav-active');
+        navMenu.classList.remove('nav-active');
         navToggle.classList.remove('active');
         body.classList.remove('nav-open');
+        
+        // bodyのスクロール復元
+        body.style.position = '';
+        body.style.top = '';
+        body.style.width = '';
+        
+        // スクロール位置を復元
+        window.scrollTo(0, scrollPosition);
+        
+        console.log('✅ Mobile menu closed');
     }
 
     // メニューの状態を切り替える関数
-    function toggleMobileMenu() {
-        const isOpen = mainNav.classList.contains('nav-active');
-        if (isOpen) {
+    function toggleMobileMenu(e) {
+        if (e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+        
+        if (isMenuOpen) {
             closeMobileMenu();
         } else {
             openMobileMenu();
@@ -57,14 +104,10 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // ハンバーガーボタンのクリックイベント
-    navToggle.addEventListener('click', function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-        toggleMobileMenu();
-    });
+    navToggle.addEventListener('click', toggleMobileMenu);
 
     // メニューリンクのクリックでメニューを閉じる
-    const navLinks = mainNav.querySelectorAll('a');
+    const navLinks = navMenu.querySelectorAll('a');
     navLinks.forEach(link => {
         link.addEventListener('click', function() {
             closeMobileMenu();
@@ -72,16 +115,15 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // オーバーレイクリックでメニューを閉じる
-    mainNav.addEventListener('click', function(e) {
-        // メニューアイテム以外の場所（オーバーレイ部分）をクリックした場合
-        if (e.target === mainNav) {
+    navMenu.addEventListener('click', function(e) {
+        if (e.target === navMenu) {
             closeMobileMenu();
         }
     });
 
     // Escapeキーでメニューを閉じる
     document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && mainNav.classList.contains('nav-active')) {
+        if (e.key === 'Escape' && isMenuOpen) {
             closeMobileMenu();
         }
     });
@@ -92,6 +134,13 @@ document.addEventListener('DOMContentLoaded', function() {
             closeMobileMenu();
         }
     });
+
+    // タッチイベント対応（iOS Safari向け）
+    navToggle.addEventListener('touchstart', function(e) {
+        e.preventDefault();
+    }, { passive: false });
+
+    console.log('🍔 Hamburger menu system initialized');
 });
 
 // Smooth scroll for anchor links (if you add any internal page links like #section)
@@ -244,15 +293,18 @@ document.addEventListener('DOMContentLoaded', function() {
             z-index: -1000;
             pointer-events: none;
             background-image: 
-                /* より濃い色とはっきりした模様 */
-                radial-gradient(ellipse at 20% 20%, rgba(99, 187, 208, 0.9) 0%, rgba(99, 187, 208, 0.5) 25%, transparent 50%),
-                radial-gradient(ellipse at 80% 80%, rgba(127, 179, 213, 0.85) 0%, rgba(127, 179, 213, 0.4) 30%, transparent 55%),
-                /* 大きな円形模様追加 */
-                radial-gradient(circle at 50% 30%, rgba(173, 216, 230, 0.7) 0%, transparent 25%),
-                radial-gradient(circle at 30% 70%, rgba(135, 206, 235, 0.65) 0%, transparent 25%);
-            background-size: 180% 180%, 180% 180%, 80% 80%, 80% 80%;
-            background-position: 0% 0%, 100% 100%, 50% 30%, 30% 70%;
-            background-repeat: no-repeat, no-repeat, no-repeat, no-repeat;
+                /* 超濃厚で分かりやすい模様 - Phase 8 */
+                radial-gradient(ellipse at 20% 20%, rgba(99, 187, 208, 1.0) 0%, rgba(99, 187, 208, 0.8) 15%, rgba(99, 187, 208, 0.4) 35%, transparent 60%),
+                radial-gradient(ellipse at 80% 80%, rgba(127, 179, 213, 0.95) 0%, rgba(127, 179, 213, 0.7) 20%, rgba(127, 179, 213, 0.3) 40%, transparent 65%),
+                /* 巨大で目立つ円形模様 */
+                radial-gradient(circle at 50% 30%, rgba(173, 216, 230, 0.9) 0%, rgba(173, 216, 230, 0.5) 20%, transparent 40%),
+                radial-gradient(circle at 30% 70%, rgba(135, 206, 235, 0.85) 0%, rgba(135, 206, 235, 0.4) 25%, transparent 45%),
+                /* 追加の目立つ模様 */
+                radial-gradient(circle at 70% 60%, rgba(176, 224, 230, 0.8) 0%, rgba(176, 224, 230, 0.3) 30%, transparent 50%),
+                radial-gradient(ellipse at 40% 10%, rgba(99, 187, 208, 0.75) 0%, transparent 35%);
+            background-size: 160% 160%, 160% 160%, 120% 120%, 120% 120%, 100% 100%, 90% 90%;
+            background-position: 20% 20%, 80% 80%, 50% 30%, 30% 70%, 70% 60%, 40% 10%;
+            background-repeat: no-repeat, no-repeat, no-repeat, no-repeat, no-repeat, no-repeat;
             /* GPU最適化 - info1.txt推奨 */
             transform: translate3d(0, 0, 0);
             -webkit-transform: translate3d(0, 0, 0);
@@ -346,11 +398,15 @@ document.addEventListener('DOMContentLoaded', function() {
         document.body.insertBefore(bgLayer2, document.body.firstChild);
         document.body.insertBefore(bgLayer3, document.body.firstChild);
         
-        // Step 4: 高度パフォーマンス最適化システム
+        // 🎯 Phase 8: iPhone完全固定背景モード
+        console.log('🎯 Phase 8: iPhone完全固定背景 - パララックス無効化');
+        
+        // パララックス効果を完全停止し、固定背景のみに
         let ticking = false;
         let lastScrollY = 0;
         let isVisible = true;
         let willChangeApplied = false;
+        let parallaxEnabled = false; // 完全固定モード
         
         // 🎯 Intersection Observer: 画面外では処理停止
         const observerCallback = (entries) => {
@@ -391,41 +447,29 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
         
-        // 🎨 最適化されたパララックス計算
+        // 🎨 Phase 8: 完全固定背景（パララックス無効）
         function updateParallax() {
-            // 画面外では処理スキップ
-            if (!isVisible) {
+            // Phase 8: 完全固定モード - パララックス処理を停止
+            if (!parallaxEnabled) {
+                // 背景を完全固定位置に強制
+                if (bgLayer1) {
+                    bgLayer1.style.transform = `translate3d(0, 0, 0)`;
+                    bgLayer1.style.willChange = 'auto';
+                }
+                if (bgLayer2) {
+                    bgLayer2.style.transform = `translate3d(0, 0, 0)`;
+                    bgLayer2.style.willChange = 'auto';
+                }
+                if (bgLayer3) {
+                    bgLayer3.style.transform = `translate3d(0, 0, 0)`;
+                    bgLayer3.style.willChange = 'auto';
+                }
                 ticking = false;
                 return;
             }
             
-            const scrollY = window.pageYOffset || document.documentElement.scrollTop;
-            const scrollDelta = Math.abs(scrollY - lastScrollY);
-            
-            // 微小なスクロールは無視（CPU節約）
-            if (scrollDelta < 1) {
-                ticking = false;
-                return;
-            }
-            
-            // will-change適用
-            applyWillChange();
-            
-            // info1.txt推奨: transformプロパティのみ使用 + GPU最適化
-            if (bgLayer1) {
-                const translateY1 = Math.round(scrollY * 0.1); // 最も遅い
-                bgLayer1.style.transform = `translate3d(0, ${translateY1}px, 0)`;
-            }
-            if (bgLayer2) {
-                const translateY2 = Math.round(scrollY * 0.3); // 中間
-                bgLayer2.style.transform = `translate3d(0, ${translateY2}px, 0)`;
-            }
-            if (bgLayer3) {
-                const translateY3 = Math.round(scrollY * 0.5); // 最も速い
-                bgLayer3.style.transform = `translate3d(0, ${translateY3}px, 0)`;
-            }
-            
-            lastScrollY = scrollY;
+            // パララックス有効時のコード（現在は使用せず）
+            console.log('📱 Parallax disabled in Phase 8 - Complete fixed background mode');
             ticking = false;
         }
         
@@ -466,7 +510,9 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
         
-        window.addEventListener('scroll', enhancedRequestTick, { passive: true });
+        // Phase 8: スクロールイベント無効化（完全固定背景）
+        // window.addEventListener('scroll', enhancedRequestTick, { passive: true });
+        console.log('📱 Scroll events disabled - Complete fixed background mode');
         
         // 🧹 メモリリーク防止：ページ離脱時のクリーンアップ
         window.addEventListener('beforeunload', () => {
@@ -557,10 +603,10 @@ document.addEventListener('DOMContentLoaded', function() {
             console.log('✅ Parallax disabled for accessibility');
         }
         
-        console.log('✅ Ultra Think Phase 7 完全版: 最先端iPhone パララックス構築完了');
-        console.log('🎯 Multi-layer CSS Transform + Scroll-Driven + Accessibility');
-        console.log('📱 iPhone Safari完全最適化: Apple級品質パララックス');
-        console.log('🌟 PC同等の美しいパララックス効果 - Ultra Think達成');
+        console.log('✅ Ultra Think Phase 8 完全版: iPhone完全固定背景+超強化模様構築完了');
+        console.log('🎯 Complete Fixed Background + Enhanced Patterns + Fixed Menu');
+        console.log('📱 iPhone Safari完全最適化: 安定した固定背景システム');
+        console.log('🌟 分かりやすい背景模様 + カクつきゼロ - Ultra Think Phase 8達成');
         
         console.log('✅ Mobile optimization complete');
     } else {
