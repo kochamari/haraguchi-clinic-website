@@ -285,23 +285,23 @@ body::before {
     padding: 0;
 }
 
-/* 🎨 Floating Modal Menu - Beautiful Center Design */
+/* 🎨 Sophisticated Floating Modal Menu - Minimal Elegant Design */
 .floating-menu-overlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.4);
     z-index: 9998;
     opacity: 0;
     visibility: hidden;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     /* iPhone Safari optimizations */
     -webkit-transform: translateZ(0);
     transform: translateZ(0);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
 }
 
 .floating-menu-overlay.show {
@@ -313,26 +313,28 @@ body::before {
     position: fixed;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%) scale(0.8);
-    -webkit-transform: translate(-50%, -50%) scale(0.8);
+    transform: translate(-50%, -50%) scale(0.9);
+    -webkit-transform: translate(-50%, -50%) scale(0.9);
     
     width: 90%;
-    max-width: 320px;
-    background: rgba(255, 255, 255, 0.98);
-    border-radius: 20px;
-    padding: 40px 30px 30px;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    max-width: 360px;
+    background: rgba(255, 255, 255, 0.97);
+    border-radius: 24px;
+    padding: 36px 32px 32px;
+    box-shadow: 
+        0 24px 48px rgba(0, 0, 0, 0.15),
+        0 8px 16px rgba(0, 0, 0, 0.1);
     
     opacity: 0;
     z-index: 9999;
-    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
     
     /* iPhone Safari optimizations */
-    -webkit-transform: translate(-50%, -50%) scale(0.8);
-    -webkit-transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
-    border: 1px solid rgba(255, 255, 255, 0.8);
+    -webkit-transform: translate(-50%, -50%) scale(0.9);
+    -webkit-transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.6);
 }
 
 .floating-menu-modal.show {
@@ -343,49 +345,52 @@ body::before {
 
 .floating-menu-header {
     text-align: center;
-    margin-bottom: 30px;
-    padding-bottom: 20px;
-    border-bottom: 1px solid rgba(58, 90, 120, 0.1);
+    margin-bottom: 32px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid rgba(58, 90, 120, 0.08);
 }
 
 .floating-menu-title {
     font-family: var(--font-family-heading);
-    font-size: 1.2rem;
-    font-weight: 700;
-    color: var(--primary-color);
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: var(--heading-color);
     margin: 0;
+    letter-spacing: 0.02em;
 }
 
 .floating-menu-close {
     position: absolute;
-    top: 15px;
-    right: 15px;
-    width: 32px;
-    height: 32px;
-    background: none;
+    top: 16px;
+    right: 16px;
+    width: 36px;
+    height: 36px;
+    background: rgba(58, 90, 120, 0.05);
     border: none;
     cursor: pointer;
-    border-radius: 50%;
+    border-radius: 12px;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all 0.2s ease;
+    transition: all 0.2s cubic-bezier(0.25, 0.8, 0.25, 1);
     /* iPhone Safari optimizations */
     -webkit-tap-highlight-color: transparent;
 }
 
 .floating-menu-close:hover {
     background: rgba(58, 90, 120, 0.1);
+    transform: scale(1.05);
 }
 
 .floating-menu-close::before,
 .floating-menu-close::after {
     content: '';
     position: absolute;
-    width: 16px;
-    height: 2px;
-    background: var(--primary-color);
+    width: 14px;
+    height: 1.5px;
+    background: var(--heading-color);
     border-radius: 1px;
+    opacity: 0.7;
 }
 
 .floating-menu-close::before {
@@ -399,7 +404,7 @@ body::before {
 .main-nav ul.floating-menu-list {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 8px;
     list-style: none;
     margin: 0;
     padding: 0;
@@ -407,17 +412,17 @@ body::before {
 
 .floating-menu-list li {
     opacity: 0;
-    transform: translateY(20px);
-    animation: floatInUp 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    transform: translateY(16px);
+    animation: floatInUp 0.5s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
 }
 
-.floating-menu-list li:nth-child(1) { animation-delay: 0.1s; }
-.floating-menu-list li:nth-child(2) { animation-delay: 0.15s; }
-.floating-menu-list li:nth-child(3) { animation-delay: 0.2s; }
-.floating-menu-list li:nth-child(4) { animation-delay: 0.25s; }
-.floating-menu-list li:nth-child(5) { animation-delay: 0.3s; }
-.floating-menu-list li:nth-child(6) { animation-delay: 0.35s; }
-.floating-menu-list li:nth-child(7) { animation-delay: 0.4s; }
+.floating-menu-list li:nth-child(1) { animation-delay: 0.08s; }
+.floating-menu-list li:nth-child(2) { animation-delay: 0.12s; }
+.floating-menu-list li:nth-child(3) { animation-delay: 0.16s; }
+.floating-menu-list li:nth-child(4) { animation-delay: 0.20s; }
+.floating-menu-list li:nth-child(5) { animation-delay: 0.24s; }
+.floating-menu-list li:nth-child(6) { animation-delay: 0.28s; }
+.floating-menu-list li:nth-child(7) { animation-delay: 0.32s; }
 
 @keyframes floatInUp {
     to {
@@ -428,36 +433,60 @@ body::before {
 
 .floating-menu-list li a {
     display: block;
-    padding: 15px 20px;
-    background: rgba(255, 255, 255, 0.7);
-    border: 1.5px solid var(--primary-color);
+    padding: 16px 24px;
+    background: transparent;
+    border: none;
     border-radius: 12px;
-    color: var(--primary-color);
+    color: var(--heading-color);
     text-decoration: none;
-    font-size: 1rem;
-    font-weight: 600;
+    font-size: 0.95rem;
+    font-weight: 400;
     font-family: var(--font-family-heading);
-    text-align: center;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    text-align: left;
+    transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
+    position: relative;
     
     /* iPhone Safari optimizations */
-    -webkit-tap-highlight-color: rgba(58, 90, 120, 0.1);
+    -webkit-tap-highlight-color: rgba(58, 90, 120, 0.08);
     -webkit-text-size-adjust: 100%;
     box-sizing: border-box;
 }
 
-.floating-menu-list li a:hover,
-.floating-menu-list li a:active {
+.floating-menu-list li a::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 0;
+    height: 1px;
     background: var(--primary-color);
-    color: var(--white-color);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(58, 90, 120, 0.3);
+    transform: translateY(-50%);
+    transition: width 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.floating-menu-list li a:hover {
+    background: rgba(58, 90, 120, 0.06);
+    color: var(--primary-color);
+    transform: translateX(8px);
+}
+
+.floating-menu-list li a:hover::before {
+    width: 24px;
+}
+
+.floating-menu-list li a:active {
+    background: rgba(58, 90, 120, 0.1);
+    transform: translateX(6px);
 }
 
 .floating-menu-list li a.active {
-    background: var(--primary-color);
-    color: var(--white-color);
-    box-shadow: 0 4px 15px rgba(58, 90, 120, 0.4);
+    background: rgba(58, 90, 120, 0.08);
+    color: var(--primary-color);
+    font-weight: 500;
+}
+
+.floating-menu-list li a.active::before {
+    width: 24px;
 }
 
 /* Hamburger animation to X - Enhanced */
