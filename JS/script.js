@@ -244,11 +244,15 @@ document.addEventListener('DOMContentLoaded', function() {
             z-index: -1000;
             pointer-events: none;
             background-image: 
-                radial-gradient(ellipse at 20% 20%, rgba(99, 187, 208, 0.6) 0%, transparent 40%),
-                radial-gradient(ellipse at 80% 80%, rgba(127, 179, 213, 0.5) 0%, transparent 40%);
-            background-size: 200% 200%, 200% 200%;
-            background-position: 0% 0%, 100% 100%;
-            background-repeat: no-repeat;
+                /* より濃い色とはっきりした模様 */
+                radial-gradient(ellipse at 20% 20%, rgba(99, 187, 208, 0.9) 0%, rgba(99, 187, 208, 0.5) 25%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(127, 179, 213, 0.85) 0%, rgba(127, 179, 213, 0.4) 30%, transparent 55%),
+                /* 大きな円形模様追加 */
+                radial-gradient(circle at 50% 30%, rgba(173, 216, 230, 0.7) 0%, transparent 25%),
+                radial-gradient(circle at 30% 70%, rgba(135, 206, 235, 0.65) 0%, transparent 25%);
+            background-size: 180% 180%, 180% 180%, 80% 80%, 80% 80%;
+            background-position: 0% 0%, 100% 100%, 50% 30%, 30% 70%;
+            background-repeat: no-repeat, no-repeat, no-repeat, no-repeat;
             /* GPU最適化 - info1.txt推奨 */
             transform: translate3d(0, 0, 0);
             -webkit-transform: translate3d(0, 0, 0);
@@ -267,16 +271,28 @@ document.addEventListener('DOMContentLoaded', function() {
             z-index: -999;
             pointer-events: none;
             background-image: 
-                radial-gradient(circle at 60% 40%, rgba(173, 216, 230, 0.4) 0%, transparent 50%),
+                /* より鮮明な中間レイヤー */
+                radial-gradient(circle at 60% 40%, rgba(173, 216, 230, 0.7) 0%, rgba(173, 216, 230, 0.3) 30%, transparent 60%),
+                radial-gradient(circle at 20% 80%, rgba(99, 187, 208, 0.6) 0%, transparent 40%),
                 repeating-conic-gradient(
                     from 0deg at 50% 50%,
                     transparent 0deg,
-                    rgba(99, 187, 208, 0.08) 30deg,
-                    transparent 60deg
+                    rgba(99, 187, 208, 0.18) 15deg,
+                    rgba(127, 179, 213, 0.15) 30deg,
+                    transparent 45deg
+                ),
+                /* 幾何学模様強化 */
+                repeating-linear-gradient(
+                    45deg,
+                    transparent,
+                    transparent 25px,
+                    rgba(173, 216, 230, 0.12) 25px,
+                    rgba(173, 216, 230, 0.12) 35px,
+                    transparent 50px
                 );
-            background-size: 180% 180%, 300px 300px;
-            background-position: 60% 40%, 0% 0%;
-            background-repeat: no-repeat, repeat;
+            background-size: 150% 150%, 100% 100%, 200px 200px, 80px 80px;
+            background-position: 60% 40%, 20% 80%, 0% 0%, 0% 0%;
+            background-repeat: no-repeat, no-repeat, repeat, repeat;
             /* GPU最適化 */
             transform: translate3d(0, 0, 0);
             -webkit-transform: translate3d(0, 0, 0);
@@ -295,17 +311,28 @@ document.addEventListener('DOMContentLoaded', function() {
             z-index: -998;
             pointer-events: none;
             background-image: 
-                radial-gradient(ellipse at 40% 80%, rgba(135, 206, 235, 0.3) 0%, transparent 60%),
+                /* 前景レイヤー強化 - より鮮やかな模様 */
+                radial-gradient(ellipse at 40% 80%, rgba(135, 206, 235, 0.6) 0%, rgba(135, 206, 235, 0.2) 35%, transparent 70%),
+                radial-gradient(circle at 70% 20%, rgba(176, 224, 230, 0.55) 0%, transparent 30%),
                 repeating-linear-gradient(
                     45deg,
                     transparent,
-                    transparent 40px,
-                    rgba(173, 216, 230, 0.04) 40px,
-                    rgba(173, 216, 230, 0.04) 80px
+                    transparent 20px,
+                    rgba(173, 216, 230, 0.15) 20px,
+                    rgba(173, 216, 230, 0.15) 25px,
+                    transparent 40px
+                ),
+                repeating-linear-gradient(
+                    -45deg,
+                    transparent,
+                    transparent 30px,
+                    rgba(135, 206, 235, 0.12) 30px,
+                    rgba(135, 206, 235, 0.12) 35px,
+                    transparent 60px
                 );
-            background-size: 150% 150%, 120px 120px;
-            background-position: 40% 80%, 0% 0%;
-            background-repeat: no-repeat, repeat;
+            background-size: 120% 120%, 80% 80%, 60px 60px, 80px 80px;
+            background-position: 40% 80%, 70% 20%, 0% 0%, 0% 0%;
+            background-repeat: no-repeat, no-repeat, repeat, repeat;
             /* GPU最適化 */
             transform: translate3d(0, 0, 0);
             -webkit-transform: translate3d(0, 0, 0);
