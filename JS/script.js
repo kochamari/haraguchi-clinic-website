@@ -69,7 +69,7 @@ document.addEventListener('DOMContentLoaded', function() {
         isAnimating = true;
         isMenuOpen = true;
         
-        // Store current scroll position for iPhone Safari
+        // Store current scroll position for all devices
         scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
         
         // Apply classes with proper timing
@@ -79,12 +79,11 @@ document.addEventListener('DOMContentLoaded', function() {
             navToggle.classList.add('floating-menu-active');
             body.classList.add('floating-menu-open');
             
-            // iPhone Safari specific scroll prevention
-            if (isIOS) {
-                body.style.top = `-${scrollPosition}px`;
-                body.style.position = 'fixed';
-                body.style.width = '100%';
-            }
+            // Universal scroll prevention - works on all devices
+            body.style.top = `-${scrollPosition}px`;
+            body.style.position = 'fixed';
+            body.style.width = '100%';
+            body.style.height = '100%';
             
             // Update ARIA attributes
             navToggle.setAttribute('aria-expanded', 'true');
@@ -112,13 +111,17 @@ document.addEventListener('DOMContentLoaded', function() {
             navToggle.classList.remove('floating-menu-active');
             body.classList.remove('floating-menu-open');
             
-            // iPhone Safari specific scroll restoration
-            if (isIOS) {
-                body.style.position = '';
-                body.style.top = '';
-                body.style.width = '';
-                window.scrollTo(0, scrollPosition);
-            }
+            // Universal scroll restoration - works on all devices
+            body.style.position = '';
+            body.style.top = '';
+            body.style.width = '';
+            body.style.height = '';
+            
+            // Restore scroll position smoothly
+            window.scrollTo({
+                top: scrollPosition,
+                behavior: 'instant'
+            });
             
             // Update ARIA attributes
             navToggle.setAttribute('aria-expanded', 'false');

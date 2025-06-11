@@ -405,15 +405,21 @@ body::before {
     display: flex;
     flex-direction: column;
     gap: 8px;
-    list-style: none;
+    list-style: none !important;
     margin: 0;
     padding: 0;
+}
+
+.floating-menu-list {
+    list-style: none !important;
 }
 
 .floating-menu-list li {
     opacity: 0;
     transform: translateY(16px);
     animation: floatInUp 0.5s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+    list-style: none !important;
+    list-style-type: none !important;
 }
 
 .floating-menu-list li:nth-child(1) { animation-delay: 0.08s; }
