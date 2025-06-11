@@ -1183,7 +1183,16 @@ body::before {
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06) !important;
     }
 
-    /* 🍿 ハンバーガーメニュー修正: 位置ずれ解決 */
+    /* 💯 Ultra Think 一発修正: ハンバーガーメニュー位置ずれ根本解決 */
+    
+    /* モバイル時の.main-navの位置を絶対指定で制御 */
+    .main-nav {
+        position: absolute;
+        right: 15px; /* コンテナーのパディングと同じ */
+        top: 50%;
+        transform: translateY(-50%);
+    }
+    
     .nav-toggle {
         display: block;
         background: none;
@@ -1192,7 +1201,6 @@ body::before {
         padding: 8px;
         position: relative;
         z-index: 10001;
-        /* 位置固定でずれ防止 */
         width: 40px;
         height: 32px;
     }
@@ -1206,7 +1214,6 @@ body::before {
         transition: all 0.3s ease;
         border-radius: 2px;
         position: relative;
-        /* 中央揃え */
         left: 50%;
         transform: translateX(-50%);
     }
@@ -1273,7 +1280,7 @@ body::before {
         box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
     }
     
-    /* ハンバーガーアニメーション - 修正版 */
+    /* ハンバーガーアニメーション - Ultra Think最終版 */
     .nav-toggle.active span:nth-child(1) {
         transform: translateX(-50%) rotate(45deg) translate(6px, 6px);
     }
