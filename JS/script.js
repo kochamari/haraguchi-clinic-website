@@ -10,104 +10,93 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-// 🍔 Phase 9: ハンバーガーメニュー根本再設計 - 超シンプル化
+// 🚀 根本的再構築: シンプルで確実なハンバーガーメニュー
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('🍔 Phase 9: Hamburger menu fundamental redesign - Ultra Simple');
+    console.log('🚀 Simple & Reliable Hamburger Menu System Started');
     
     const navToggle = document.querySelector('.nav-toggle');
     const navMenu = document.querySelector('#main-menu');
     const body = document.body;
 
-    // 要素の存在チェック
+    // 要素の存在確認
     if (!navToggle || !navMenu) {
-        console.warn('❌ Menu elements not found');
+        console.error('❌ Navigation elements not found');
         return;
     }
 
-    console.log('✅ Menu elements found:', navToggle, navMenu);
+    console.log('✅ Navigation elements found successfully');
 
-    let isMenuOpen = false;
+    let isOpen = false;
 
-    // 🎯 超シンプルなメニュー制御
+    // メニューの開閉処理
     function toggleMenu() {
-        console.log('🔄 Toggling menu, current state:', isMenuOpen);
+        isOpen = !isOpen;
         
-        isMenuOpen = !isMenuOpen;
-        
-        if (isMenuOpen) {
-            // メニューを開く - 超シンプル
-            navMenu.classList.add('nav-active');
+        if (isOpen) {
+            // メニューを開く
+            navMenu.classList.add('show');
             navToggle.classList.add('active');
             body.classList.add('nav-open');
             navToggle.setAttribute('aria-expanded', 'true');
-            console.log('📱 Menu opened');
+            console.log('✅ Menu opened');
         } else {
-            // メニューを閉じる - 超シンプル
-            navMenu.classList.remove('nav-active');
+            // メニューを閉じる
+            navMenu.classList.remove('show');
             navToggle.classList.remove('active');
             body.classList.remove('nav-open');
             navToggle.setAttribute('aria-expanded', 'false');
-            console.log('📱 Menu closed');
+            console.log('✅ Menu closed');
         }
     }
 
-    // 🎯 メニューを閉じる専用関数
+    // メニューを閉じる専用関数
     function closeMenu() {
-        if (isMenuOpen) {
-            isMenuOpen = false;
-            navMenu.classList.remove('nav-active');
+        if (isOpen) {
+            isOpen = false;
+            navMenu.classList.remove('show');
             navToggle.classList.remove('active');
             body.classList.remove('nav-open');
             navToggle.setAttribute('aria-expanded', 'false');
-            console.log('📱 Menu force closed');
+            console.log('✅ Menu force closed');
         }
     }
 
-    // 🔧 イベントリスナー - 超シンプル
+    // ハンバーガーボタンクリック
     navToggle.addEventListener('click', function(e) {
         e.preventDefault();
-        e.stopPropagation();
-        console.log('🍔 Toggle clicked');
+        console.log('🍔 Hamburger button clicked');
         toggleMenu();
     });
 
-    // メニューリンククリックで閉じる
-    const navLinks = navMenu.querySelectorAll('a');
-    navLinks.forEach(link => {
+    // メニューアイテムクリックでメニューを閉じる
+    const menuLinks = navMenu.querySelectorAll('a');
+    menuLinks.forEach(link => {
         link.addEventListener('click', function() {
-            console.log('📎 Nav link clicked');
+            console.log('🔗 Menu link clicked');
             closeMenu();
         });
     });
 
-    // オーバーレイクリックで閉じる
-    navMenu.addEventListener('click', function(e) {
-        if (e.target === navMenu) {
-            console.log('🎯 Overlay clicked');
-            closeMenu();
-        }
-    });
-
-    // ESCキーで閉じる
+    // ESCキーでメニューを閉じる
     document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape') {
-            console.log('⌨️ ESC pressed');
+        if (e.key === 'Escape' && isOpen) {
+            console.log('⌨️ ESC key pressed');
             closeMenu();
         }
     });
 
-    // 画面リサイズで閉じる
+    // リサイズ時にメニューを閉じる
     window.addEventListener('resize', function() {
-        if (window.innerWidth > 768) {
-            console.log('📱 Resized to desktop');
+        if (window.innerWidth > 768 && isOpen) {
+            console.log('📱 Window resized to desktop');
             closeMenu();
         }
     });
 
-    // 初期状態設定
+    // 初期化
     closeMenu();
     
-    console.log('🍔 Ultra Simple Hamburger menu initialized');
+    console.log('🚀 Simple Hamburger Menu System Initialized Successfully');
 });
 
 // Smooth scroll for anchor links (if you add any internal page links like #section)
