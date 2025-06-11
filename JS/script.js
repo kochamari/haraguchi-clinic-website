@@ -10,137 +10,104 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-// 🍔 Phase 8: ハンバーガーメニュー完全再実装
+// 🍔 Phase 9: ハンバーガーメニュー根本再設計 - 超シンプル化
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('🍔 Phase 8: Hamburger menu complete rebuild');
+    console.log('🍔 Phase 9: Hamburger menu fundamental redesign - Ultra Simple');
     
     const navToggle = document.querySelector('.nav-toggle');
-    const mainNav = document.querySelector('.main-nav');
     const navMenu = document.querySelector('#main-menu');
     const body = document.body;
-    const header = document.querySelector('.site-header');
 
     // 要素の存在チェック
-    if (!navToggle || !mainNav || !navMenu) {
-        console.warn('❌ Navigation elements not found');
+    if (!navToggle || !navMenu) {
+        console.warn('❌ Menu elements not found');
         return;
     }
 
-    console.log('✅ All menu elements found');
-
-    // 初期状態を完全リセット
-    function resetMenuState() {
-        navToggle.setAttribute('aria-expanded', 'false');
-        navMenu.classList.remove('nav-active');
-        navToggle.classList.remove('active');
-        body.classList.remove('nav-open');
-        body.style.position = '';
-        body.style.top = '';
-        body.style.width = '';
-        console.log('🔄 Menu state reset');
-    }
-
-    // 初期化
-    resetMenuState();
+    console.log('✅ Menu elements found:', navToggle, navMenu);
 
     let isMenuOpen = false;
-    let scrollPosition = 0;
 
-    // メニューを開く関数
-    function openMobileMenu() {
-        console.log('📱 Opening mobile menu');
+    // 🎯 超シンプルなメニュー制御
+    function toggleMenu() {
+        console.log('🔄 Toggling menu, current state:', isMenuOpen);
         
-        // 現在のスクロール位置を保存
-        scrollPosition = window.pageYOffset;
-        
-        // メニュー表示
-        isMenuOpen = true;
-        navToggle.setAttribute('aria-expanded', 'true');
-        navMenu.classList.add('nav-active');
-        navToggle.classList.add('active');
-        
-        // bodyのスクロール防止（位置ずれ対策）
-        body.style.position = 'fixed';
-        body.style.top = `-${scrollPosition}px`;
-        body.style.width = '100%';
-        body.classList.add('nav-open');
-        
-        console.log('✅ Mobile menu opened');
-    }
-
-    // メニューを閉じる関数
-    function closeMobileMenu() {
-        console.log('📱 Closing mobile menu');
-        
-        isMenuOpen = false;
-        navToggle.setAttribute('aria-expanded', 'false');
-        navMenu.classList.remove('nav-active');
-        navToggle.classList.remove('active');
-        body.classList.remove('nav-open');
-        
-        // bodyのスクロール復元
-        body.style.position = '';
-        body.style.top = '';
-        body.style.width = '';
-        
-        // スクロール位置を復元
-        window.scrollTo(0, scrollPosition);
-        
-        console.log('✅ Mobile menu closed');
-    }
-
-    // メニューの状態を切り替える関数
-    function toggleMobileMenu(e) {
-        if (e) {
-            e.preventDefault();
-            e.stopPropagation();
-        }
+        isMenuOpen = !isMenuOpen;
         
         if (isMenuOpen) {
-            closeMobileMenu();
+            // メニューを開く - 超シンプル
+            navMenu.classList.add('nav-active');
+            navToggle.classList.add('active');
+            body.classList.add('nav-open');
+            navToggle.setAttribute('aria-expanded', 'true');
+            console.log('📱 Menu opened');
         } else {
-            openMobileMenu();
+            // メニューを閉じる - 超シンプル
+            navMenu.classList.remove('nav-active');
+            navToggle.classList.remove('active');
+            body.classList.remove('nav-open');
+            navToggle.setAttribute('aria-expanded', 'false');
+            console.log('📱 Menu closed');
         }
     }
 
-    // ハンバーガーボタンのクリックイベント
-    navToggle.addEventListener('click', toggleMobileMenu);
+    // 🎯 メニューを閉じる専用関数
+    function closeMenu() {
+        if (isMenuOpen) {
+            isMenuOpen = false;
+            navMenu.classList.remove('nav-active');
+            navToggle.classList.remove('active');
+            body.classList.remove('nav-open');
+            navToggle.setAttribute('aria-expanded', 'false');
+            console.log('📱 Menu force closed');
+        }
+    }
 
-    // メニューリンクのクリックでメニューを閉じる
+    // 🔧 イベントリスナー - 超シンプル
+    navToggle.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        console.log('🍔 Toggle clicked');
+        toggleMenu();
+    });
+
+    // メニューリンククリックで閉じる
     const navLinks = navMenu.querySelectorAll('a');
     navLinks.forEach(link => {
         link.addEventListener('click', function() {
-            closeMobileMenu();
+            console.log('📎 Nav link clicked');
+            closeMenu();
         });
     });
 
-    // オーバーレイクリックでメニューを閉じる
+    // オーバーレイクリックで閉じる
     navMenu.addEventListener('click', function(e) {
         if (e.target === navMenu) {
-            closeMobileMenu();
+            console.log('🎯 Overlay clicked');
+            closeMenu();
         }
     });
 
-    // Escapeキーでメニューを閉じる
+    // ESCキーで閉じる
     document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && isMenuOpen) {
-            closeMobileMenu();
+        if (e.key === 'Escape') {
+            console.log('⌨️ ESC pressed');
+            closeMenu();
         }
     });
 
-    // 画面リサイズ時の処理
+    // 画面リサイズで閉じる
     window.addEventListener('resize', function() {
         if (window.innerWidth > 768) {
-            closeMobileMenu();
+            console.log('📱 Resized to desktop');
+            closeMenu();
         }
     });
 
-    // タッチイベント対応（iOS Safari向け）
-    navToggle.addEventListener('touchstart', function(e) {
-        e.preventDefault();
-    }, { passive: false });
-
-    console.log('🍔 Hamburger menu system initialized');
+    // 初期状態設定
+    closeMenu();
+    
+    console.log('🍔 Ultra Simple Hamburger menu initialized');
 });
 
 // Smooth scroll for anchor links (if you add any internal page links like #section)
@@ -287,11 +254,19 @@ document.addEventListener('DOMContentLoaded', function() {
         const bgLayer1 = document.createElement('div');
         bgLayer1.id = 'parallax-bg-layer-1';
         bgLayer1.style.cssText = `
+            /* Phase 9: iPhone Safari 絶対固定強化 */
             position: fixed !important;
-            top: 0; left: 0; right: 0; bottom: 0;
-            width: 100%; height: 120%;
-            z-index: -1000;
-            pointer-events: none;
+            top: 0 !important;
+            left: 0 !important;
+            right: 0 !important;
+            bottom: 0 !important;
+            width: 100vw !important;
+            height: 100vh !important;
+            z-index: -1000 !important;
+            pointer-events: none !important;
+            /* iOS Safari強制固定 */
+            margin: 0 !important;
+            padding: 0 !important;
             background-image: 
                 /* 超濃厚で分かりやすい模様 - Phase 8 */
                 radial-gradient(ellipse at 20% 20%, rgba(99, 187, 208, 1.0) 0%, rgba(99, 187, 208, 0.8) 15%, rgba(99, 187, 208, 0.4) 35%, transparent 60%),
@@ -317,11 +292,19 @@ document.addEventListener('DOMContentLoaded', function() {
         const bgLayer2 = document.createElement('div');
         bgLayer2.id = 'parallax-bg-layer-2';
         bgLayer2.style.cssText = `
+            /* Phase 9: iPhone Safari 絶対固定強化 */
             position: fixed !important;
-            top: 0; left: 0; right: 0; bottom: 0;
-            width: 100%; height: 110%;
-            z-index: -999;
-            pointer-events: none;
+            top: 0 !important;
+            left: 0 !important;
+            right: 0 !important;
+            bottom: 0 !important;
+            width: 100vw !important;
+            height: 100vh !important;
+            z-index: -999 !important;
+            pointer-events: none !important;
+            /* iOS Safari強制固定 */
+            margin: 0 !important;
+            padding: 0 !important;
             background-image: 
                 /* より鮮明な中間レイヤー */
                 radial-gradient(circle at 60% 40%, rgba(173, 216, 230, 0.7) 0%, rgba(173, 216, 230, 0.3) 30%, transparent 60%),
@@ -357,11 +340,19 @@ document.addEventListener('DOMContentLoaded', function() {
         const bgLayer3 = document.createElement('div');
         bgLayer3.id = 'parallax-bg-layer-3';
         bgLayer3.style.cssText = `
+            /* Phase 9: iPhone Safari 絶対固定強化 */
             position: fixed !important;
-            top: 0; left: 0; right: 0; bottom: 0;
-            width: 100%; height: 105%;
-            z-index: -998;
-            pointer-events: none;
+            top: 0 !important;
+            left: 0 !important;
+            right: 0 !important;
+            bottom: 0 !important;
+            width: 100vw !important;
+            height: 100vh !important;
+            z-index: -998 !important;
+            pointer-events: none !important;
+            /* iOS Safari強制固定 */
+            margin: 0 !important;
+            padding: 0 !important;
             background-image: 
                 /* 前景レイヤー強化 - より鮮やかな模様 */
                 radial-gradient(ellipse at 40% 80%, rgba(135, 206, 235, 0.6) 0%, rgba(135, 206, 235, 0.2) 35%, transparent 70%),
@@ -398,8 +389,11 @@ document.addEventListener('DOMContentLoaded', function() {
         document.body.insertBefore(bgLayer2, document.body.firstChild);
         document.body.insertBefore(bgLayer3, document.body.firstChild);
         
-        // 🎯 Phase 8: iPhone完全固定背景モード
-        console.log('🎯 Phase 8: iPhone完全固定背景 - パララックス無効化');
+        // 🎯 Phase 9: iPhone背景完全固定+逆パララックス実装
+        console.log('🎯 Phase 9: iPhone背景絶対固定 + 前面コンテンツスクロール実装');
+        
+        // 🚨 iPhone Safari background-attachment: fixed 完全回避戦略
+        console.log('🚨 Implementing absolute background fix for iOS Safari');
         
         // パララックス効果を完全停止し、固定背景のみに
         let ticking = false;
@@ -447,29 +441,49 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
         
-        // 🎨 Phase 8: 完全固定背景（パララックス無効）
-        function updateParallax() {
-            // Phase 8: 完全固定モード - パララックス処理を停止
-            if (!parallaxEnabled) {
-                // 背景を完全固定位置に強制
-                if (bgLayer1) {
-                    bgLayer1.style.transform = `translate3d(0, 0, 0)`;
-                    bgLayer1.style.willChange = 'auto';
-                }
-                if (bgLayer2) {
-                    bgLayer2.style.transform = `translate3d(0, 0, 0)`;
-                    bgLayer2.style.willChange = 'auto';
-                }
-                if (bgLayer3) {
-                    bgLayer3.style.transform = `translate3d(0, 0, 0)`;
-                    bgLayer3.style.willChange = 'auto';
-                }
-                ticking = false;
-                return;
-            }
+        // 🎯 Phase 9: iPhone背景絶対固定システム
+        function enforceBackgroundFix() {
+            // iPhone Safari で背景が動かないよう強制固定
+            const layers = [bgLayer1, bgLayer2, bgLayer3];
             
-            // パララックス有効時のコード（現在は使用せず）
-            console.log('📱 Parallax disabled in Phase 8 - Complete fixed background mode');
+            layers.forEach((layer, index) => {
+                if (layer) {
+                    // 位置を強制リセット
+                    layer.style.position = 'fixed';
+                    layer.style.top = '0px';
+                    layer.style.left = '0px';
+                    layer.style.right = '0px';
+                    layer.style.bottom = '0px';
+                    layer.style.width = '100vw';
+                    layer.style.height = '100vh';
+                    layer.style.transform = 'translate3d(0, 0, 0)';
+                    layer.style.webkitTransform = 'translate3d(0, 0, 0)';
+                    
+                    // 背景がスクロールに追従しないよう強制
+                    const rect = layer.getBoundingClientRect();
+                    if (Math.abs(rect.top) > 1 || Math.abs(rect.left) > 1) {
+                        console.log(`🚨 Layer ${index + 1} position drift detected - fixing`);
+                        layer.style.transform = 'translate3d(0, 0, 0) !important';
+                    }
+                }
+            });
+        }
+        
+        // 🔄 定期的な背景固定チェック - Phase 9強化
+        let fixInterval;
+        function startBackgroundFixMonitoring() {
+            // 50msごとに背景位置をチェック・修正（より頻繁に）
+            fixInterval = setInterval(enforceBackgroundFix, 50);
+            console.log('📱 Phase 9: Enhanced background fix monitoring started (50ms interval)');
+        }
+        
+        // 🎨 Phase 9: 逆パララックス（背景固定・前面スクロール）
+        function updateParallax() {
+            // Phase 9: 背景を絶対に固定し、前面コンテンツのみスクロール
+            enforceBackgroundFix();
+            
+            // 前面コンテンツは通常通りスクロール
+            // 背景は常に固定位置
             ticking = false;
         }
         
@@ -510,15 +524,25 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
         
-        // Phase 8: スクロールイベント無効化（完全固定背景）
-        // window.addEventListener('scroll', enhancedRequestTick, { passive: true });
-        console.log('📱 Scroll events disabled - Complete fixed background mode');
+        // Phase 9: スクロールイベント再有効化（背景固定監視のため）
+        window.addEventListener('scroll', enhancedRequestTick, { passive: true });
+        console.log('📱 Scroll events re-enabled for background fix monitoring');
         
-        // 🧹 メモリリーク防止：ページ離脱時のクリーンアップ
+        // 背景固定監視システム開始
+        startBackgroundFixMonitoring();
+        
+        // 初回背景固定実行
+        enforceBackgroundFix();
+        
+        // 🧹 メモリリーク防止：ページ離脱時のクリーンアップ - Phase 9強化
         window.addEventListener('beforeunload', () => {
             observer.disconnect();
             window.removeEventListener('scroll', enhancedRequestTick);
-            console.log('🧹 Parallax system cleaned up');
+            if (fixInterval) {
+                clearInterval(fixInterval);
+                console.log('📱 Background fix monitoring stopped');
+            }
+            console.log('🧹 Phase 9: Complete system cleanup completed');
         });
         
         // Step 6: 🎭 CSS Scroll-Driven Animations サポート検証
@@ -603,10 +627,11 @@ document.addEventListener('DOMContentLoaded', function() {
             console.log('✅ Parallax disabled for accessibility');
         }
         
-        console.log('✅ Ultra Think Phase 8 完全版: iPhone完全固定背景+超強化模様構築完了');
-        console.log('🎯 Complete Fixed Background + Enhanced Patterns + Fixed Menu');
-        console.log('📱 iPhone Safari完全最適化: 安定した固定背景システム');
-        console.log('🌟 分かりやすい背景模様 + カクつきゼロ - Ultra Think Phase 8達成');
+        console.log('✅ Ultra Think Phase 9 完全版: iPhone背景絶対固定+逆パララックス+超シンプルメニュー構築完了');
+        console.log('🎯 Phase 9: Absolute Fixed Background + Reverse Parallax + Ultra Simple Menu');
+        console.log('📱 iPhone Safari Phase 9最適化: 背景完全固定・前面スクロール実現');
+        console.log('🌟 完全固定背景 + 前面コンテンツスクロール + 根本的メニュー再設計 - Ultra Think Phase 9達成');
+        console.log('🚀 Phase 9システム監視: 50ms間隔背景固定チェック + 超シンプルハンバーガーメニュー');
         
         console.log('✅ Mobile optimization complete');
     } else {
