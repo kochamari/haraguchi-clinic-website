@@ -153,6 +153,24 @@ document.addEventListener('DOMContentLoaded', function() {
     // Add class to body to hide CSS fallback
     document.body.classList.add('parallax-active');
     
+    // Dynamically set parallax background height
+    function updateParallaxHeight() {
+        const documentHeight = Math.max(
+            document.body.scrollHeight,
+            document.body.offsetHeight,
+            document.documentElement.clientHeight,
+            document.documentElement.scrollHeight,
+            document.documentElement.offsetHeight
+        );
+        // Add extra height to ensure coverage during scrolling
+        parallaxBg.style.height = (documentHeight + window.innerHeight) + 'px';
+        console.log('📏 Parallax height updated to:', parallaxBg.style.height);
+    }
+    
+    // Update height on load and resize
+    updateParallaxHeight();
+    window.addEventListener('resize', updateParallaxHeight);
+    
     let ticking = false;
     
     function updateParallax() {
@@ -178,6 +196,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // リサイズ時の処理
     window.addEventListener('resize', function() {
+        updateParallaxHeight(); // 高さも再計算
         requestTick();
     }, { passive: true });
     
