@@ -1105,15 +1105,18 @@ body::before {
     display: flex;
     justify-content: center;
     align-items: center;
+    /* 初期状態で完全に非表示 */
     opacity: 0;
     visibility: hidden;
+    pointer-events: none;
+    transform: scale(0.8);
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    transform: scale(1.1);
 }
 
 .floating-menu-overlay.active {
     opacity: 1;
     visibility: visible;
+    pointer-events: auto;
     transform: scale(1);
 }
 
@@ -1126,13 +1129,16 @@ body::before {
     max-height: 80vh;
     overflow-y: auto;
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-    transform: scale(0.8) translateY(50px);
+    /* 初期状態で小さく下に配置 */
+    transform: scale(0.3) translateY(100px);
+    opacity: 0;
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     position: relative;
 }
 
 .floating-menu-overlay.active .floating-menu-modal {
     transform: scale(1) translateY(0);
+    opacity: 1;
 }
 
 .floating-menu-list {
