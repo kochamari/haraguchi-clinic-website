@@ -838,41 +838,15 @@ body::before {
     .section-padding { padding: 60px 0; }
     .section-title { font-size: 1.8rem; margin-bottom: 40px; }
 
-    /* ハンバーガーボタンを表示 */
+    /* ハンバーガーボタンを表示（モバイルのみ） */
     .nav-toggle {
         display: block;
         position: relative;
-        z-index: 9999;
+        z-index: 10001;
         background: var(--white-color);
         border: 2px solid var(--primary-color);
         border-radius: 6px;
         padding: 8px;
-    }
-    
-    /* メニューを非表示にしてフルスクリーンオーバーレイに */
-    .main-nav ul {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        height: 100vh;
-        background-color: rgba(255, 255, 255, 0.98);
-        z-index: 9998;
-        padding: 100px 30px 30px;
-        margin: 0;
-        list-style: none;
-        overflow-y: auto;
-        -webkit-overflow-scrolling: touch;
-    }
-    
-    /* メニューが開いた時に表示 */
-    .main-nav ul.nav-active {
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
-        align-items: center;
-        gap: 15px;
     }
     
     /* ハンバーガーアイコンの変化 */
@@ -884,48 +858,6 @@ body::before {
     }
     .nav-toggle.active span:nth-child(3) {
         transform: rotate(-45deg) translate(7px, -6px);
-    }
-    
-    /* メニューアイテムのスタイル */
-    .main-nav ul li {
-        width: 100%;
-        max-width: 300px;
-        margin: 0;
-    }
-    
-    .main-nav ul li a {
-        display: block;
-        width: 100%;
-        padding: 18px 24px;
-        background-color: var(--white-color);
-        border: 2px solid var(--primary-color);
-        border-radius: 12px;
-        font-size: 1.1rem;
-        font-weight: 600;
-        text-align: center;
-        text-decoration: none;
-        color: var(--primary-color);
-        transition: all 0.3s ease;
-        box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-    }
-    
-    .main-nav ul li a:hover,
-    .main-nav ul li a.active {
-        background-color: var(--primary-color);
-        color: var(--white-color);
-        transform: translateY(-2px);
-        box-shadow: 0 6px 20px rgba(0,0,0,0.15);
-    }
-    
-    .main-nav ul li a::after {
-        display: none;
-    }
-    
-    /* 本体のスクロールを防ぐ */
-    body.nav-open {
-        overflow: hidden;
-        position: fixed;
-        width: 100%;
     }
 
 
@@ -1158,6 +1090,161 @@ body::before {
     color: var(--accent-color);
 }
 
+
+/* --- Floating Menu System --- */
+.floating-menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(58, 90, 120, 0.85);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    z-index: 10000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transform: scale(1.1);
+}
+
+.floating-menu-overlay.active {
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1);
+}
+
+.floating-menu-modal {
+    background: var(--white-color);
+    border-radius: 20px;
+    padding: 40px 30px;
+    max-width: 90vw;
+    width: 400px;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    transform: scale(0.8) translateY(50px);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+}
+
+.floating-menu-overlay.active .floating-menu-modal {
+    transform: scale(1) translateY(0);
+}
+
+.floating-menu-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.floating-menu-list li {
+    margin: 0;
+}
+
+.floating-menu-list li a {
+    display: block;
+    padding: 18px 24px;
+    text-decoration: none;
+    font-family: var(--font-family-heading);
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: var(--primary-color);
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border: 2px solid var(--primary-color);
+    border-radius: 15px;
+    text-align: center;
+    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    position: relative;
+    overflow: hidden;
+}
+
+.floating-menu-list li a::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    transition: left 0.3s ease;
+    z-index: -1;
+}
+
+.floating-menu-list li a:hover::before,
+.floating-menu-list li a:focus::before {
+    left: 0;
+}
+
+.floating-menu-list li a:hover,
+.floating-menu-list li a:focus {
+    color: var(--white-color);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(58, 90, 120, 0.3);
+    border-color: var(--secondary-color);
+}
+
+/* Body scroll prevention when menu is open */
+body.floating-menu-open {
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+}
+
+/* iPhone specific optimizations */
+@media screen and (-webkit-min-device-pixel-ratio: 2) {
+    .floating-menu-overlay {
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0);
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+    }
+    
+    .floating-menu-modal {
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0);
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+    }
+}
+
+/* Animation keyframes for floating effect */
+@keyframes floatIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.8) translateY(50px) rotateX(30deg);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) translateY(0) rotateX(0deg);
+    }
+}
+
+@keyframes floatOut {
+    0% {
+        opacity: 1;
+        transform: scale(1) translateY(0) rotateX(0deg);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(0.8) translateY(-50px) rotateX(-30deg);
+    }
+}
+
+.floating-menu-overlay.floating-in .floating-menu-modal {
+    animation: floatIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+.floating-menu-overlay.floating-out .floating-menu-modal {
+    animation: floatOut 0.3s cubic-bezier(0.55, 0.085, 0.68, 0.53) forwards;
+}
 
 /* Accessibility - Focus Visible */
 *:focus-visible {

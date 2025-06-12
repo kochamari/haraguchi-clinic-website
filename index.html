@@ -20,12 +20,12 @@
                 <a href="index.html">原口消化器内科</a>
             </h1>
             <nav class="main-nav">
-                <button class="nav-toggle" aria-label="メニューを開く" aria-expanded="false" aria-controls="main-menu">
+                <button class="nav-toggle" aria-label="メニューを開く" aria-expanded="false" aria-controls="floating-menu-modal">
                     <span></span>
                     <span></span>
                     <span></span>
                 </button>
-                <ul id="main-menu">
+                <ul class="pc-only">
                     <li><a href="index.html" class="active">ホーム</a></li>
                     <li><a href="news.html">お知らせ</a></li>
                     <li><a href="services.html">診療案内</a></li>
@@ -37,6 +37,21 @@
             </nav>
         </div>
     </header>
+
+    <!-- Floating Menu Overlay -->
+    <div class="floating-menu-overlay" id="floating-menu-overlay">
+        <div class="floating-menu-modal" id="floating-menu-modal">
+            <ul class="floating-menu-list">
+                <li><a href="index.html">ホーム</a></li>
+                <li><a href="news.html">お知らせ</a></li>
+                <li><a href="services.html">診療案内</a></li>
+                <li><a href="doctors.html">医師紹介</a></li>
+                <li><a href="access.html">アクセス</a></li>
+                <li><a href="contact.html">お問い合わせ</a></li>
+                <li><a href="materials.html">説明資料</a></li>
+            </ul>
+        </div>
+    </div>
 
     <main>
         <section class="hero">
