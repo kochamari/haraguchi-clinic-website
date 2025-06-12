@@ -141,6 +141,52 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log('🎈 Floating menu system initialized successfully');
 });
 
+// iPhone-compatible Parallax Effect
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('📱 Initializing iPhone-compatible parallax effect');
+    
+    // Create parallax background element
+    const parallaxBg = document.createElement('div');
+    parallaxBg.className = 'parallax-bg';
+    document.body.insertBefore(parallaxBg, document.body.firstChild);
+    
+    // Add class to body to hide CSS fallback
+    document.body.classList.add('parallax-active');
+    
+    let ticking = false;
+    
+    function updateParallax() {
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        const speed = 0.5; // パララックス速度調整
+        
+        // transform を使用してGPU加速
+        const yPos = -(scrollTop * speed);
+        parallaxBg.style.transform = `translate3d(0, ${yPos}px, 0)`;
+        
+        ticking = false;
+    }
+    
+    function requestTick() {
+        if (!ticking) {
+            requestAnimationFrame(updateParallax);
+            ticking = true;
+        }
+    }
+    
+    // スクロールイベントリスナー
+    window.addEventListener('scroll', requestTick, { passive: true });
+    
+    // リサイズ時の処理
+    window.addEventListener('resize', function() {
+        requestTick();
+    }, { passive: true });
+    
+    // 初期実行
+    updateParallax();
+    
+    console.log('✅ iPhone parallax effect initialized');
+});
+
 // Smooth scroll for anchor links (if you add any internal page links like #section)
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
