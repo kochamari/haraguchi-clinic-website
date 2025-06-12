@@ -59,10 +59,10 @@ document.addEventListener('DOMContentLoaded', function() {
         navToggle.classList.remove('active');
         body.classList.remove('floating-menu-open');
         
-        // アニメーション完了後にactiveクラスを削除
+        // アニメーション完了後にactiveクラスを削除（1秒のアニメーション）
         setTimeout(() => {
             floatingOverlay.classList.remove('active', 'floating-out');
-        }, 300);
+        }, 1000);
         
         // フォーカスをハンバーガーボタンに戻す
         navToggle.focus();
