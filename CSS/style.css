@@ -148,7 +148,8 @@ body::before {
 
 .sp-only { display: none; }
 @media (max-width: 768px) {
-    .pc-only { display: none; }
+    .pc-only { display: none !important; }
+    .main-nav .pc-only { display: none !important; }
     .sp-only { display: block; }
     .section-title { font-size: 2rem; }
 }
