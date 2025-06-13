@@ -14,8 +14,10 @@ function createNewsItemHTML(item) {
     return `
         <article class="news-item" data-aos="fade-up" data-aos-delay="100">
             <time class="news-date">${formatDate(item.date)}</time>
-            <h3 class="news-title"><a href="news.html#news-${item.id}">${item.title}</a></h3>
-            <p class="news-excerpt">${item.excerpt}</p>
+            <div class="news-content-wrapper">
+                <h3 class="news-title"><a href="news.html#news-${item.id}">${item.title}</a></h3>
+                <p class="news-excerpt">${item.excerpt}</p>
+            </div>
         </article>
     `;
 }
@@ -45,8 +47,8 @@ function loadNewsDigest() {
             throw new Error('お知らせデータが見つかりません');
         }
         
-        // 最新3件を取得
-        const latestNews = newsData.news.slice(0, 3);
+        // 最新5件を取得
+        const latestNews = newsData.news.slice(0, 5);
         
         // HTMLを生成
         const newsHTML = latestNews.map(item => createNewsItemHTML(item)).join('');
