@@ -281,7 +281,15 @@ document.addEventListener('DOMContentLoaded', function() {
             console.log('🔄 Forcing image reload:', index);
             const originalSrc = img.src;
             img.src = '';
-            img.src = originalSrc;
+            setTimeout(() => {
+                img.src = originalSrc;
+            }, 10);
+        }
+        
+        // Additional iOS-specific fix
+        if (/iPhone|iPad|iPod/.test(navigator.userAgent)) {
+            img.style.willChange = 'transform';
+            img.parentElement.style.transform = 'translateZ(0)';
         }
     });
 });
