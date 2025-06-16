@@ -408,9 +408,8 @@ body.parallax-active::before {
 .hero-doctor-icon {
     max-width: 280px;
     height: auto;
-    filter: brightness(0) saturate(100%) invert(25%) sepia(17%) saturate(1849%) hue-rotate(188deg) brightness(95%) contrast(87%) drop-shadow(0 5px 15px rgba(0, 0, 0, 0.1));
+    filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.1));
     animation: gentle-float 3s ease-in-out infinite;
-    transition: filter var(--transition-speed);
 }
 
 @keyframes gentle-float {
