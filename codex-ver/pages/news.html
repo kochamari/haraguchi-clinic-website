@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>お知らせ | 原口消化器内科</title>
+    <meta name="description" content="原口消化器内科からの最新のお知らせ・診療情報をご確認いただけます。">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        .page-hero {
+            background: var(--background-gradient);
+            color: white;
+            padding: 120px 0 80px;
+            text-align: center;
+        }
+        
+        .page-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        
+        .page-subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .news-section {
+            padding: 80px 0;
+        }
+        
+        .news-list {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .news-item {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-light);
+            border-left: 4px solid var(--primary-color);
+            transition: var(--transition);
+        }
+        
+        .news-item:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-medium);
+        }
+        
+        .news-date {
+            color: var(--primary-color);
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .news-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+            line-height: 1.4;
+        }
+        
+        .news-content {
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+        
+        .news-tag {
+            display: inline-block;
+            background: var(--accent-color);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            margin-top: 1rem;
+        }
+        
+        .news-tag.important {
+            background: #e74c3c;
+        }
+        
+        .news-tag.info {
+            background: var(--secondary-color);
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav">
+            <div class="nav-container">
+                <div class="nav-logo">
+                    <h1 class="logo-text">原口消化器内科</h1>
+                    <span class="logo-subtitle">Haraguchi Gastroenterology</span>
+                </div>
+                
+                <div class="nav-menu" id="nav-menu">
+                    <ul class="nav-list">
+                        <li><a href="../index.html" class="nav-link">ホーム</a></li>
+                        <li><a href="news.html" class="nav-link active">お知らせ</a></li>
+                        <li><a href="medical-services.html" class="nav-link">診療案内</a></li>
+                        <li><a href="doctors.html" class="nav-link">医師紹介</a></li>
+                        <li><a href="access.html" class="nav-link">アクセス</a></li>
+                        <li><a href="contact.html" class="nav-link">お問い合わせ</a></li>
+                        <li><a href="materials.html" class="nav-link">説明資料</a></li>
+                    </ul>
+                </div>
+                
+                <div class="nav-toggle" id="nav-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="page-hero">
+            <div class="container">
+                <h1 class="page-title">お知らせ</h1>
+                <p class="page-subtitle">クリニックからの最新情報をお伝えします</p>
+            </div>
+        </section>
+
+        <section class="news-section">
+            <div class="container">
+                <div class="news-list">
+                    <article class="news-item">
+                        <div class="news-date">2024年12月1日</div>
+                        <h2 class="news-title">年末年始の診療について</h2>
+                        <div class="news-content">
+                            <p>年末年始の診療スケジュールをお知らせいたします。</p>
+                            <ul>
+                                <li>12月29日（金）：通常診療</li>
+                                <li>12月30日（土）：午前のみ診療</li>
+                                <li>12月31日（日）～1月3日（水）：休診</li>
+                                <li>1月4日（木）：通常診療開始</li>
+                            </ul>
+                            <p>ご不便をおかけいたしますが、何卒ご理解のほどよろしくお願いいたします。</p>
+                        </div>
+                        <span class="news-tag important">重要</span>
+                    </article>
+
+                    <article class="news-item">
+                        <div class="news-date">2024年11月15日</div>
+                        <h2 class="news-title">インフルエンザ予防接種について</h2>
+                        <div class="news-content">
+                            <p>インフルエンザ予防接種を実施しております。接種をご希望の方は、事前にお電話でご予約をお願いいたします。</p>
+                            <p><strong>接種料金：</strong> 3,500円（税込）<br>
+                            <strong>対象年齢：</strong> 13歳以上<br>
+                            <strong>実施期間：</strong> 12月末まで</p>
+                        </div>
+                        <span class="news-tag info">お知らせ</span>
+                    </article>
+
+                    <article class="news-item">
+                        <div class="news-date">2024年10月10日</div>
+                        <h2 class="news-title">大腸がん検診のお知らせ</h2>
+                        <div class="news-content">
+                            <p>佐世保市が実施する大腸がん検診を当院でも受診いただけます。40歳以上の方を対象とした検診です。早期発見・早期治療のため、定期的な検診をお勧めしております。</p>
+                            <p>詳細につきましては、お電話にてお問い合わせください。</p>
+                        </div>
+                        <span class="news-tag">検診</span>
+                    </article>
+
+                    <article class="news-item">
+                        <div class="news-date">2024年9月20日</div>
+                        <h2 class="news-title">内視鏡検査の予約状況について</h2>
+                        <div class="news-content">
+                            <p>内視鏡検査（胃カメラ・大腸カメラ）のご予約が込み合っております。検査をご希望の方は、お早めにご予約をお取りください。</p>
+                            <p>緊急性の高い症状がある場合は、診察時にご相談ください。</p>
+                        </div>
+                        <span class="news-tag info">お知らせ</span>
+                    </article>
+
+                    <article class="news-item">
+                        <div class="news-date">2024年8月5日</div>
+                        <h2 class="news-title">夏季休診のお知らせ</h2>
+                        <div class="news-content">
+                            <p>誠に勝手ながら、下記の期間を夏季休診とさせていただきます。</p>
+                            <p><strong>休診期間：</strong> 8月13日（火）～8月15日（木）<br>
+                            8月16日（金）より通常診療いたします。</p>
+                            <p>ご迷惑をおかけいたしますが、よろしくお願いいたします。</p>
+                        </div>
+                        <span class="news-tag important">重要</span>
+                    </article>
+
+                    <article class="news-item">
+                        <div class="news-date">2024年7月1日</div>
+                        <h2 class="news-title">ホームページを開設いたしました</h2>
+                        <div class="news-content">
+                            <p>この度、原口消化器内科のホームページを開設いたしました。診療案内や医師紹介、アクセス情報などをご覧いただけます。</p>
+                            <p>今後も患者様にとって有用な情報を発信してまいりますので、ぜひご活用ください。</p>
+                        </div>
+                        <span class="news-tag">新着</span>
+                    </article>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <h3>原口消化器内科</h3>
+                    <p>〒857-0052 佐世保市松浦町5番28号 アーバンパレス米春2F</p>
+                    <p>TEL: <a href="tel:0956-37-3777">0956-37-3777</a></p>
+                </div>
+                <div class="footer-nav">
+                    <ul>
+                        <li><a href="news.html">お知らせ</a></li>
+                        <li><a href="medical-services.html">診療案内</a></li>
+                        <li><a href="doctors.html">医師紹介</a></li>
+                        <li><a href="access.html">アクセス</a></li>
+                        <li><a href="contact.html">お問い合わせ</a></li>
+                        <li><a href="materials.html">説明資料</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 原口消化器内科. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+</body>
+</html>

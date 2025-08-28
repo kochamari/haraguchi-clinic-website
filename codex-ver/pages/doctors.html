@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>医師紹介 | 原口消化器内科</title>
+    <meta name="description" content="原口消化器内科の医師をご紹介します。院長原口紘、医師原口増穂の経歴・専門分野をご覧ください。">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        .page-hero {
+            background: var(--background-gradient);
+            color: white;
+            padding: 120px 0 80px;
+            text-align: center;
+        }
+        
+        .page-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        
+        .page-subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .doctors-section {
+            padding: 80px 0;
+        }
+        
+        .doctor-card {
+            background: white;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow-light);
+            margin-bottom: 3rem;
+            transition: var(--transition);
+        }
+        
+        .doctor-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-medium);
+        }
+        
+        .doctor-content {
+            display: grid;
+            grid-template-columns: 200px 1fr;
+            gap: 2rem;
+            padding: 2.5rem;
+        }
+        
+        .doctor-photo {
+            width: 200px;
+            height: 250px;
+            background: var(--background-light);
+            border-radius: var(--border-radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: var(--primary-color);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .doctor-photo::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            opacity: 0.1;
+        }
+        
+        .doctor-info h2 {
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        
+        .doctor-title {
+            font-size: 1.1rem;
+            color: var(--secondary-color);
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+        
+        .doctor-description {
+            color: var(--text-light);
+            line-height: 1.7;
+            margin-bottom: 2rem;
+            font-size: 1rem;
+        }
+        
+        .doctor-details {
+            display: grid;
+            gap: 1.5rem;
+        }
+        
+        .detail-section {
+            background: var(--background-light);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary-color);
+        }
+        
+        .detail-section h3 {
+            color: var(--primary-color);
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+        }
+        
+        .detail-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .detail-list li {
+            color: var(--text-light);
+            padding: 0.3rem 0;
+            position: relative;
+            padding-left: 1.2rem;
+        }
+        
+        .detail-list li:before {
+            content: '・';
+            position: absolute;
+            left: 0;
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+        
+        .specialty-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+        
+        .specialty-tag {
+            background: var(--primary-color);
+            color: white;
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+        
+        .philosophy-section {
+            background: var(--background-light);
+            padding: 80px 0;
+        }
+        
+        .philosophy-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .philosophy-text {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: var(--text-light);
+            margin-bottom: 2rem;
+            font-style: italic;
+        }
+        
+        .philosophy-quote {
+            font-size: 1.1rem;
+            color: var(--primary-color);
+            font-weight: 600;
+            position: relative;
+            padding: 1.5rem;
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-light);
+        }
+        
+        .philosophy-quote:before,
+        .philosophy-quote:after {
+            content: '"';
+            font-size: 3rem;
+            color: var(--accent-color);
+            position: absolute;
+            opacity: 0.3;
+        }
+        
+        .philosophy-quote:before {
+            top: -10px;
+            left: 10px;
+        }
+        
+        .philosophy-quote:after {
+            bottom: -40px;
+            right: 10px;
+        }
+        
+        @media (max-width: 768px) {
+            .doctor-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .doctor-photo {
+                margin: 0 auto;
+                width: 150px;
+                height: 180px;
+                font-size: 3rem;
+            }
+            
+            .doctor-info h2 {
+                font-size: 1.5rem;
+            }
+            
+            .specialty-tags {
+                justify-content: center;
+            }
+            
+            .philosophy-text {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav">
+            <div class="nav-container">
+                <div class="nav-logo">
+                    <h1 class="logo-text">原口消化器内科</h1>
+                    <span class="logo-subtitle">Haraguchi Gastroenterology</span>
+                </div>
+                
+                <div class="nav-menu" id="nav-menu">
+                    <ul class="nav-list">
+                        <li><a href="../index.html" class="nav-link">ホーム</a></li>
+                        <li><a href="news.html" class="nav-link">お知らせ</a></li>
+                        <li><a href="medical-services.html" class="nav-link">診療案内</a></li>
+                        <li><a href="doctors.html" class="nav-link active">医師紹介</a></li>
+                        <li><a href="access.html" class="nav-link">アクセス</a></li>
+                        <li><a href="contact.html" class="nav-link">お問い合わせ</a></li>
+                        <li><a href="materials.html" class="nav-link">説明資料</a></li>
+                    </ul>
+                </div>
+                
+                <div class="nav-toggle" id="nav-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="page-hero">
+            <div class="container">
+                <h1 class="page-title">医師紹介</h1>
+                <p class="page-subtitle">経験豊富な医師が皆様の健康をサポートいたします</p>
+            </div>
+        </section>
+
+        <section class="doctors-section">
+            <div class="container">
+                <div class="doctor-card">
+                    <div class="doctor-content">
+                        <div class="doctor-photo">
+                            👨‍⚕️
+                        </div>
+                        <div class="doctor-info">
+                            <h2>原口 紘</h2>
+                            <p class="doctor-title">院長・消化器内科専門医</p>
+                            <p class="doctor-description">
+                                消化器内科領域における豊富な臨床経験を活かし、患者様一人ひとりに最適な医療を提供することを心がけております。
+                                特に内視鏡検査・治療において高い専門性を有し、早期発見・早期治療に努めています。
+                                地域の皆様に信頼される医療を目指し、日々研鑽を積んでおります。
+                            </p>
+                            
+                            <div class="doctor-details">
+                                <div class="detail-section">
+                                    <h3>専門分野</h3>
+                                    <ul class="detail-list">
+                                        <li>消化器内科疾患全般</li>
+                                        <li>上部・下部消化管内視鏡検査・治療</li>
+                                        <li>炎症性腸疾患</li>
+                                        <li>肝疾患</li>
+                                        <li>生活習慣病</li>
+                                    </ul>
+                                    <div class="specialty-tags">
+                                        <span class="specialty-tag">消化器内科専門医</span>
+                                        <span class="specialty-tag">内視鏡専門医</span>
+                                        <span class="specialty-tag">日本内科学会認定医</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="detail-section">
+                                    <h3>学歴・経歴</h3>
+                                    <ul class="detail-list">
+                                        <li>長崎大学医学部 卒業</li>
+                                        <li>長崎大学病院 内科研修</li>
+                                        <li>佐世保市総合医療センター 消化器内科勤務</li>
+                                        <li>長崎県内複数の医療機関にて消化器内科診療に従事</li>
+                                        <li>原口消化器内科 開設</li>
+                                    </ul>
+                                </div>
+                                
+                                <div class="detail-section">
+                                    <h3>所属学会・資格</h3>
+                                    <ul class="detail-list">
+                                        <li>日本内科学会 認定内科医</li>
+                                        <li>日本消化器病学会 専門医</li>
+                                        <li>日本消化器内視鏡学会 専門医</li>
+                                        <li>日本肝臓学会</li>
+                                        <li>日本糖尿病学会</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="doctor-card">
+                    <div class="doctor-content">
+                        <div class="doctor-photo">
+                            👩‍⚕️
+                        </div>
+                        <div class="doctor-info">
+                            <h2>原口 増穂</h2>
+                            <p class="doctor-title">医師</p>
+                            <p class="doctor-description">
+                                内科全般および消化器内科診療に携わり、患者様に寄り添った丁寧な診療を心がけております。
+                                女性医師として、女性特有の症状や悩みについても気軽にご相談いただけるよう努めています。
+                                チーム医療の一員として、質の高い医療サービスの提供に貢献いたします。
+                            </p>
+                            
+                            <div class="doctor-details">
+                                <div class="detail-section">
+                                    <h3>専門分野</h3>
+                                    <ul class="detail-list">
+                                        <li>内科一般</li>
+                                        <li>消化器内科</li>
+                                        <li>生活習慣病</li>
+                                        <li>女性の健康相談</li>
+                                        <li>予防医学</li>
+                                    </ul>
+                                    <div class="specialty-tags">
+                                        <span class="specialty-tag">内科医</span>
+                                        <span class="specialty-tag">女性医師</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="detail-section">
+                                    <h3>学歴・経歴</h3>
+                                    <ul class="detail-list">
+                                        <li>医学部 卒業</li>
+                                        <li>臨床研修修了</li>
+                                        <li>内科系診療科にて研鑽</li>
+                                        <li>原口消化器内科 勤務</li>
+                                    </ul>
+                                </div>
+                                
+                                <div class="detail-section">
+                                    <h3>診療への想い</h3>
+                                    <ul class="detail-list">
+                                        <li>患者様とのコミュニケーションを大切にした診療</li>
+                                        <li>女性ならではの視点を活かした医療提供</li>
+                                        <li>予防医学を重視した健康管理サポート</li>
+                                        <li>地域医療への貢献</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="philosophy-section">
+            <div class="container">
+                <div class="section-header text-center">
+                    <h2 class="section-title">診療理念</h2>
+                </div>
+                
+                <div class="philosophy-content">
+                    <p class="philosophy-text">
+                        私たちは、患者様一人ひとりの声に耳を傾け、<br>
+                        最適な医療を提供することを使命としています。<br>
+                        最新の医療技術と温かい心で、<br>
+                        地域の皆様の健康をお守りいたします。
+                    </p>
+                    
+                    <div class="philosophy-quote">
+                        患者様の立場に立った、安心できる医療を目指して
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <h3>原口消化器内科</h3>
+                    <p>〒857-0052 佐世保市松浦町5番28号 アーバンパレス米春2F</p>
+                    <p>TEL: <a href="tel:0956-37-3777">0956-37-3777</a></p>
+                </div>
+                <div class="footer-nav">
+                    <ul>
+                        <li><a href="news.html">お知らせ</a></li>
+                        <li><a href="medical-services.html">診療案内</a></li>
+                        <li><a href="doctors.html">医師紹介</a></li>
+                        <li><a href="access.html">アクセス</a></li>
+                        <li><a href="contact.html">お問い合わせ</a></li>
+                        <li><a href="materials.html">説明資料</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 原口消化器内科. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+</body>
+</html>

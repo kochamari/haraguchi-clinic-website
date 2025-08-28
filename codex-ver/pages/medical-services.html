@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>診療案内 | 原口消化器内科</title>
+    <meta name="description" content="原口消化器内科の診療内容・診療時間をご案内します。消化器内科疾患、内視鏡検査、生活習慣病まで幅広く対応。">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        .page-hero {
+            background: var(--background-gradient);
+            color: white;
+            padding: 120px 0 80px;
+            text-align: center;
+        }
+        
+        .page-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        
+        .page-subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .services-detail {
+            padding: 80px 0;
+        }
+        
+        .service-category {
+            margin-bottom: 4rem;
+        }
+        
+        .category-header {
+            background: var(--background-light);
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            margin-bottom: 2rem;
+            border-left: 4px solid var(--primary-color);
+        }
+        
+        .category-title {
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        
+        .category-description {
+            color: var(--text-light);
+            line-height: 1.6;
+            font-size: 1.1rem;
+        }
+        
+        .service-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+        
+        .service-detail-card {
+            background: white;
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-light);
+            transition: var(--transition);
+        }
+        
+        .service-detail-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-medium);
+        }
+        
+        .service-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--primary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+            color: white;
+        }
+        
+        .service-detail-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+        }
+        
+        .service-detail-content {
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+        
+        .service-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .service-list li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #f0f0f0;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+        
+        .service-list li:before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+        
+        .service-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .schedule-section {
+            background: var(--background-light);
+            padding: 80px 0;
+        }
+        
+        .schedule-wrapper {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .schedule-note {
+            background: white;
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            margin-top: 2rem;
+            border-left: 4px solid var(--secondary-color);
+        }
+        
+        .note-title {
+            color: var(--secondary-color);
+            font-weight: 600;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+        
+        .note-content {
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+        
+        .contact-cta {
+            background: var(--primary-color);
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+        }
+        
+        .cta-title {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        
+        .cta-description {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+        
+        .cta-phone {
+            font-size: 2rem;
+            font-weight: 700;
+            color: white;
+            text-decoration: none;
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+        }
+        
+        .cta-phone:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav">
+            <div class="nav-container">
+                <div class="nav-logo">
+                    <h1 class="logo-text">原口消化器内科</h1>
+                    <span class="logo-subtitle">Haraguchi Gastroenterology</span>
+                </div>
+                
+                <div class="nav-menu" id="nav-menu">
+                    <ul class="nav-list">
+                        <li><a href="../index.html" class="nav-link">ホーム</a></li>
+                        <li><a href="news.html" class="nav-link">お知らせ</a></li>
+                        <li><a href="medical-services.html" class="nav-link active">診療案内</a></li>
+                        <li><a href="doctors.html" class="nav-link">医師紹介</a></li>
+                        <li><a href="access.html" class="nav-link">アクセス</a></li>
+                        <li><a href="contact.html" class="nav-link">お問い合わせ</a></li>
+                        <li><a href="materials.html" class="nav-link">説明資料</a></li>
+                    </ul>
+                </div>
+                
+                <div class="nav-toggle" id="nav-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="page-hero">
+            <div class="container">
+                <h1 class="page-title">診療案内</h1>
+                <p class="page-subtitle">専門性の高い診療で皆様の健康をサポートします</p>
+            </div>
+        </section>
+
+        <section class="services-detail">
+            <div class="container">
+                <div class="service-category">
+                    <div class="category-header">
+                        <h2 class="category-title">消化器内科疾患</h2>
+                        <p class="category-description">胃腸をはじめとする消化器系の幅広い疾患に対応いたします。症状に応じて適切な検査・治療を行います。</p>
+                    </div>
+                    
+                    <div class="service-grid">
+                        <div class="service-detail-card">
+                            <div class="service-icon">🫃</div>
+                            <h3 class="service-detail-title">上部消化管疾患</h3>
+                            <div class="service-detail-content">
+                                <ul class="service-list">
+                                    <li>逆流性食道炎</li>
+                                    <li>胃炎・胃潰瘍</li>
+                                    <li>十二指腸潰瘍</li>
+                                    <li>胃ポリープ</li>
+                                    <li>機能性ディスペプシア</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="service-detail-card">
+                            <div class="service-icon">🫤</div>
+                            <h3 class="service-detail-title">下部消化管疾患</h3>
+                            <div class="service-detail-content">
+                                <ul class="service-list">
+                                    <li>過敏性腸症候群</li>
+                                    <li>炎症性腸疾患</li>
+                                    <li>大腸ポリープ</li>
+                                    <li>痔疾患</li>
+                                    <li>便秘症</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="service-detail-card">
+                            <div class="service-icon">🍀</div>
+                            <h3 class="service-detail-title">肝胆膵疾患</h3>
+                            <div class="service-detail-content">
+                                <ul class="service-list">
+                                    <li>脂肪肝</li>
+                                    <li>慢性肝炎</li>
+                                    <li>胆石症</li>
+                                    <li>胆のう炎</li>
+                                    <li>膵炎</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="service-category">
+                    <div class="category-header">
+                        <h2 class="category-title">内視鏡検査・治療</h2>
+                        <p class="category-description">最新の内視鏡システムを使用し、正確な診断と低侵襲な治療を提供いたします。</p>
+                    </div>
+                    
+                    <div class="service-grid">
+                        <div class="service-detail-card">
+                            <div class="service-icon">🔬</div>
+                            <h3 class="service-detail-title">上部消化管内視鏡検査（胃カメラ）</h3>
+                            <div class="service-detail-content">
+                                <p>食道・胃・十二指腸の詳細な観察を行います。経鼻内視鏡にも対応し、患者様の負担を軽減します。</p>
+                                <ul class="service-list">
+                                    <li>ヘリコバクター・ピロリ菌検査</li>
+                                    <li>組織生検</li>
+                                    <li>早期がんの発見</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="service-detail-card">
+                            <div class="service-icon">🔍</div>
+                            <h3 class="service-detail-title">下部消化管内視鏡検査（大腸カメラ）</h3>
+                            <div class="service-detail-content">
+                                <p>大腸全体を詳しく検査し、ポリープや炎症、がんの早期発見に努めます。</p>
+                                <ul class="service-list">
+                                    <li>大腸がん検診</li>
+                                    <li>ポリープ切除術</li>
+                                    <li>炎症性腸疾患の診断</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="service-detail-card">
+                            <div class="service-icon">✂️</div>
+                            <h3 class="service-detail-title">内視鏡的治療</h3>
+                            <div class="service-detail-content">
+                                <p>内視鏡を用いた低侵襲治療で、患者様の負担を最小限に抑えます。</p>
+                                <ul class="service-list">
+                                    <li>ポリープ切除術（EMR）</li>
+                                    <li>止血術</li>
+                                    <li>異物除去</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="service-category">
+                    <div class="category-header">
+                        <h2 class="category-title">生活習慣病</h2>
+                        <p class="category-description">糖尿病、高血圧、脂質異常症などの生活習慣病の診療・管理を行います。</p>
+                    </div>
+                    
+                    <div class="service-grid">
+                        <div class="service-detail-card">
+                            <div class="service-icon">🩺</div>
+                            <h3 class="service-detail-title">糖尿病</h3>
+                            <div class="service-detail-content">
+                                <p>血糖値の管理と合併症の予防に重点を置いた診療を行います。</p>
+                                <ul class="service-list">
+                                    <li>HbA1c検査</li>
+                                    <li>食事療法指導</li>
+                                    <li>薬物療法</li>
+                                    <li>インスリン療法</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="service-detail-card">
+                            <div class="service-icon">❤️</div>
+                            <h3 class="service-detail-title">高血圧</h3>
+                            <div class="service-detail-content">
+                                <p>適切な血圧管理により、心血管疾患のリスクを軽減します。</p>
+                                <ul class="service-list">
+                                    <li>24時間血圧測定</li>
+                                    <li>生活習慣改善指導</li>
+                                    <li>降圧薬の調整</li>
+                                    <li>合併症の評価</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div class="service-detail-card">
+                            <div class="service-icon">🧪</div>
+                            <h3 class="service-detail-title">脂質異常症</h3>
+                            <div class="service-detail-content">
+                                <p>コレステロール値の改善により、動脈硬化の進行を防ぎます。</p>
+                                <ul class="service-list">
+                                    <li>血液検査</li>
+                                    <li>食事療法</li>
+                                    <li>運動療法</li>
+                                    <li>薬物療法</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="schedule-section">
+            <div class="container">
+                <div class="schedule-wrapper">
+                    <div class="section-header text-center">
+                        <h2 class="section-title">診療時間</h2>
+                        <p class="section-subtitle">受診をご希望の方は、診療時間をご確認の上お越しください</p>
+                    </div>
+                    
+                    <div class="schedule-table-wrapper">
+                        <table class="schedule-table">
+                            <thead>
+                                <tr>
+                                    <th>曜日</th>
+                                    <th>午前診療</th>
+                                    <th>午後診療</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>月曜日</td>
+                                    <td>9:00-12:30</td>
+                                    <td>14:00-17:30</td>
+                                </tr>
+                                <tr>
+                                    <td>火曜日</td>
+                                    <td>9:00-12:30</td>
+                                    <td>14:00-17:30</td>
+                                </tr>
+                                <tr>
+                                    <td>水曜日</td>
+                                    <td>8:30-12:00</td>
+                                    <td class="closed">休診</td>
+                                </tr>
+                                <tr>
+                                    <td>木曜日</td>
+                                    <td>9:00-12:30</td>
+                                    <td>14:00-17:30</td>
+                                </tr>
+                                <tr>
+                                    <td>金曜日</td>
+                                    <td>9:00-12:30</td>
+                                    <td>14:00-17:30</td>
+                                </tr>
+                                <tr>
+                                    <td>土曜日</td>
+                                    <td>8:30-12:30</td>
+                                    <td class="closed">休診</td>
+                                </tr>
+                                <tr>
+                                    <td>日曜・祝日</td>
+                                    <td class="closed">休診</td>
+                                    <td class="closed">休診</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="schedule-note">
+                        <h3 class="note-title">受診時のお願い</h3>
+                        <div class="note-content">
+                            <ul class="service-list">
+                                <li>初診の方は、受付終了時間の30分前までにお越しください</li>
+                                <li>保険証を必ずお持ちください</li>
+                                <li>お薬手帳をお持ちの方はご持参ください</li>
+                                <li>内視鏡検査をご希望の方は事前予約が必要です</li>
+                                <li>症状によっては他の医療機関をご紹介する場合があります</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="contact-cta">
+            <div class="container">
+                <h2 class="cta-title">ご予約・お問い合わせ</h2>
+                <p class="cta-description">診療のご予約やご質問がございましたら、お気軽にお電話ください</p>
+                <a href="tel:0956-37-3777" class="cta-phone">0956-37-3777</a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <h3>原口消化器内科</h3>
+                    <p>〒857-0052 佐世保市松浦町5番28号 アーバンパレス米春2F</p>
+                    <p>TEL: <a href="tel:0956-37-3777">0956-37-3777</a></p>
+                </div>
+                <div class="footer-nav">
+                    <ul>
+                        <li><a href="news.html">お知らせ</a></li>
+                        <li><a href="medical-services.html">診療案内</a></li>
+                        <li><a href="doctors.html">医師紹介</a></li>
+                        <li><a href="access.html">アクセス</a></li>
+                        <li><a href="contact.html">お問い合わせ</a></li>
+                        <li><a href="materials.html">説明資料</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 原口消化器内科. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+</body>
+</html>
