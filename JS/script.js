@@ -10,146 +10,75 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-// 🚀 Ultra Think: Floating Modal Menu System for iPhone Safari
+// Floating Menu Navigation System - 完全新設計
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('🚀 Ultra Think Floating Menu System Started');
-    
-    // Element references with error handling
     const navToggle = document.querySelector('.nav-toggle');
-    const floatingMenuOverlay = document.querySelector('#floating-menu-overlay');
-    const floatingMenuModal = document.querySelector('#floating-menu-modal');
-    const floatingMenuClose = document.querySelector('.floating-menu-close');
+    const floatingOverlay = document.querySelector('#floating-menu-overlay');
+    const floatingModal = document.querySelector('#floating-menu-modal');
     const body = document.body;
-    const html = document.documentElement;
 
-    // Critical error checking
-    if (!navToggle) {
-        console.error('❌ Critical Error: .nav-toggle not found');
-        return;
-    }
-    if (!floatingMenuOverlay) {
-        console.error('❌ Critical Error: #floating-menu-overlay not found');
-        return;
-    }
-    if (!floatingMenuModal) {
-        console.error('❌ Critical Error: #floating-menu-modal not found');
+    // 要素の存在チェック
+    if (!navToggle || !floatingOverlay || !floatingModal) {
+        console.warn('Floating menu elements not found');
+        console.log('navToggle:', navToggle);
+        console.log('floatingOverlay:', floatingOverlay);
+        console.log('floatingModal:', floatingModal);
         return;
     }
 
-    console.log('✅ All floating menu elements found successfully');
+    console.log('✅ Floating menu elements found successfully');
 
-    // State management
-    let isMenuOpen = false;
-    let isAnimating = false;
-    let scrollPosition = 0;
+    // 初期状態を設定
+    navToggle.setAttribute('aria-expanded', 'false');
+    floatingOverlay.classList.remove('active', 'floating-in', 'floating-out');
+    navToggle.classList.remove('active');
+    body.classList.remove('floating-menu-open');
 
-    // iPhone Safari specific fixes
-    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-    const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-    
-    if (isIOS) {
-        console.log('📱 iPhone/iOS detected - applying Safari optimizations');
-        
-        // Prevent iOS rubber band scrolling issues
-        document.addEventListener('touchmove', function(e) {
-            if (isMenuOpen) {
-                const element = e.target;
-                const isScrollable = element.closest('.floating-menu-modal');
-                if (!isScrollable) {
-                    e.preventDefault();
-                }
-            }
-        }, { passive: false });
-    }
-
-    // Floating menu opening function
+    // フローティングメニューを開く関数
     function openFloatingMenu() {
-        if (isAnimating || isMenuOpen) return;
+        console.log('🎈 Opening floating menu');
+        navToggle.setAttribute('aria-expanded', 'true');
+        floatingOverlay.classList.add('active', 'floating-in');
+        floatingOverlay.classList.remove('floating-out');
+        navToggle.classList.add('active');
+        body.classList.add('floating-menu-open');
         
-        isAnimating = true;
-        isMenuOpen = true;
-        
-        // Store current scroll position for all devices
-        scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
-        
-        // Apply classes with proper timing
-        requestAnimationFrame(() => {
-            floatingMenuOverlay.classList.add('show');
-            floatingMenuModal.classList.add('show');
-            navToggle.classList.add('floating-menu-active');
-            body.classList.add('floating-menu-open');
-            
-            // Universal scroll prevention - works on all devices
-            body.style.top = `-${scrollPosition}px`;
-            body.style.position = 'fixed';
-            body.style.width = '100%';
-            body.style.height = '100%';
-            
-            // Update ARIA attributes
-            navToggle.setAttribute('aria-expanded', 'true');
-            navToggle.setAttribute('aria-label', 'メニューを閉じる');
-            
-            console.log('✅ Floating menu opened successfully');
-            
-            // Animation complete
-            setTimeout(() => {
-                isAnimating = false;
-            }, 400);
-        });
+        // フォーカスをモーダル内の最初のリンクに移動
+        const firstLink = floatingModal.querySelector('a');
+        if (firstLink) {
+            setTimeout(() => firstLink.focus(), 100);
+        }
     }
 
-    // Floating menu closing function
+    // フローティングメニューを閉じる関数
     function closeFloatingMenu() {
-        if (isAnimating || !isMenuOpen) return;
+        console.log('🎈 Closing floating menu');
+        navToggle.setAttribute('aria-expanded', 'false');
+        floatingOverlay.classList.add('floating-out');
+        floatingOverlay.classList.remove('floating-in');
+        navToggle.classList.remove('active');
+        body.classList.remove('floating-menu-open');
         
-        isAnimating = true;
-        isMenuOpen = false;
+        // アニメーション完了後にactiveクラスを削除（1秒のアニメーション）
+        setTimeout(() => {
+            floatingOverlay.classList.remove('active', 'floating-out');
+        }, 1000);
         
-        requestAnimationFrame(() => {
-            floatingMenuOverlay.classList.remove('show');
-            floatingMenuModal.classList.remove('show');
-            navToggle.classList.remove('floating-menu-active');
-            body.classList.remove('floating-menu-open');
-            
-            // Universal scroll restoration - works on all devices
-            body.style.position = '';
-            body.style.top = '';
-            body.style.width = '';
-            body.style.height = '';
-            
-            // Restore scroll position smoothly
-            window.scrollTo({
-                top: scrollPosition,
-                behavior: 'instant'
-            });
-            
-            // Update ARIA attributes
-            navToggle.setAttribute('aria-expanded', 'false');
-            navToggle.setAttribute('aria-label', 'メニューを開く');
-            
-            console.log('✅ Floating menu closed successfully');
-            
-            // Animation complete
-            setTimeout(() => {
-                isAnimating = false;
-            }, 400);
-        });
+        // フォーカスをハンバーガーボタンに戻す
+        navToggle.focus();
     }
 
-    // Toggle function
+    // メニューの状態を切り替える関数
     function toggleFloatingMenu() {
-        if (isAnimating) return;
-        
-        if (isMenuOpen) {
+        const isOpen = floatingOverlay.classList.contains('active');
+        if (isOpen) {
             closeFloatingMenu();
         } else {
             openFloatingMenu();
         }
     }
 
-    // Event Listeners
-    
-    // Hamburger button click
+    // ハンバーガーボタンのクリックイベント
     navToggle.addEventListener('click', function(e) {
         e.preventDefault();
         e.stopPropagation();
@@ -157,75 +86,124 @@ document.addEventListener('DOMContentLoaded', function() {
         toggleFloatingMenu();
     });
 
-    // Touch events for iPhone Safari
-    navToggle.addEventListener('touchstart', function(e) {
-        e.stopPropagation();
-    }, { passive: true });
-
-    // Floating menu close button
-    if (floatingMenuClose) {
-        floatingMenuClose.addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            console.log('✕ Close button clicked');
+    // メニューリンクのクリックでメニューを閉じる
+    const floatingMenuLinks = floatingModal.querySelectorAll('a');
+    floatingMenuLinks.forEach(link => {
+        link.addEventListener('click', function() {
+            console.log('🔗 Menu link clicked:', this.textContent);
             closeFloatingMenu();
         });
-    }
+    });
 
-    // Floating menu overlay click (close on outside click)
-    floatingMenuOverlay.addEventListener('click', function(e) {
-        if (e.target === floatingMenuOverlay) {
-            console.log('🖱️ Overlay clicked - closing menu');
+    // オーバーレイクリックでメニューを閉じる（モーダル外の部分）
+    floatingOverlay.addEventListener('click', function(e) {
+        if (e.target === floatingOverlay) {
+            console.log('🎯 Overlay clicked');
             closeFloatingMenu();
         }
     });
 
-    // Menu link clicks
-    const floatingMenuLinks = document.querySelectorAll('.floating-menu-list a');
-    floatingMenuLinks.forEach((link, index) => {
-        link.addEventListener('click', function(e) {
-            console.log(`🔗 Floating menu link ${index + 1} clicked`);
-            // Close menu after a brief delay to show visual feedback
-            setTimeout(() => {
-                closeFloatingMenu();
-            }, 150);
-        });
-    });
-
-    // ESC key to close menu
+    // Escapeキーでメニューを閉じる
     document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && isMenuOpen) {
-            console.log('⌨️ ESC key pressed - closing floating menu');
+        if (e.key === 'Escape' && floatingOverlay.classList.contains('active')) {
+            console.log('⌨️ Escape key pressed');
             closeFloatingMenu();
         }
     });
 
-    // Window resize handler
-    let resizeTimeout;
+    // 画面リサイズ時の処理
     window.addEventListener('resize', function() {
-        clearTimeout(resizeTimeout);
-        resizeTimeout = setTimeout(() => {
-            if (window.innerWidth > 768 && isMenuOpen) {
-                console.log('📱 Window resized to desktop - closing floating menu');
-                closeFloatingMenu();
-            }
-        }, 250);
+        if (window.innerWidth > 768) {
+            console.log('📱 Screen resized to desktop');
+            closeFloatingMenu();
+        }
     });
 
-    // Prevent iOS Safari bounce scrolling when floating menu is open
-    if (isIOS) {
-        document.addEventListener('touchmove', function(e) {
-            if (isMenuOpen && !floatingMenuModal.contains(e.target)) {
-                e.preventDefault();
-            }
-        }, { passive: false });
-    }
-
-    // Initialize menu state
-    closeFloatingMenu();
+    // タッチイベントの処理（iPhoneでの動作改善）
+    let startY = 0;
     
-    console.log('🚀 Ultra Think Floating Menu System Initialized Successfully');
-    console.log(`📱 Device: ${isIOS ? 'iOS' : 'Other'}, Browser: ${isSafari ? 'Safari' : 'Other'}`);
+    floatingOverlay.addEventListener('touchstart', function(e) {
+        startY = e.touches[0].clientY;
+    }, { passive: true });
+    
+    floatingOverlay.addEventListener('touchmove', function(e) {
+        const currentY = e.touches[0].clientY;
+        const diff = startY - currentY;
+        
+        // 上下スワイプでメニューを閉じる
+        if (Math.abs(diff) > 100) {
+            if (e.target === floatingOverlay) {
+                closeFloatingMenu();
+            }
+        }
+    }, { passive: true });
+    
+    console.log('🎈 Floating menu system initialized successfully');
+});
+
+// iPhone-compatible Parallax Effect
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('📱 Initializing iPhone-compatible parallax effect');
+    
+    // Create parallax background element
+    const parallaxBg = document.createElement('div');
+    parallaxBg.className = 'parallax-bg';
+    document.body.insertBefore(parallaxBg, document.body.firstChild);
+    
+    // Add class to body to hide CSS fallback
+    document.body.classList.add('parallax-active');
+    
+    // Dynamically set parallax background height
+    function updateParallaxHeight() {
+        const documentHeight = Math.max(
+            document.body.scrollHeight,
+            document.body.offsetHeight,
+            document.documentElement.clientHeight,
+            document.documentElement.scrollHeight,
+            document.documentElement.offsetHeight
+        );
+        // Add extra height to ensure coverage during scrolling
+        parallaxBg.style.height = (documentHeight + window.innerHeight) + 'px';
+        console.log('📏 Parallax height updated to:', parallaxBg.style.height);
+    }
+    
+    // Update height on load and resize
+    updateParallaxHeight();
+    window.addEventListener('resize', updateParallaxHeight);
+    
+    let ticking = false;
+    
+    function updateParallax() {
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        const speed = 0.5; // パララックス速度調整
+        
+        // transform を使用してGPU加速
+        const yPos = -(scrollTop * speed);
+        parallaxBg.style.transform = `translate3d(0, ${yPos}px, 0)`;
+        
+        ticking = false;
+    }
+    
+    function requestTick() {
+        if (!ticking) {
+            requestAnimationFrame(updateParallax);
+            ticking = true;
+        }
+    }
+    
+    // スクロールイベントリスナー
+    window.addEventListener('scroll', requestTick, { passive: true });
+    
+    // リサイズ時の処理
+    window.addEventListener('resize', function() {
+        updateParallaxHeight(); // 高さも再計算
+        requestTick();
+    }, { passive: true });
+    
+    // 初期実行
+    updateParallax();
+    
+    console.log('✅ iPhone parallax effect initialized');
 });
 
 // Smooth scroll for anchor links (if you add any internal page links like #section)
@@ -246,10 +224,8 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// Optimized header scroll effect with throttling
-let headerScrollTicking = false;
-
-function updateHeaderOnScroll() {
+// Add a class to the header when scrolled
+window.addEventListener('scroll', function() {
     const header = document.querySelector('.site-header');
     if (header) {
         if (window.scrollY > 50) {
@@ -258,95 +234,62 @@ function updateHeaderOnScroll() {
             header.classList.remove('scrolled');
         }
     }
-    headerScrollTicking = false;
+});
+
+// CSS for .scrolled header (add this to your style.css if you want a visual change)
+/*
+.site-header.scrolled {
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    background-color: rgba(255, 255, 255, 0.98); // Slightly transparent or different background
+    padding: 10px 0; // Reduce padding on scroll
 }
+*/
 
-window.addEventListener('scroll', function() {
-    if (!headerScrollTicking) {
-        requestAnimationFrame(updateHeaderOnScroll);
-        headerScrollTicking = true;
-    }
-}, { passive: true });
+// CSS for .nav-toggle.open (burger to X animation - add to style.css)
+/*
+.nav-toggle.open span:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+}
+.nav-toggle.open span:nth-child(2) {
+    opacity: 0;
+}
+.nav-toggle.open span:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+}
+*/
 
-// Optimized image loading for all devices
+// Simple image loading debug for iPhone
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('🖼️ Image Loading Optimization Started');
+    console.log('📱 iPhone画像デバッグ開始');
     
-    const images = document.querySelectorAll('.doctor-photo, .hero-doctor-icon');
-    console.log(`Found ${images.length} images to optimize`);
+    const doctorImages = document.querySelectorAll('.doctor-photo');
+    console.log('Doctor images found:', doctorImages.length);
     
-    images.forEach(function(img, index) {
-        console.log(`Image ${index + 1}:`, img.src);
+    doctorImages.forEach(function(img, index) {
+        console.log('Doctor image', index, ':', img.src);
         
         img.addEventListener('load', function() {
-            console.log(`✅ Image ${index + 1} loaded successfully`);
-            // Add fade-in effect
-            img.style.opacity = '1';
+            console.log('✅ Image loaded successfully:', index);
         });
         
         img.addEventListener('error', function() {
-            console.error(`❌ Failed to load image ${index + 1}:`, img.src);
+            console.error('❌ Failed to load image:', img.src);
         });
         
-        // Set initial opacity for fade-in effect
-        img.style.opacity = '0';
-        img.style.transition = 'opacity 0.3s ease';
+        // Force refresh if needed
+        if (!img.complete) {
+            console.log('🔄 Forcing image reload:', index);
+            const originalSrc = img.src;
+            img.src = '';
+            setTimeout(() => {
+                img.src = originalSrc;
+            }, 10);
+        }
         
-        // Check if already loaded
-        if (img.complete && img.naturalHeight !== 0) {
-            img.style.opacity = '1';
-            console.log(`✅ Image ${index + 1} was already loaded`);
+        // Additional iOS-specific fix
+        if (/iPhone|iPad|iPod/.test(navigator.userAgent)) {
+            img.style.willChange = 'transform';
+            img.parentElement.style.transform = 'translateZ(0)';
         }
     });
-    
-    console.log('🖼️ Image optimization setup complete');
-});
-
-// 📱 iPhone Safari Background Optimization System
-document.addEventListener('DOMContentLoaded', function() {
-    console.log('🎯 iPhone Safari Background System Started');
-    
-    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-    const isMobile = window.innerWidth <= 768;
-    
-    if (isIOS && isMobile) {
-        console.log('📱 iPhone detected - applying Safari background optimizations');
-        
-        // Create optimized background styles for iPhone Safari
-        const iosStyle = document.createElement('style');
-        iosStyle.id = 'ios-safari-optimizations';
-        iosStyle.textContent = `
-            /* iPhone Safari specific optimizations */
-            @media (max-width: 768px) {
-                body::before {
-                    background-attachment: scroll !important;
-                    -webkit-transform: translateZ(0) !important;
-                    transform: translateZ(0) !important;
-                }
-                
-                .hero::before {
-                    background-attachment: scroll !important;
-                    -webkit-transform: translateZ(0) !important;
-                    transform: translateZ(0) !important;
-                }
-                
-                .clinic-features::before {
-                    background-attachment: scroll !important;
-                    -webkit-transform: translateZ(0) !important;
-                    transform: translateZ(0) !important;
-                }
-                
-                /* Improve scrolling performance */
-                * {
-                    -webkit-overflow-scrolling: touch;
-                }
-            }
-        `;
-        document.head.appendChild(iosStyle);
-        console.log('✅ iPhone Safari background optimizations applied');
-    } else if (isMobile) {
-        console.log('📱 Mobile device detected - standard optimizations');
-    } else {
-        console.log('💻 Desktop detected - standard configuration');
-    }
 });

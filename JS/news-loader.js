@@ -9,30 +9,12 @@ function formatDate(dateString) {
     return `${year}.${month}.${day}`;
 }
 
-// 日付を縦長リスト用にフォーマット
-function formatDateForList(dateString) {
-    const date = new Date(dateString);
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const day = String(date.getDate()).padStart(2, '0');
-    return {
-        monthDay: `${month}/${day}`,
-        year: year
-    };
-}
-
-// お知らせをHTMLに変換（ホームページ用・縦長リスト）
-function createNewsItemHTML(item, index) {
-    const dateInfo = formatDateForList(item.date);
-    const latestClass = index === 0 ? ' latest' : '';
-    
+// お知らせをHTMLに変換（ホームページ用）
+function createNewsItemHTML(item) {
     return `
-        <article class="news-item${latestClass}" data-aos="fade-up" data-aos-delay="${100 + index * 50}">
-            <div class="news-date">
-                <div class="month-day">${dateInfo.monthDay}</div>
-                <div class="year">${dateInfo.year}</div>
-            </div>
-            <div class="news-content-area">
+        <article class="news-item" data-aos="fade-up" data-aos-delay="100">
+            <time class="news-date">${formatDate(item.date)}</time>
+            <div class="news-content-wrapper">
                 <h3 class="news-title"><a href="news.html#news-${item.id}">${item.title}</a></h3>
                 <p class="news-excerpt">${item.excerpt}</p>
             </div>
@@ -65,11 +47,11 @@ function loadNewsDigest() {
             throw new Error('お知らせデータが見つかりません');
         }
         
-        // 最新6件を取得
-        const latestNews = newsData.news.slice(0, 6);
+        // 最新5件を取得
+        const latestNews = newsData.news.slice(0, 5);
         
-        // HTMLを生成（インデックス付き）
-        const newsHTML = latestNews.map((item, index) => createNewsItemHTML(item, index)).join('');
+        // HTMLを生成
+        const newsHTML = latestNews.map(item => createNewsItemHTML(item)).join('');
         
         // ページに挿入
         const newsGrid = document.querySelector('.news-digest-grid');

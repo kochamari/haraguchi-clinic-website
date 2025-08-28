@@ -2,12 +2,12 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>原口消化器内科 - 佐世保市の消化器内科</title>
     <meta name="description" content="佐世保市松浦町の原口消化器内科です。消化器内科疾患、内視鏡検査、ポリープ切除、生活習慣病などに対応。">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600;700&family=Zen+Kaku+Gothic+New:wght@300;400;500;700&family=Cormorant+Garamond:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="./CSS/style.css">
     <!-- Font Awesome for icons (optional, but good for icons like phone, map pin) -->
@@ -17,18 +17,15 @@
     <header class="site-header">
         <div class="container header-container">
             <h1 class="logo">
-                <a href="index.html">
-                    <img src="images/logo.PNG" alt="原口消化器内科ロゴ" class="header-logo-icon">
-                    原口消化器内科
-                </a>
+                <a href="index.html">原口消化器内科</a>
             </h1>
             <nav class="main-nav">
-                <button class="nav-toggle" aria-label="メニューを開く" aria-expanded="false" aria-controls="floating-menu-modal">
+                <button class="nav-toggle" aria-label="メニューを開く" aria-expanded="false" aria-controls="floating-menu">
                     <span></span>
                     <span></span>
                     <span></span>
                 </button>
-                <ul class="pc-only">
+                <ul id="main-menu">
                     <li><a href="index.html" class="active">ホーム</a></li>
                     <li><a href="news.html">お知らせ</a></li>
                     <li><a href="service.html">診療案内</a></li>
@@ -36,22 +33,28 @@
                     <li><a href="access.html">アクセス</a></li>
                     <li><a href="contact.html">お問い合わせ</a></li>
                     <li><a href="materials.html">説明資料</a></li>
+                    <li><a href="codex-ver/index.html">新サイト（Codex版）</a></li>
                 </ul>
             </nav>
         </div>
     </header>
 
-    <!-- Floating Menu Overlay -->
+    <!-- 🎨 Floating Modal Menu -->
     <div class="floating-menu-overlay" id="floating-menu-overlay">
         <div class="floating-menu-modal" id="floating-menu-modal">
+            <div class="floating-menu-header">
+                <h3 class="floating-menu-title">メニュー</h3>
+                <button class="floating-menu-close" aria-label="メニューを閉じる"></button>
+            </div>
             <ul class="floating-menu-list">
-                <li><a href="index.html">ホーム</a></li>
+                <li><a href="index.html" class="active">ホーム</a></li>
                 <li><a href="news.html">お知らせ</a></li>
                 <li><a href="service.html">診療案内</a></li>
                 <li><a href="doctors.html">医師紹介</a></li>
                 <li><a href="access.html">アクセス</a></li>
                 <li><a href="contact.html">お問い合わせ</a></li>
                 <li><a href="materials.html">説明資料</a></li>
+                <li><a href="codex-ver/index.html">新サイト（Codex版）</a></li>
             </ul>
         </div>
     </div>
@@ -60,31 +63,14 @@
         <section class="hero">
             <div class="container hero-content">
                 <div class="hero-text" data-aos="fade-right" data-aos-duration="1000">
-                    <div class="hero-badge-row" aria-label="当院の特徴バッジ">
-                        <span class="hero-badge"><i class="fas fa-stethoscope" aria-hidden="true"></i> 消化器内視鏡 専門</span>
-                        <span class="hero-badge"><i class="fas fa-heart" aria-hidden="true"></i> 苦痛の少ない検査</span>
-                        <span class="hero-badge"><i class="fas fa-clock" aria-hidden="true"></i> 当日相談可</span>
-                    </div>
                     <h2 class="hero-title">笑顔とまごころの診療</h2>
                     <p class="hero-subtitle">消化器の専門医が、<br>あなたの健康を丁寧にサポートします。</p>
-                    <div class="hero-cta-group">
-                        <a href="service.html" class="btn btn-primary hero-btn" data-aos="fade-up" data-aos-delay="300">診療内容を見る</a>
-                        <a href="#clinic-info" class="btn btn-secondary hero-btn" data-aos="fade-up" data-aos-delay="350">診療時間・アクセス</a>
-                    </div>
-                    <div class="hero-quick-hours" role="note" aria-label="診療時間のご案内">
-                        <i class="fas fa-calendar-check" aria-hidden="true"></i>
-                        <span>受付 9:00–12:30 / 14:00–17:30</span>
-                        <span class="sep">・</span>
-                        <span>水曜午後・土曜午後 休診</span>
-                    </div>
+                    <a href="service.html" class="btn btn-primary hero-btn" data-aos="fade-up" data-aos-delay="300">診療内容を見る</a>
                 </div>
                 <div class="hero-image-placeholder" data-aos="fade-left" data-aos-duration="1000" data-aos-delay="200">
                     <img src="images/logo.PNG" alt="原口消化器内科ロゴ" class="hero-doctor-icon">
                 </div>
             </div>
-            <a href="#clinic-features" class="scroll-cue" aria-label="下へスクロール">
-                <span class="arrow"></span>
-            </a>
         </section>
 
         <section class="news-digest section-padding">
@@ -100,7 +86,7 @@
             </div>
         </section>
 
-        <section id="clinic-features" class="clinic-features section-padding">
+        <section class="clinic-features section-padding">
             <div class="container">
                 <h2 class="section-title" data-aos="fade-up">当院の特徴</h2>
                 <div class="features-grid">
@@ -139,7 +125,7 @@
             </div>
         </section>
 
-        <section id="clinic-info" class="clinic-info section-padding">
+        <section class="clinic-info section-padding">
             <div class="container">
                 <h2 class="section-title" data-aos="fade-up">診療時間・アクセス</h2>
                 <div class="info-grid">
@@ -218,7 +204,7 @@
                     <ul>
                         <li><a href="index.html">ホーム</a></li>
                         <li><a href="news.html">お知らせ</a></li>
-                <li><a href="service.html">診療案内</a></li>
+                        <li><a href="service.html">診療案内</a></li>
                         <li><a href="doctors.html">医師紹介</a></li>
                     </ul>
                     <ul>
@@ -234,12 +220,6 @@
             </div>
         </div>
     </footer>
-
-    <!-- Floating Call Button (mobile-first) -->
-    <a href="tel:0956-37-3777" class="fab-call" aria-label="電話する">
-        <span class="icon"><i class="fas fa-phone"></i></span>
-        <span class="label">電話予約</span>
-    </a>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="./JS/script.js"></script>
