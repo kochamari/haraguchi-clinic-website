@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>アクセス | 原口消化器内科</title>
+    <meta name="description" content="原口消化器内科へのアクセス方法をご案内します。佐世保市松浦町、アーバンパレス米春2Fです。">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        .page-hero {
+            background: var(--background-gradient);
+            color: white;
+            padding: 120px 0 80px;
+            text-align: center;
+        }
+        
+        .page-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        
+        .page-subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .access-section {
+            padding: 80px 0;
+        }
+        
+        .access-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+        
+        .access-info {
+            background: white;
+            padding: 2.5rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-light);
+        }
+        
+        .info-section {
+            margin-bottom: 2rem;
+        }
+        
+        .info-section:last-child {
+            margin-bottom: 0;
+        }
+        
+        .info-title {
+            color: var(--primary-color);
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .info-icon {
+            font-size: 1.3rem;
+        }
+        
+        .info-content {
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+        
+        .address-large {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+        }
+        
+        .phone-large {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 0.5rem;
+        }
+        
+        .phone-large:hover {
+            text-decoration: underline;
+        }
+        
+        .map-section {
+            grid-column: 1 / -1;
+        }
+        
+        .map-container-large {
+            height: 500px;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow-medium);
+            margin-bottom: 2rem;
+        }
+        
+        .map-controls {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        .map-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.8rem 1.5rem;
+            background: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: var(--border-radius);
+            font-weight: 500;
+            transition: var(--transition);
+        }
+        
+        .map-btn:hover {
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+        
+        .transport-section {
+            background: var(--background-light);
+            padding: 80px 0;
+        }
+        
+        .transport-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .transport-card {
+            background: white;
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-light);
+            text-align: center;
+            transition: var(--transition);
+        }
+        
+        .transport-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-medium);
+        }
+        
+        .transport-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .transport-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+        }
+        
+        .transport-content {
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+        
+        .parking-section {
+            padding: 80px 0;
+        }
+        
+        .parking-info {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 2.5rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-light);
+            border-left: 4px solid var(--primary-color);
+        }
+        
+        .parking-title {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+        
+        .parking-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        
+        .parking-item {
+            text-align: center;
+        }
+        
+        .parking-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+        
+        .parking-label {
+            color: var(--text-light);
+            font-weight: 500;
+        }
+        
+        .notes-section {
+            background: var(--background-light);
+            padding: 80px 0;
+        }
+        
+        .notes-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .note-card {
+            background: white;
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-light);
+            margin-bottom: 1.5rem;
+            border-left: 4px solid var(--secondary-color);
+        }
+        
+        .note-title {
+            color: var(--secondary-color);
+            font-weight: 600;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+        
+        .note-text {
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+        
+        @media (max-width: 768px) {
+            .access-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .map-container-large {
+                height: 350px;
+            }
+            
+            .map-controls {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .parking-details {
+                grid-template-columns: 1fr;
+            }
+            
+            .transport-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav">
+            <div class="nav-container">
+                <div class="nav-logo">
+                    <h1 class="logo-text">原口消化器内科</h1>
+                    <span class="logo-subtitle">Haraguchi Gastroenterology</span>
+                </div>
+                
+                <div class="nav-menu" id="nav-menu">
+                    <ul class="nav-list">
+                        <li><a href="../index.html" class="nav-link">ホーム</a></li>
+                        <li><a href="news.html" class="nav-link">お知らせ</a></li>
+                        <li><a href="medical-services.html" class="nav-link">診療案内</a></li>
+                        <li><a href="doctors.html" class="nav-link">医師紹介</a></li>
+                        <li><a href="access.html" class="nav-link active">アクセス</a></li>
+                        <li><a href="contact.html" class="nav-link">お問い合わせ</a></li>
+                        <li><a href="materials.html" class="nav-link">説明資料</a></li>
+                    </ul>
+                </div>
+                
+                <div class="nav-toggle" id="nav-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="page-hero">
+            <div class="container">
+                <h1 class="page-title">アクセス</h1>
+                <p class="page-subtitle">原口消化器内科へのアクセス方法をご案内します</p>
+            </div>
+        </section>
+
+        <section class="access-section">
+            <div class="container">
+                <div class="access-grid">
+                    <div class="access-info">
+                        <div class="info-section">
+                            <h2 class="info-title">
+                                <span class="info-icon">📍</span>
+                                所在地
+                            </h2>
+                            <div class="info-content">
+                                <p class="address-large">〒857-0052</p>
+                                <p class="address-large">佐世保市松浦町5番28号</p>
+                                <p class="address-large">アーバンパレス米春2F</p>
+                            </div>
+                        </div>
+                        
+                        <div class="info-section">
+                            <h2 class="info-title">
+                                <span class="info-icon">📞</span>
+                                お電話
+                            </h2>
+                            <div class="info-content">
+                                <a href="tel:0956-37-3777" class="phone-large">0956-37-3777</a>
+                                <p>診療時間内にお気軽にお電話ください</p>
+                            </div>
+                        </div>
+                        
+                        <div class="info-section">
+                            <h2 class="info-title">
+                                <span class="info-icon">🕐</span>
+                                受付時間
+                            </h2>
+                            <div class="info-content">
+                                <p><strong>月・火・木・金曜日</strong><br>
+                                午前：8:30-12:00<br>
+                                午後：13:30-17:00</p>
+                                <p><strong>水曜日</strong><br>
+                                午前：8:00-11:30</p>
+                                <p><strong>土曜日</strong><br>
+                                午前：8:00-12:00</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="access-info">
+                        <div class="info-section">
+                            <h2 class="info-title">
+                                <span class="info-icon">🚗</span>
+                                お車でお越しの方
+                            </h2>
+                            <div class="info-content">
+                                <p>西九州自動車道「佐世保中央IC」より約10分</p>
+                                <p>JR佐世保駅より約5分</p>
+                                <p>駐車場完備（20台駐車可能）</p>
+                            </div>
+                        </div>
+                        
+                        <div class="info-section">
+                            <h2 class="info-title">
+                                <span class="info-icon">🚌</span>
+                                公共交通機関
+                            </h2>
+                            <div class="info-content">
+                                <p><strong>バス</strong></p>
+                                <p>「松浦町」バス停より徒歩3分</p>
+                                <p>「佐世保駅前」バス停より徒歩8分</p>
+                                <p><strong>JR</strong></p>
+                                <p>JR佐世保駅より徒歩12分</p>
+                            </div>
+                        </div>
+                        
+                        <div class="info-section">
+                            <h2 class="info-title">
+                                <span class="info-icon">🏢</span>
+                                建物について
+                            </h2>
+                            <div class="info-content">
+                                <p>アーバンパレス米春の2階にございます</p>
+                                <p>エレベーターをご利用ください</p>
+                                <p>1階にコンビニエンスストアがあります</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="map-section">
+                        <div class="map-container-large">
+                            <div id="map" style="width: 100%; height: 100%;"></div>
+                        </div>
+                        <div class="map-controls">
+                            <a href="https://www.google.com/maps/dir//〒857-0052+長崎県佐世保市松浦町5-28+アーバンパレス米春" target="_blank" class="map-btn">
+                                <span>🗺️</span>
+                                Google Mapsで開く
+                            </a>
+                            <a href="https://www.google.com/maps/dir//〒857-0052+長崎県佐世保市松浦町5-28+アーバンパレス米春" target="_blank" class="map-btn">
+                                <span>🧭</span>
+                                経路案内
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="transport-section">
+            <div class="container">
+                <div class="section-header text-center">
+                    <h2 class="section-title">交通手段別アクセス</h2>
+                    <p class="section-subtitle">様々な交通手段でアクセス可能です</p>
+                </div>
+                
+                <div class="transport-grid">
+                    <div class="transport-card">
+                        <div class="transport-icon">🚗</div>
+                        <h3 class="transport-title">お車でお越しの方</h3>
+                        <div class="transport-content">
+                            <p><strong>西九州自動車道</strong><br>
+                            「佐世保中央IC」より約10分</p>
+                            <p><strong>JR佐世保駅から</strong><br>
+                            約5分</p>
+                            <p><strong>駐車場</strong><br>
+                            20台完備（無料）</p>
+                        </div>
+                    </div>
+                    
+                    <div class="transport-card">
+                        <div class="transport-icon">🚌</div>
+                        <h3 class="transport-title">バスでお越しの方</h3>
+                        <div class="transport-content">
+                            <p><strong>最寄りバス停</strong><br>
+                            「松浦町」より徒歩3分</p>
+                            <p><strong>佐世保駅前から</strong><br>
+                            「松浦町」行きバス</p>
+                            <p><strong>所要時間</strong><br>
+                            佐世保駅前より約5分</p>
+                        </div>
+                    </div>
+                    
+                    <div class="transport-card">
+                        <div class="transport-icon">🚶</div>
+                        <h3 class="transport-title">徒歩でお越しの方</h3>
+                        <div class="transport-content">
+                            <p><strong>JR佐世保駅から</strong><br>
+                            徒歩約12分</p>
+                            <p><strong>佐世保港から</strong><br>
+                            徒歩約8分</p>
+                            <p><strong>四ヶ町商店街から</strong><br>
+                            徒歩約5分</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="parking-section">
+            <div class="container">
+                <div class="parking-info">
+                    <h2 class="parking-title">駐車場のご案内</h2>
+                    <div class="parking-details">
+                        <div class="parking-item">
+                            <div class="parking-number">20台</div>
+                            <div class="parking-label">駐車可能台数</div>
+                        </div>
+                        <div class="parking-item">
+                            <div class="parking-number">無料</div>
+                            <div class="parking-label">駐車料金</div>
+                        </div>
+                        <div class="parking-item">
+                            <div class="parking-number">24時間</div>
+                            <div class="parking-label">利用可能時間</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="notes-section">
+            <div class="container">
+                <div class="section-header text-center">
+                    <h2 class="section-title">ご来院時のご注意</h2>
+                </div>
+                
+                <div class="notes-content">
+                    <div class="note-card">
+                        <h3 class="note-title">初診の方へ</h3>
+                        <p class="note-text">
+                            初診の方は受付終了時間の30分前までにお越しください。保険証を必ずお持ちください。
+                            お薬手帳をお持ちの方はご持参いただけますと、より安全な診療が可能です。
+                        </p>
+                    </div>
+                    
+                    <div class="note-card">
+                        <h3 class="note-title">内視鏡検査をご希望の方</h3>
+                        <p class="note-text">
+                            内視鏡検査（胃カメラ・大腸カメラ）をご希望の方は、事前予約が必要です。
+                            検査前の注意事項等については、予約時に詳しくご説明いたします。
+                        </p>
+                    </div>
+                    
+                    <div class="note-card">
+                        <h3 class="note-title">お身体の不自由な方へ</h3>
+                        <p class="note-text">
+                            建物にはエレベーターが設置されており、車椅子でのご来院も可能です。
+                            ご不明な点がございましたら、事前にお電話でご相談ください。
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <h3>原口消化器内科</h3>
+                    <p>〒857-0052 佐世保市松浦町5番28号 アーバンパレス米春2F</p>
+                    <p>TEL: <a href="tel:0956-37-3777">0956-37-3777</a></p>
+                </div>
+                <div class="footer-nav">
+                    <ul>
+                        <li><a href="news.html">お知らせ</a></li>
+                        <li><a href="medical-services.html">診療案内</a></li>
+                        <li><a href="doctors.html">医師紹介</a></li>
+                        <li><a href="access.html">アクセス</a></li>
+                        <li><a href="contact.html">お問い合わせ</a></li>
+                        <li><a href="materials.html">説明資料</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 原口消化器内科. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap"></script>
+</body>
+</html>

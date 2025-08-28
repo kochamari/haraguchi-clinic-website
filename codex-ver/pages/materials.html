@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>説明資料 | 原口消化器内科</title>
+    <meta name="description" content="原口消化器内科の診療に関する説明資料をご覧いただけます。検査説明書、生活指導資料など。">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        .page-hero {
+            background: var(--background-gradient);
+            color: white;
+            padding: 120px 0 80px;
+            text-align: center;
+        }
+        
+        .page-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        
+        .page-subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .materials-section {
+            padding: 80px 0;
+        }
+        
+        .materials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+        
+        .material-category {
+            background: white;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-light);
+            overflow: hidden;
+            transition: var(--transition);
+        }
+        
+        .material-category:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-medium);
+        }
+        
+        .category-header {
+            background: var(--primary-color);
+            color: white;
+            padding: 1.5rem;
+            text-align: center;
+        }
+        
+        .category-icon {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .category-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .category-description {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        
+        .material-list {
+            padding: 1.5rem;
+        }
+        
+        .material-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+        
+        .material-item:hover {
+            background: var(--background-light);
+        }
+        
+        .material-item:last-child {
+            margin-bottom: 0;
+        }
+        
+        .material-icon {
+            font-size: 1.5rem;
+            color: var(--secondary-color);
+        }
+        
+        .material-content {
+            flex: 1;
+        }
+        
+        .material-title {
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 0.3rem;
+        }
+        
+        .material-subtitle {
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+        
+        .download-icon {
+            color: var(--primary-color);
+            font-size: 1.2rem;
+        }
+        
+        .info-section {
+            background: var(--background-light);
+            padding: 80px 0;
+        }
+        
+        .info-content {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 2.5rem;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-light);
+        }
+        
+        .info-title {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+        
+        .info-text {
+            color: var(--text-light);
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+        
+        .notice-box {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .notice-title {
+            color: #856404;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .notice-text {
+            color: #856404;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+        
+        .modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 2rem;
+            border-radius: var(--border-radius);
+            width: 90%;
+            max-width: 600px;
+            max-height: 80%;
+            overflow-y: auto;
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .modal-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+        
+        .close {
+            color: #aaa;
+            font-size: 2rem;
+            font-weight: bold;
+            cursor: pointer;
+            line-height: 1;
+        }
+        
+        .close:hover {
+            color: #000;
+        }
+        
+        .modal-body {
+            color: var(--text-light);
+            line-height: 1.6;
+        }
+        
+        .modal-body h3 {
+            color: var(--primary-color);
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin: 1.5rem 0 0.8rem 0;
+        }
+        
+        .modal-body ul {
+            margin: 1rem 0;
+            padding-left: 1.5rem;
+        }
+        
+        .modal-body li {
+            margin-bottom: 0.5rem;
+        }
+        
+        @media (max-width: 768px) {
+            .materials-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .modal-content {
+                margin: 10% auto;
+                width: 95%;
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav">
+            <div class="nav-container">
+                <div class="nav-logo">
+                    <h1 class="logo-text">原口消化器内科</h1>
+                    <span class="logo-subtitle">Haraguchi Gastroenterology</span>
+                </div>
+                
+                <div class="nav-menu" id="nav-menu">
+                    <ul class="nav-list">
+                        <li><a href="../index.html" class="nav-link">ホーム</a></li>
+                        <li><a href="news.html" class="nav-link">お知らせ</a></li>
+                        <li><a href="medical-services.html" class="nav-link">診療案内</a></li>
+                        <li><a href="doctors.html" class="nav-link">医師紹介</a></li>
+                        <li><a href="access.html" class="nav-link">アクセス</a></li>
+                        <li><a href="contact.html" class="nav-link">お問い合わせ</a></li>
+                        <li><a href="materials.html" class="nav-link active">説明資料</a></li>
+                    </ul>
+                </div>
+                
+                <div class="nav-toggle" id="nav-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section class="page-hero">
+            <div class="container">
+                <h1 class="page-title">説明資料</h1>
+                <p class="page-subtitle">診療・検査に関する詳しい説明資料をご覧いただけます</p>
+            </div>
+        </section>
+
+        <section class="materials-section">
+            <div class="container">
+                <div class="materials-grid">
+                    <div class="material-category">
+                        <div class="category-header">
+                            <div class="category-icon">🔬</div>
+                            <h2 class="category-title">内視鏡検査</h2>
+                            <p class="category-description">胃カメラ・大腸カメラの検査について</p>
+                        </div>
+                        <div class="material-list">
+                            <div class="material-item" onclick="openModal('endoscopy-upper')">
+                                <div class="material-icon">📄</div>
+                                <div class="material-content">
+                                    <div class="material-title">上部消化管内視鏡検査（胃カメラ）</div>
+                                    <div class="material-subtitle">検査前の準備と注意事項</div>
+                                </div>
+                                <div class="download-icon">👁️</div>
+                            </div>
+                            <div class="material-item" onclick="openModal('endoscopy-lower')">
+                                <div class="material-icon">📄</div>
+                                <div class="material-content">
+                                    <div class="material-title">下部消化管内視鏡検査（大腸カメラ）</div>
+                                    <div class="material-subtitle">検査前の準備と腸管洗浄について</div>
+                                </div>
+                                <div class="download-icon">👁️</div>
+                            </div>
+                            <div class="material-item" onclick="openModal('endoscopy-sedation')">
+                                <div class="material-icon">📄</div>
+                                <div class="material-content">
+                                    <div class="material-title">鎮静下内視鏡検査について</div>
+                                    <div class="material-subtitle">鎮静剤使用時の注意事項</div>
+                                </div>
+                                <div class="download-icon">👁️</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="material-category">
+                        <div class="category-header">
+                            <div class="category-icon">💊</div>
+                            <h2 class="category-title">生活習慣病</h2>
+                            <p class="category-description">糖尿病・高血圧・脂質異常症の管理</p>
+                        </div>
+                        <div class="material-list">
+                            <div class="material-item" onclick="openModal('diabetes')">
+                                <div class="material-icon">📄</div>
+                                <div class="material-content">
+                                    <div class="material-title">糖尿病の食事療法</div>
+                                    <div class="material-subtitle">血糖値管理のための食事指導</div>
+                                </div>
+                                <div class="download-icon">👁️</div>
+                            </div>
+                            <div class="material-item" onclick="openModal('hypertension')">
+                                <div class="material-icon">📄</div>
+                                <div class="material-content">
+                                    <div class="material-title">高血圧の生活指導</div>
+                                    <div class="material-subtitle">血圧管理と生活習慣の改善</div>
+                                </div>
+                                <div class="download-icon">👁️</div>
+                            </div>
+                            <div class="material-item" onclick="openModal('dyslipidemia')">
+                                <div class="material-icon">📄</div>
+                                <div class="material-content">
+                                    <div class="material-title">脂質異常症の管理</div>
+                                    <div class="material-subtitle">コレステロール値の改善方法</div>
+                                </div>
+                                <div class="download-icon">👁️</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="material-category">
+                        <div class="category-header">
+                            <div class="category-icon">🦠</div>
+                            <h2 class="category-title">感染症対策</h2>
+                            <p class="category-description">ピロリ菌除菌・肝炎治療など</p>
+                        </div>
+                        <div class="material-list">
+                            <div class="material-item" onclick="openModal('helicobacter')">
+                                <div class="material-icon">📄</div>
+                                <div class="material-content">
+                                    <div class="material-title">ピロリ菌除菌治療</div>
+                                    <div class="material-subtitle">除菌薬の服用方法と注意事項</div>
+                                </div>
+                                <div class="download-icon">👁️</div>
+                            </div>
+                            <div class="material-item" onclick="openModal('hepatitis')">
+                                <div class="material-icon">📄</div>
+                                <div class="material-content">
+                                    <div class="material-title">B型・C型肝炎について</div>
+                                    <div class="material-subtitle">肝炎の検査と治療</div>
+                                </div>
+                                <div class="download-icon">👁️</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="material-category">
+                        <div class="category-header">
+                            <div class="category-icon">📋</div>
+                            <h2 class="category-title">一般診療</h2>
+                            <p class="category-description">症状別の説明と対処法</p>
+                        </div>
+                        <div class="material-list">
+                            <div class="material-item" onclick="openModal('gerd')">
+                                <div class="material-icon">📄</div>
+                                <div class="material-content">
+                                    <div class="material-title">逆流性食道炎の管理</div>
+                                    <div class="material-subtitle">症状の改善と生活指導</div>
+                                </div>
+                                <div class="download-icon">👁️</div>
+                            </div>
+                            <div class="material-item" onclick="openModal('ibs')">
+                                <div class="material-icon">📄</div>
+                                <div class="material-content">
+                                    <div class="material-title">過敏性腸症候群について</div>
+                                    <div class="material-subtitle">症状と治療法の説明</div>
+                                </div>
+                                <div class="download-icon">👁️</div>
+                            </div>
+                            <div class="material-item" onclick="openModal('constipation')">
+                                <div class="material-icon">📄</div>
+                                <div class="material-content">
+                                    <div class="material-title">便秘症の治療と予防</div>
+                                    <div class="material-subtitle">生活習慣の改善方法</div>
+                                </div>
+                                <div class="download-icon">👁️</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="info-section">
+            <div class="container">
+                <div class="info-content">
+                    <h2 class="info-title">説明資料のご利用について</h2>
+                    <p class="info-text">
+                        こちらの説明資料は、当院での診療をより深くご理解いただくために作成されたものです。
+                        各検査や治療について、事前にお読みいただくことで、より安心して診療を受けていただけます。
+                    </p>
+                    <p class="info-text">
+                        資料の内容についてご不明な点がございましたら、診察時に遠慮なくお尋ねください。
+                        患者様一人ひとりの状態に応じて、詳しくご説明いたします。
+                    </p>
+                    
+                    <div class="notice-box">
+                        <div class="notice-title">
+                            <span>⚠️</span>
+                            ご注意ください
+                        </div>
+                        <p class="notice-text">
+                            これらの資料は一般的な情報提供を目的としており、個別の医学的アドバイスではありません。
+                            症状や治療については、必ず医師にご相談ください。
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modal -->
+    <div id="materialModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="modalTitle"></h2>
+                <span class="close">&times;</span>
+            </div>
+            <div class="modal-body" id="modalBody"></div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <h3>原口消化器内科</h3>
+                    <p>〒857-0052 佐世保市松浦町5番28号 アーバンパレス米春2F</p>
+                    <p>TEL: <a href="tel:0956-37-3777">0956-37-3777</a></p>
+                </div>
+                <div class="footer-nav">
+                    <ul>
+                        <li><a href="news.html">お知らせ</a></li>
+                        <li><a href="medical-services.html">診療案内</a></li>
+                        <li><a href="doctors.html">医師紹介</a></li>
+                        <li><a href="access.html">アクセス</a></li>
+                        <li><a href="contact.html">お問い合わせ</a></li>
+                        <li><a href="materials.html">説明資料</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 原口消化器内科. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+    <script>
+        const materialContents = {
+            'endoscopy-upper': {
+                title: '上部消化管内視鏡検査（胃カメラ）',
+                content: `
+                    <h3>検査について</h3>
+                    <p>上部消化管内視鏡検査は、口または鼻から内視鏡を挿入し、食道・胃・十二指腸を直接観察する検査です。</p>
+                    
+                    <h3>検査前の準備</h3>
+                    <ul>
+                        <li>検査前日の夕食は午後9時までに済ませてください</li>
+                        <li>検査当日は朝食を摂らずにご来院ください</li>
+                        <li>水分は検査2時間前まで摂取可能です</li>
+                        <li>服用中のお薬については事前にご相談ください</li>
+                    </ul>
+                    
+                    <h3>検査当日の流れ</h3>
+                    <ul>
+                        <li>受付・問診票の記入</li>
+                        <li>検査の説明と同意書の確認</li>
+                        <li>のどの麻酔</li>
+                        <li>検査（約10-15分）</li>
+                        <li>検査結果の説明</li>
+                    </ul>
+                    
+                    <h3>検査後の注意事項</h3>
+                    <ul>
+                        <li>のどの麻酔が切れるまで（約1時間）は飲食をお控えください</li>
+                        <li>組織検査を行った場合は、当日の激しい運動や飲酒はお控えください</li>
+                        <li>異常を感じた場合は速やかにご連絡ください</li>
+                    </ul>
+                `
+            },
+            'endoscopy-lower': {
+                title: '下部消化管内視鏡検査（大腸カメラ）',
+                content: `
+                    <h3>検査について</h3>
+                    <p>下部消化管内視鏡検査は、肛門から内視鏡を挿入し、大腸全体を観察する検査です。</p>
+                    
+                    <h3>検査前の準備（3日前から）</h3>
+                    <ul>
+                        <li>種や繊維の多い食品は避けてください</li>
+                        <li>消化の良い食事を心がけてください</li>
+                        <li>検査前日は指定された食事制限を守ってください</li>
+                    </ul>
+                    
+                    <h3>腸管洗浄について</h3>
+                    <ul>
+                        <li>検査当日は朝から腸管洗浄液を服用します</li>
+                        <li>指示された時間と量を正確に守ってください</li>
+                        <li>便が透明になるまで洗浄を続けます</li>
+                        <li>脱水予防のため適度な水分補給を行ってください</li>
+                    </ul>
+                    
+                    <h3>検査当日の流れ</h3>
+                    <ul>
+                        <li>腸管洗浄の確認</li>
+                        <li>検査着への着替え</li>
+                        <li>検査（約30-60分）</li>
+                        <li>検査結果の説明</li>
+                    </ul>
+                    
+                    <h3>検査後の注意事項</h3>
+                    <ul>
+                        <li>検査後1時間程度で飲食可能です</li>
+                        <li>ポリープ切除を行った場合は、1週間程度の食事制限があります</li>
+                        <li>腹痛や出血がある場合は速やかにご連絡ください</li>
+                    </ul>
+                `
+            },
+            'diabetes': {
+                title: '糖尿病の食事療法',
+                content: `
+                    <h3>食事療法の基本</h3>
+                    <p>糖尿病の治療において、食事療法は最も重要な基本治療です。</p>
+                    
+                    <h3>食事の基本原則</h3>
+                    <ul>
+                        <li>適正なカロリーを摂取する</li>
+                        <li>栄養バランスを整える</li>
+                        <li>規則正しい食事時間を守る</li>
+                        <li>ゆっくりよく噛んで食べる</li>
+                    </ul>
+                    
+                    <h3>控えたい食品</h3>
+                    <ul>
+                        <li>砂糖、お菓子類</li>
+                        <li>清涼飲料水</li>
+                        <li>油っこい料理</li>
+                        <li>アルコール（医師と相談）</li>
+                    </ul>
+                    
+                    <h3>積極的に摂りたい食品</h3>
+                    <ul>
+                        <li>野菜（特に葉物野菜）</li>
+                        <li>海藻類</li>
+                        <li>きのこ類</li>
+                        <li>魚類</li>
+                        <li>大豆製品</li>
+                    </ul>
+                    
+                    <h3>血糖値管理のコツ</h3>
+                    <ul>
+                        <li>食事の順番：野菜→タンパク質→炭水化物</li>
+                        <li>食後の軽い運動</li>
+                        <li>血糖値の自己測定</li>
+                        <li>定期的な検査の受診</li>
+                    </ul>
+                `
+            },
+            'helicobacter': {
+                title: 'ピロリ菌除菌治療',
+                content: `
+                    <h3>ピロリ菌について</h3>
+                    <p>ヘリコバクター・ピロリ菌は胃の粘膜に住み着く細菌で、胃炎や胃潰瘍の原因となります。</p>
+                    
+                    <h3>除菌治療について</h3>
+                    <ul>
+                        <li>3種類の薬を7日間服用します</li>
+                        <li>プロトンポンプ阻害薬（胃酸を抑える薬）</li>
+                        <li>2種類の抗生物質</li>
+                    </ul>
+                    
+                    <h3>服用方法</h3>
+                    <ul>
+                        <li>朝夕2回、食後に服用してください</li>
+                        <li>必ず7日間すべて服用してください</li>
+                        <li>飲み忘れがないよう注意してください</li>
+                        <li>自己判断で中止しないでください</li>
+                    </ul>
+                    
+                    <h3>治療中の注意事項</h3>
+                    <ul>
+                        <li>アルコールは控えてください</li>
+                        <li>下痢や軟便が起こることがあります</li>
+                        <li>味覚異常が生じることがあります</li>
+                        <li>異常を感じたら医師にご相談ください</li>
+                    </ul>
+                    
+                    <h3>除菌判定</h3>
+                    <ul>
+                        <li>服用終了から4週間後に除菌判定を行います</li>
+                        <li>呼気テストまたは便中抗原検査で確認します</li>
+                        <li>除菌成功率は約90%です</li>
+                        <li>失敗した場合は二次除菌を行います</li>
+                    </ul>
+                `
+            },
+            'gerd': {
+                title: '逆流性食道炎の管理',
+                content: `
+                    <h3>逆流性食道炎について</h3>
+                    <p>胃酸が食道に逆流することで起こる炎症で、胸やけやのどの違和感などの症状があります。</p>
+                    
+                    <h3>症状</h3>
+                    <ul>
+                        <li>胸やけ</li>
+                        <li>酸っぱいものが上がってくる感じ</li>
+                        <li>のどの違和感</li>
+                        <li>慢性的な咳</li>
+                        <li>夜間の症状悪化</li>
+                    </ul>
+                    
+                    <h3>生活指導</h3>
+                    <ul>
+                        <li>食後すぐに横にならない（3時間は空ける）</li>
+                        <li>頭を高くして寝る</li>
+                        <li>肥満の改善</li>
+                        <li>腹部を締め付ける衣服を避ける</li>
+                        <li>禁煙・禁酒</li>
+                    </ul>
+                    
+                    <h3>食事の注意</h3>
+                    <ul>
+                        <li>脂っこい食べ物を控える</li>
+                        <li>香辛料、酸味の強い食品を控える</li>
+                        <li>炭酸飲料、コーヒーを控える</li>
+                        <li>チョコレート、ミントを控える</li>
+                        <li>食べ過ぎを避ける</li>
+                    </ul>
+                    
+                    <h3>治療について</h3>
+                    <ul>
+                        <li>プロトンポンプ阻害薬による胃酸分泌抑制</li>
+                        <li>消化管運動改善薬</li>
+                        <li>生活習慣の改善</li>
+                        <li>定期的な経過観察</li>
+                    </ul>
+                `
+            }
+        };
+
+        function openModal(materialId) {
+            const modal = document.getElementById('materialModal');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalBody = document.getElementById('modalBody');
+            
+            const material = materialContents[materialId];
+            if (material) {
+                modalTitle.textContent = material.title;
+                modalBody.innerHTML = material.content;
+                modal.style.display = 'block';
+            }
+        }
+
+        // Close modal
+        document.querySelector('.close').addEventListener('click', function() {
+            document.getElementById('materialModal').style.display = 'none';
+        });
+
+        // Close modal when clicking outside
+        window.addEventListener('click', function(event) {
+            const modal = document.getElementById('materialModal');
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
