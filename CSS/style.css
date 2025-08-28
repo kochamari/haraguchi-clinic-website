@@ -1353,22 +1353,19 @@ body.floating-menu-open {
     .section-padding { padding: 60px 0; }
     .section-title { font-size: 1.8rem; margin-bottom: 40px; }
     
-    /* iPhone Safari - 全ての擬似要素背景を完全無効化 */
-    body::before,
-    body::after,
+    /* iPhone Safari - 擬似要素背景の負荷軽減（非表示にはしない） */
+    body::before {
+        background-attachment: scroll !important;
+        -webkit-transform: translateZ(0) !important;
+        transform: translateZ(0) !important;
+    }
     .hero::before,
-    .hero::after,
-    .clinic-features::before,
-    .clinic-features::after {
-        display: none !important;
-        content: none !important;
-        background: none !important;
+    .clinic-features::before {
+        background-attachment: scroll !important;
     }
     
-    /* iPhone Safari専用 - 完全クリーン設定 */
+    /* iPhone Safari専用 - クリーン設定（背景は残す） */
     html, body {
-        background: transparent !important;
-        background-image: none !important;
         background-attachment: scroll !important;
         min-height: 100vh !important;
         position: relative;
@@ -1782,4 +1779,3 @@ body.floating-menu-open {
   outline: 2px solid var(--accent-color); /* More contained for buttons */
   outline-offset: 2px;
 }
-
